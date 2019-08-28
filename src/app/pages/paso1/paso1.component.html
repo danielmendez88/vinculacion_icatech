@@ -1,0 +1,197 @@
+<div class="component-title-container">
+</div>
+<div #contentContainer class="content-container">
+  <!--div-->
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center center">
+    <!--mat card-->
+    <mat-card class="carta-detalle ">
+      <!--stepper-->
+      <mat-horizontal-stepper [linear]="true">
+        <!-- change default 'edit' icon -->
+        <ng-template matStepperIcon="edit">
+          <mat-icon>info</mat-icon>
+        </ng-template>
+        <!--icon seg-->
+        <!--paso 1-->
+        <mat-step label="Detalle" state="edit" [completed]="editable">
+          <!--div flex-->
+          <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex.gt-xs="50%">
+                <div [ngSwitch]="Agend?.tipo">
+                  <p *ngSwitchCase="1">Sector: Gubernamental</p>
+                  <p *ngSwitchCase="2">Sector: Empresarial</p>
+                  <p *ngSwitchCase="3">Sector: Social</p>
+                </div>
+                <p>Tipo de Vinculación: {{Agend.tipoVista}}</p>
+                <p>Fecha: {{Agend.fecha}}</p>
+                <p>Hora: {{ formatoHora }}</p>
+                <p>Vinculador: {{Agend.nombre}}</p>
+                <p>Observaciones: {{Agend.observaciones}}</p>
+            </div>
+            <!--div flex-->
+            <div fxFlex.gt-xs="50%">
+              <p>Institucion: {{Agend.institucion}}</p>
+              <p>Dirección: {{Agend.direccion}}</p>
+              <p>Titular: {{Agend.nombreTitular}}</p>
+              <p>cargo: {{Agend.cargo}}</p>
+              <p>Telefóno Institucional: {{Agend.telfonoInstitucional}}</p>
+              <p>Nombre del Enlace: {{Agend.nombreEnlace}}</p>
+              <p>
+                Cargo del Enlace:
+                {{Agend.cargoEnlace}}
+              </p>
+              <p>
+                Teléfono del Enlace:
+                {{Agend.telefonoEnlace}}
+              </p>
+              <!--boton seguimiento-->
+              <ng-template [ngIf]="editable === false" [ngIfElse]="seguimientoOn">
+                <button mat-flat-button color="warn" matStepperNext (click)="openDialog(Agend.id)">Dar Seguimiento</button>
+              </ng-template>
+
+              <ng-template #seguimientoOn>
+                <button mat-flat-button color="accent" matStepperNext>Siguiente</button>
+              </ng-template>
+
+              <!--boton seguimiento end-->
+            </div>
+          </div>
+          <!--div flex end-->
+        </mat-step>
+        <!--paso 1 end-->
+        <!--paso 2-->
+        <mat-step label="Seguimineto">
+          <!--spinner-->
+          <div class="spinner-wrapper" *ngIf="isLoadingResults">
+            <mat-spinner></mat-spinner>
+          </div>
+
+          <!--contador seguimiento-->
+          <ng-template [ngIf]="contadorArchivos === 0" [ngIfElse]="AgendaSeguimiento">
+              <form [formGroup]="form" (ngSubmit)="onFormSubmit(form.value)">
+                <div fxLayout="row" fxLayout.xs="column">
+                  <div fxFlex.gt-xs="50%">
+                    <mat-slide-toggle #Incidencia formControlName="isincidence"
+                        (change)="onChange($event)">Incidencias</mat-slide-toggle>
+                    <!--incidencias-->
+                    <h5>Incidencias</h5>
+                    <mat-form-field>
+                      <mat-label>Tipo incidencia</mat-label>
+                      <mat-select #tipoincidencia formControlName="incidenciaTipo">
+                        <mat-option value="">Tipo incidencia</mat-option>
+                        <mat-option *ngFor="let inc of incidencias" [value]="inc.id">{{ inc.nombreIncidencia }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <!--incidencias fin-->
+                    <!--descripcion-->
+                    <mat-form-field class="full-width">
+                      <textarea formControlName="propuesta" matInput placeholder="Reporte"></textarea>
+                    </mat-form-field>
+                    <!--descripcion-->
+                    <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid || isLoadingResults">Enviar</button>
+                  </div>
+                  <!--imagenes-->
+                  <div fxFlex="50%" class="curso_lista">
+                    <mat-card class="carta-detalle">
+                        <!--contenido-->
+                        <mat-card-content>
+
+                          <div class="file-drop-area">
+                            <span class="fake-btn-img">Elejir Imagen</span>
+                            <span class="file-msg">{{fileToUpload ? fileToUpload.name : 'cargar imagen' }}</span>
+                            <input class="file-input" formControlName="imagen" #ImageFile matTooltip="extensiones .jpg .png" type="file" accept="image/jpeg, image/png" (change)="handleFileInput($event)">
+                          </div>
+                          <!--file input-->
+                          <div *ngIf="ActivoDNC == 0">
+                            <div class="file-drop-area" [hidden]="!tipoincidenciaDisabled">
+                              <span class="fake-btn">Elejir Archivo</span>
+                              <span class="file-msg">{{fileUpload ? fileUpload.name : 'cargar archivo' }}</span>
+                              <input class="file-input" formControlName="nombreArchivo" #Document accept="application/pdf" matTooltip="extensiones .pdf" (change)="onSelectedFile($event)" type="file">
+                            </div>
+                          </div>
+                        </mat-card-content>
+                        <!--fin contenido-->
+                    </mat-card>
+                    <!--cartas-->
+                  </div>
+                </div>
+                <input #identificador type="hidden" formControlName="agenda_id"/>
+              </form>
+          </ng-template>
+          <ng-template #AgendaSeguimiento>
+              <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="1%">
+                <div fxFlex.gt-xs="45%">
+                  <mat-chip-list>
+                      <div [ngSwitch]="status">
+                        <mat-chip class="item success" *ngSwitchCase="1">Iniciado</mat-chip>
+                        <mat-chip class="item warn" *ngSwitchCase="2">En revisión</mat-chip>
+                        <mat-chip class="item danger" *ngSwitchCase="3">Terminado</mat-chip>
+                        <mat-chip class="item info" *ngSwitchCase="4">Modificación</mat-chip>
+                      </div>
+                  </mat-chip-list>
+                  <!--incidencias-->
+                  <ng-template [ngIf]="esIncidencia === true">
+                    <h4>Motivo de la Incidencia:</h4>
+                    <div class="incidencia-descripcion">
+                      <p>
+                        {{ nombreDeLaIncidencia }}
+                      </p>
+                    </div>
+                  </ng-template>
+                  <!--incidencias fin-->
+                  <!--descripcion-->
+                  <h4>Reporte:</h4>
+                  <p class="reportes">
+                    {{ seguimientoPropuesta }}
+                  </p>
+                  <!--descripcion-->
+                </div>
+                <!--imagenes-->
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="left">
+                  <mat-card class="cards" *ngFor="let agendaDetail of archivosArray">
+                    <mat-card-title>
+                      <span fxFlex="80%">{{ agendaDetail.nombreArchivo }}</span>
+                      <ng-template [ngIf]="agendaDetail.extension === 'jpg' || agendaDetail.extension === 'png' || agendaDetail.extension === 'jpeg' || agendaDetail.extension === 'JPG'" [ngIfElse]="downloadDoc">
+                        <button mat-flat-button fxFlex="20%" matTooltip="Visualizar Imagen">
+                          <mat-icon>pageview</mat-icon>
+                        </button>
+                      </ng-template>
+                      <ng-template #downloadDoc>
+                        <button mat-flat-button fxFlex="20%" matTooltip="Descargar Archivo">
+                          <mat-icon>cloud_download</mat-icon>
+                        </button>
+                      </ng-template>
+                    </mat-card-title>
+                      <!--plantilla ng if extension -->
+                      <ng-template [ngIf]="agendaDetail.extension === 'jpg' || agendaDetail.extension === 'png' || agendaDetail.extension === 'jpeg' || agendaDetail.extension === 'JPG'" [ngIfElse]="plantillapdf">
+                        <img mat-card-image src="http://localhost:8000/archivos/{{ agendaDetail.agendaId }}/{{ agendaDetail.nombreArchivo }}">
+                      </ng-template>
+                      <!--mostrar plantilla pdf-->
+                      <ng-template #plantillapdf>
+                        <img mat-card-image class="logopdf" src="../../../assets/img/pdf.png"/>
+                      </ng-template>
+                      <!--plantilla ng if extension end -->
+                  </mat-card>
+                  <!--cartas-->
+                </div>
+                <!---->
+              </div>
+          </ng-template>
+          <!--contador seguimiento end-->
+          <!--spinner-->
+          <!--imagenes fin-->
+        </mat-step>
+        <!--paso 2 end-->
+        <!--paso 3-->
+        <mat-step label="Encuesta DNC">
+          <app-encuesta (dncActive)="receiveMessage($event)" [datosEncuesta]="Agend"></app-encuesta>
+        </mat-step>
+        <!--paso 3 end-->
+      </mat-horizontal-stepper>
+      <!--stepper end-->
+    </mat-card>
+  </div>
+  <!--section-->
+
+  <!--end section-->
+</div>

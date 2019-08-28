@@ -1,0 +1,560 @@
+<!-- modificacion del componente y la plantilla -->
+  <div fxLayout="row wrap" fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <div fxFlex="10%"></div>
+    <!--div separador-->
+    <div fxFlex="80%">
+      <ng-container *ngIf="tipoSector === 1 || tipoSector === 2; else sectorSocial">
+        <!--dnc empresarial o gubernamental-->
+          <div fxLayout="column">
+              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                <mat-form-field fxFlex>
+                  <input matInput placeholder="Nombre de la Empresa" disabled  [value]="detallesEncuesta.institucion">
+                </mat-form-field>
+
+                <mat-form-field fxFlex>
+                  <input type="tel" matInput placeholder="Teléfono" disabled [value]="detallesEncuesta.telefonoEnlace">
+                </mat-form-field>
+              </div>
+              <!--input row-->
+              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                <mat-form-field fxFlex>
+                  <input matInput placeholder="Correo Electrónico" disabled [value]="detallesEncuesta.correoEnlace">
+                </mat-form-field>
+                <!--mat form field-->
+                <mat-form-field fxFlex>
+                  <input matInput placeholder="Número de Empleados">
+                </mat-form-field>
+              </div>
+              <!--input row-->
+              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                <mat-form-field fxFlex>
+                  <input matInput placeholder="Responsable de Capacitación" disabled [value]="detallesEncuesta.nombreEnlace">
+                </mat-form-field>
+                <!--mat form field-->
+                <mat-form-field fxFlex>
+                  <input matInput placeholder="Puesto" disabled [value]="detallesEncuesta.cargoEnlace">
+                </mat-form-field>
+              </div>
+              <!--input row-->
+              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                <mat-form-field fxFlex>
+                  <textarea matInput placeholder="Dirección" disabled [value]="detallesEncuesta.direccion"></textarea>
+                </mat-form-field>
+              </div>
+              <!--divider-->
+              <ng-container *ngIf="isdnc == 0; else isnotdnc">
+                  <!--form-->
+                  <form fxLayout="column" [formGroup]="dncForm" (ngSubmit)="onSubmit()">
+                    <!--input row-->
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                      <div fxFlex>
+                        <h4>¿Reciben curso de inducción a la empresa y al puesto de trabajo a desempeñar?</h4>
+                        <mat-form-field>
+                          <mat-label>Seleccionar</mat-label>
+                          <mat-select formControlName="cursoinduccion">
+                            <mat-option>--</mat-option>
+                            <mat-option value="1">Si</mat-option>
+                            <mat-option value="2">No</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="formControls.cursoinduccion.invalid">Inducción es requerido</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <!--form field-->
+                      <div fxFlex>
+                        <h4>¿La empresa maneja de ser necesario, un plan anual de capacitación?</h4>
+                        <mat-form-field>
+                          <mat-label>Seleccionar</mat-label>
+                          <mat-select formControlName="planCapacitacion">
+                            <mat-option>--</mat-option>
+                            <mat-option value="1">Si</mat-option>
+                            <mat-option value="2">No</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="formControls.planCapacitacion.invalid">Plan Anual es Requerido</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <!--input row-->
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                      <div fxFlex>
+                        <h4>¿Cuando fue la última vez que su capital humano fue capacitado mediante un curso?</h4>
+                        <mat-form-field>
+                          <mat-label>Seleccionar</mat-label>
+                          <mat-select formControlName="chCapacitado">
+                            <mat-option>--</mat-option>
+                            <mat-option value="1">Hace más de un año</mat-option>
+                            <mat-option value="2">Hace menos de un año</mat-option>
+                            <mat-option value="3">Hace no más de 6 meses</mat-option>
+                            <mat-option value="4">No ha recibido</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="formControls.chCapacitado.invalid">Elemento Requerido Elija una opción</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <!--form field-->
+                      <div fxFlex>
+                        <h4>¿Qué tan de acuerdo está usted con la siguiente afirmación? el último curso dio resultados esperados.</h4>
+                        <mat-form-field>
+                          <mat-label>Seleccionar</mat-label>
+                          <mat-select formControlName="resultadoEsperado">
+                            <mat-option>--</mat-option>
+                            <mat-option value="1">Completamente de acuerdo</mat-option>
+                            <mat-option value="2">De acuerdo</mat-option>
+                            <mat-option value="3">En desacuerdo</mat-option>
+                            <mat-option value="4">Completamente en desacuerdo</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="formControls.resultadoEsperado.invalid">La afirmación es requerida</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <!--input row-->
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                      <mat-form-field fxFlex>
+                        <textarea matInput formControlName="cursosCapitalHumano" placeholder="¿Qué cursos ha tomado su capital humano?"></textarea>
+                      </mat-form-field>
+                    </div>
+                    <!--input row-->
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                      <mat-form-field fxFlex>
+                        <input matInput formControlName="ultimoCurso" placeholder="¿cuál fue el último curso que recibieron y qué tema?">
+                        <mat-error *ngIf="formControls.ultimoCurso.invalid">Elemento Requerido</mat-error>
+                      </mat-form-field>
+
+                    </div>
+                    <!--input row-->
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                      <mat-form-field fxFlex>
+                        <textarea matInput formControlName="cursoInteresActual" placeholder="¿En qué cursos está usted interesado actualmente?"></textarea>
+                        <mat-error *ngIf="formControls.cursoInteresActual.invalid">Elemento Requerido</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field fxFlex>
+                        <textarea matInput formControlName="porqueCursoActual" placeholder="¿Por qué?"></textarea>
+                      </mat-form-field>
+                    </div>
+                    <!--input row-->
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                      <mat-form-field fxFlex>
+                        <input matInput (keypress)="numberOnly($event)" formControlName="horasDisponibleCapacitacionHumano" placeholder="Horas">
+                      </mat-form-field>
+
+                      <mat-form-field fxFlex>
+                        <input matInput formControlName="horarioDisponibleCapacitacionHumano" placeholder="Horario">
+                      </mat-form-field>
+                    </div>
+                    <!--div-->
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                      <h4> ¿ En relación ultimo grado de estudios de su capital humano, dígame por favor que porcentaje cuenta con…(mencionar cada nivel de estudios)</h4>
+                    </div>
+                    <!--input row-->
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                      <mat-form-field fxFlex>
+                        <input matInput (keypress)="numberOnly($event)" formControlName="gradoEstudioPrimaria" placeholder="Primaria %">
+                      </mat-form-field>
+                      <mat-form-field fxFlex>
+                        <input matInput (keypress)="numberOnly($event)" formControlName="gradoEstudioSecundaria" placeholder="Secundaria %">
+                      </mat-form-field>
+                      <mat-form-field fxFlex>
+                        <input matInput (keypress)="numberOnly($event)" formControlName="gradoEstudioBachillerato" placeholder="Bachillerato %">
+                      </mat-form-field>
+                    </div>
+                    <!--div-->
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                      <mat-form-field fxFlex>
+                        <input matInput (keypress)="numberOnly($event)" formControlName="gradoEstudioLicenciatura" placeholder="Licenciatura %">
+                      </mat-form-field>
+                      <mat-form-field fxFlex>
+                        <input matInput (keypress)="numberOnly($event)" formControlName="gradoEstudioPostgrado" placeholder="Posgrado %">
+                      </mat-form-field>
+                    </div>
+                    <!--input row-->
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                      <button fxFlex [disabled]="!dncForm.valid || submitted" type="submit"  mat-raised-button color="primary">
+                        <mat-icon>send</mat-icon>
+                        Enviar
+                      </button>
+                      <div fxFlex>
+                        <div *ngIf="loading">
+                            <mat-progress-spinner color="primary" mode="indeterminate" [diameter]="45"></mat-progress-spinner>
+                            Procesando ...
+                        </div>
+                      </div>
+                    </div>
+                    <!--hidden-->
+                    <!--input-->
+                  </form>
+                  <!--input button-->
+                  <div fxLayout="column">
+                      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                        <button  mat-raised-button color="primary">
+                          <mat-icon>print</mat-icon>
+                          Imprimir
+                        </button>
+                      </div>
+                  </div>
+              </ng-container>
+              <ng-template #isnotdnc>
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <div fxFlex>
+                    <h5>¿Los empleados reciben curso de inducción a la empresa y al puesto de trabajo a desempeñar?</h5>
+                    {{ DNCmodelo[0]?.respuesta }}
+                  </div>
+                </div>
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <div fxFlex>
+                    <h5>¿La empresa maneja un plan anual de capacitación?</h5>
+                    {{ DNCmodelo[1]?.respuesta }}
+                  </div>
+                  <div fxFlex>
+                    <h5>¿Cuando fue la última vez que su capital humano fue capacitado mediante un curso?</h5>
+                    {{ DNCmodelo[2]?.respuesta }}
+                  </div>
+                </div>
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <div fxFlex>
+                    <h5>¿Qué cursos ha tomado su capital humano?</h5>
+                    {{ DNCmodelo[3]?.respuesta }}
+                  </div>
+                </div>
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <h4>¿cuál fue el último curso que recibieron y qué tema?</h4>
+                </div>
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <div fxFlex>
+                    <h5>Curso:</h5>
+                    {{ DNCmodelo[4]?.respuesta }}
+                  </div>
+                  <div fxFlex>
+                    <h5>Tema:</h5>
+                    {{ DNCmodelo[5]?.respuesta }}
+                  </div>
+                </div>
+                <!--div-->
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <div fxFlex>
+                    <h5>¿Qué tan de acuerdo está usted con la siguiente afirmación? el último curso nos dio los resultados esperados.</h5>
+                    {{ DNCmodelo[6]?.respuesta }}
+                  </div>
+                </div>
+                <!--div-->
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <div fxFlex>
+                    <h5>¿En qué cursos está usted interesado actualmente?</h5>
+                    {{ DNCmodelo[7]?.respuesta }}
+                  </div>
+                </div>
+                <!--div-->
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <div fxFlex>
+                    <h5>¿Por qué?</h5>
+                    {{ DNCmodelo[8]?.respuesta }}
+                  </div>
+                </div>
+                <!--div-->
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <div fxFlex>
+                    <h4>¿De cuántas horas al día dispone para capacitación de su capital humano y en que horario?</h4>
+                  </div>
+                </div>
+                <!--div-->
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <div fxFlex>
+                    <h5>Horas:</h5>
+                    {{ DNCmodelo[9]?.respuesta }}
+                  </div>
+                  <!--div fxFlex-->
+                  <div fxFlex>
+                    <h5>Horario:</h5>
+                    {{ DNCmodelo[10]?.respuesta }}
+                  </div>
+                </div>
+                <!--div-->
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <h4> ¿ En relación ultimo grado de estudios de su capital humano, dígame por favor que porcentaje cuenta con…(mencionar cada nivel de estudios)</h4>
+                </div>
+                <!--div-->
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <!--fxFlex-->
+                  <div fxFlex>
+                    Primaria %:
+                    {{ DNCmodelo[11]?.respuesta }}
+                  </div>
+                  <!--fxFlex-->
+                  <div fxFlex>
+                    Secundaria %:
+                    {{ DNCmodelo[12]?.respuesta }}
+                  </div>
+                  <!--fxFlex-->
+                  <div fxFlex>
+                    Bachillerato %:
+                    {{ DNCmodelo[13]?.respuesta }}
+                  </div>
+                  <!--fxFlex-->
+                  <div fxFlex>
+                    Licenciatura %:
+                    {{ DNCmodelo[14]?.respuesta }}
+                  </div>
+                </div>
+                <!--div-->
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <div fxFlex>
+                    Licenciatura %:
+                    {{ DNCmodelo[13]?.respuesta }}
+                  </div>
+                  <!--fxFlex-->
+                  <div fxFlex>
+                    Posgrado %:
+                    {{ DNCmodelo[14]?.respuesta }}
+                  </div>
+                </div>
+                <!--div-->
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <div fxFlex>
+                    <br><br>
+                    <button mat-raised-button color="primary" (click)="printEmpGubWithData()">
+                      <mat-icon>print</mat-icon>
+                      Imprimir
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+              <!--form END-->
+          </div>
+        <!--dnc empresarial o gubernamental END-->
+      </ng-container>
+      <!--dnc sector social-->
+      <ng-template #sectorSocial>
+          <div fxLayout="column">
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+              <mat-form-field fxFlex>
+                <input matInput placeholder="Nombre" disabled [value]="detallesEncuesta.institucion">
+              </mat-form-field>
+
+              <mat-form-field fxFlex>
+                <input type="tel" matInput placeholder="Teléfono" disabled [value]="detallesEncuesta.telefonoEnlace">
+              </mat-form-field>
+            </div>
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+              <mat-form-field fxFlex>
+                <input type="email" matInput placeholder="correo electrónico" disabled [value]="detallesEncuesta.correoEnlace">
+              </mat-form-field>
+              <!--mat form field-->
+              <mat-form-field fxFlex>
+                <input type="text" matInput placeholder="Edad" disabled>
+              </mat-form-field>
+            </div>
+            <!--input row-->
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+              <mat-form-field fxFlex>
+                <input type="text" matInput placeholder="Municipio" disabled>
+              </mat-form-field>
+              <!--fields-->
+              <mat-form-field fxFlex>
+                <input type="text" matInput placeholder="colonia" disabled>
+              </mat-form-field>
+            </div>
+            <!--div input-->
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+              <mat-form-field fxFlex>
+                <textarea matInput placeholder="dirección" disabled [value]="detallesEncuesta.direccion"></textarea>
+              </mat-form-field>
+            </div>
+            <!--divisor ng container-->
+            <ng-container *ngIf="isdnc == 0; else isnotdnc">
+              <!--formulario-->
+              <form fxLayout="column" [formGroup]="dncForm" (ngSubmit)="onSubmit()">
+                  <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                    <mat-form-field fxFlex>
+                      <mat-label>Dígame por favor usted ha recibido algún curso de capacitación para desempreñar algún trabajo</mat-label>
+                      <mat-select formControlName="curso_capacitacion_desmpenio_trabajo">
+                        <mat-option>--</mat-option>
+                        <mat-option value="1">Si</mat-option>
+                        <mat-option value="2">No</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="formControls.curso_capacitacion_desmpenio_trabajo.invalid">La afirmación es requerida</mat-error>
+                    </mat-form-field>
+                    <!--form field-->
+                    <mat-form-field fxFlex>
+                      <mat-label>¿Cuándo fue la última vez que recibió un curso?</mat-label>
+                      <mat-select formControlName="curso_ultima_vez">
+                        <mat-option value="1">Hace más de 1 año.</mat-option>
+                        <mat-option value="2">Hace menos de 1 año.</mat-option>
+                        <mat-option value="3">Hace no más de 6 meses.</mat-option>
+                        <mat-option value="4">No ha recibido.</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <!--div-->
+                  <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                    <mat-form-field fxFlex>
+                      <textarea matInput formControlName="curso_recibido" placeholder="¿Qué cursos ha recibido?"></textarea>
+                      <mat-error *ngIf="formControls.curso_recibido.invalid">Elemento Requerido</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <!--div-->
+                  <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+                      <h4>¿Cuál fue el último curso que recibieron y qué tema?</h4>
+                  </div>
+                  <!--div-->
+                  <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                    <mat-form-field fxFlex>
+                      <input matInput formControlName="curso" placeholder="Curso">
+                    </mat-form-field>
+                    <!--mat form-->
+                    <mat-form-field fxFlex>
+                      <input matInput formControlName="tema" placeholder="Tema">
+                    </mat-form-field>
+                  </div>
+                  <!--div-->
+                  <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                    <mat-form-field fxFlex>
+                      <mat-label>¿Qué tan de acuerdo está usted con la siguiente información? el último curso me dio los resultados esperados</mat-label>
+                      <mat-select formControlName="curso_resultados_esperados">
+                        <mat-option>--</mat-option>
+                        <mat-option value="1">Completamente de acuerdo</mat-option>
+                        <mat-option value="2">De acuerdo</mat-option>
+                        <mat-option value="3">Completamente de acuerdo</mat-option>
+                        <mat-option value="4">Completamente en desacuerdo</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="formControls.curso_resultados_esperados.invalid">La Opción es requerida</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <!--div-->
+                  <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                    <mat-form-field fxFlex>
+                      <textarea matInput formControlName="curso_interesado_actualmente" placeholder="¿En qué cursos está usted interesado actualmente?"></textarea>
+                    </mat-form-field>
+                    <!---->
+                    <mat-form-field fxFlex>
+                      <textarea matInput formControlName="por_que" placeholder="¿Por qué?"></textarea>
+                    </mat-form-field>
+                  </div>
+                  <!--div-->
+                  <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                      <h4>¿De cuántas horas al día dispone para capacitarse y en qué horario?</h4>
+                  </div>
+                  <!--div-->
+                  <!--div-->
+                  <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                    <mat-form-field fxFlex>
+                      <input matInput formControlName="horas" placeholder="Horas">
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex>
+                      <input matInput formControlName="horario" placeholder="Horario">
+                    </mat-form-field>
+                  </div>
+                  <!--div-->
+                  <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                    <button [disabled]="!dncForm.valid || submitted" fxFlex mat-raised-button color="primary">
+                      <mat-icon>send</mat-icon>
+                      Enviar
+                    </button>
+                    <!--button-->
+                    <div fxFlex>
+                      <div *ngIf="loading">
+                          <mat-progress-spinner color="primary" mode="indeterminate" [diameter]="40"></mat-progress-spinner>
+                          Procesando ...
+                      </div>
+                    </div>
+                  </div>
+              </form>
+              <br/>
+              <div fxLayout="column">
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                  <button  mat-raised-button color="primary">
+                    <mat-icon>print</mat-icon>
+                    Imprimir
+                  </button>
+                </div>
+              </div>
+              <!--formulario END-->
+            </ng-container>
+            <ng-template #isnotdnc>
+              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                <div fxFlex>
+                  <h5>Dígame por favor usted ha recibido algún curso de capacitación para desempreñar algún trabajo</h5>
+                  {{ DNCmodelo[0]?.respuesta }}
+                </div>
+                <div fxFlex>
+                  <h5>¿Cuándo fue la última vez que recibió un curso?</h5>
+                  {{ DNCmodelo[1]?.respuesta }}
+                </div>
+                <!--div-->
+              </div>
+              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                <div fxFlex>
+                  <h5>¿Qué cursos ha recibido?</h5>
+                  {{ DNCmodelo[2]?.respuesta}}
+                </div>
+                <!--div-->
+              </div>
+              <!--div-->
+              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                <h4>¿Cuál fue el último curso que recibieron y qué tema?</h4>
+              </div>
+              <!--div-->
+              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                <div fxFlex>
+                  <h5>Curso</h5>
+                  {{ DNCmodelo[3]?.respuesta }}
+                </div>
+                <!--div fxFlex-->
+                <div fxFlex>
+                  <h5>Tema:</h5>
+                  {{ DNCmodelo[4]?.respuesta }}
+                </div>
+              </div>
+              <!--div-->
+              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                <div fxFlex>
+                  <h5>¿Qué tan de acuerdo está usted con la siguiente afirmación? el último curso me dio los resultados esperados.</h5>
+                  {{ DNCmodelo[5]?.respuesta }}
+                </div>
+              </div>
+              <!--div-->
+              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                <div fxFlex>
+                  <h5>¿En qué cursos está usted interesado actualmente?</h5>
+                  {{ DNCmodelo[6]?.respuesta }}
+                </div>
+              </div>
+              <!--div-->
+              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                <div fxFlex>
+                  <h5>¿Por qué?</h5>
+                  {{ DNCmodelo[7]?.respuesta }}
+                </div>
+              </div>
+              <!--div-->
+              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                <h4>¿De cuántas horas al día dispone para capacitarse y en que horario?</h4>
+              </div>
+              <!--div-->
+              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                <div fxFlex>
+                  <h5>Horas:</h5>
+                  {{ DNCmodelo[8]?.respuesta }}
+                </div>
+                <div fxFlex>
+                  <h5>Horario:</h5>
+                  {{ DNCmodelo[9]?.respuesta }}
+                </div>
+              </div>
+              <!--div imprimir-->
+              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                <div fxFlex>
+                  <br><br>
+                  <button mat-raised-button color="primary" (click)="printsocialDncWithData()">
+                    <mat-icon>print</mat-icon>
+                    Imprimir
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+
+          </div>
+      </ng-template>
+    </div>
+    <div fxFlex><div>
+  </div>
+<!-- modificacion del componente y la plantilla end -->

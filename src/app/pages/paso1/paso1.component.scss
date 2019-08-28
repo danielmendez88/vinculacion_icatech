@@ -1,0 +1,212 @@
+$crm-command-bar-height-desktop: 20px !default;
+// $crm-command-bar-height-mobile: 48px !default;
+$crm-command-bar-height-mobile: 0 !default;
+
+$crm-view-bar-height-desktop: 96px !default;
+$crm-view-bar-height-mobile: 84px !default;
+
+//
+
+$crm-component-title-margin: 16px !default;
+$mat-xsmall: 'max-width: 599px';
+$mat-small: 'max-width: 959px';
+
+// https://github.com/angular/material2/blob/master/src/lib/toolbar/toolbar.scss
+
+$mat-toolbar-height-desktop: 64px !default;
+$mat-toolbar-height-mobile: 20px !default;
+$mat-toolbar-row-padding: 16px !default;
+
+.component-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: $crm-view-bar-height-desktop;
+  min-height: $crm-view-bar-height-desktop;
+
+  margin-top: $mat-toolbar-height-desktop + $crm-command-bar-height-desktop;
+
+  @media ($mat-xsmall) {
+    height: $crm-view-bar-height-mobile;
+    min-height: $crm-view-bar-height-mobile;
+
+    margin-top: $mat-toolbar-height-mobile + $crm-command-bar-height-mobile;
+  }
+}
+
+.carta-detalle {
+  width: 85%;
+  margin-bottom: 2%;
+}
+
+.tab-actions {
+  display: inline-block;
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container > * {
+  width: 75%;
+}
+
+.empleados-radio-group {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+}
+.radio-group-capital {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+.empleo-radio {
+  margin: 5px;
+}
+td {
+  padding-right: 8px;
+}
+
+.example-full-width {
+  width: 75%;
+}
+.radio-group {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+}
+/* estilo de la carta */
+.cards {
+  width: 40%;
+  margin: 2%;
+}
+.cards-pdf {
+  width: 40%;
+}
+/* textarea */
+.full-width{
+  width: 90%;
+}
+// colores a utilizar
+.item.danger {
+  background: linear-gradient(60deg, #ec407a, #d81b60);
+}
+
+.item.warn {
+  background: linear-gradient(60deg, #ffa726, #fb8c00);
+}
+
+.item.success {
+  background: linear-gradient(60deg, #66bb6a, #43a047);
+}
+
+.item.info {
+  background: linear-gradient(60deg, #26c6da, #00acc1);
+}
+
+// mat spinner
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 998;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+// img.logopdf {
+//   max-width:100%;
+//   max-height:190px;
+//   display: block;
+//   margin-left: auto;
+//   margin-right: auto;
+//   margin-top: auto;
+// }
+// img.logo {
+//   max-width:100%;
+//   max-height:100%;
+//   display: block;
+//   margin-left: auto;
+//   margin-right: auto;
+//   margin-top: auto;
+// }
+.img {
+  width: 100%;
+  margin-bottom: 18%;
+}
+p.reportes{
+  text-align: justify;
+  text-justify: inter-word;
+}
+// file input area
+.file-drop-area {
+  border: 1px dashed #7c7db3;
+  border-radius: 3px;
+  position: relative;
+  width: 360px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 26px 20px 30px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  margin-bottom: 1em;
+}
+.fake-btn {
+  background-color: #3F4069;
+  border: 1px solid #9E9EC4;
+  border-radius: 3px;
+  padding: 8px 15px;
+  margin-right: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.fake-btn-img {
+  background-color: #4caf50;
+  border: 1px solid #9ccc65;
+  border-radius: 3px;
+  padding: 8px 15px;
+  margin-right: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.file-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.file-input:focus {
+  outline: none;
+}
+.file-msg {
+  font-size: small;
+  font-weight: 300;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  max-width: calc(100% - 130px);
+  vertical-align: middle;
+}
+.file-drop-area.is-active {
+  background-color: #3F4069;
+}
+/*
+  descripcion de la incidencia
+*/
+.incidencia-descripcion {
+  font-family:sans-serif;
+}

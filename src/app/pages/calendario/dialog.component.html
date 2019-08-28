@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Detalles de la agenda</h1>
+<div mat-dialog-content>
+  <p>{{data.eventTitle}}</p>
+  Fecha agenda: {{ data.eventDate |  date:'MM/dd/yyyy' }}
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="onNoClick()">Cerrar</button>
+  <button mat-button (click)="closedialog(data.eventId)" cdkFocusInitial>ir seguimiento</button>
+</div>

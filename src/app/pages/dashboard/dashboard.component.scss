@@ -1,0 +1,87 @@
+.content {
+  position: relative;
+  border-radius: 3px;
+  overflow: hidden;
+  width: 97%;
+  margin: 2.5% auto;
+  padding: 0.5%;
+  background: transparent;
+}
+// nuevos elementos al dashbord
+.mb-20 {
+  margin-bottom: 20px;
+}
+// mat card
+.mat-card {
+  text-align: center;
+  img {
+      border-radius: 5px;
+      margin-top: -25px;
+  }
+}
+
+.dashboard-nav-content {
+  float: right;
+}
+.dashboard-nav-icon {
+  float: none;
+}
+.dashboard-nav {
+  margin-bottom: 1.0%;
+  box-shadow: 0 1px 8px 0 rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.12);
+}
+.dashboard-nav-icon .material-icons {
+  opacity: 0.3;
+  font-size: 40px;
+  -webkit-transform: rotate(-5deg);
+  transform: rotate(-5deg);
+}
+
+.dashboard-nav-content .dashboard-nav-number {
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: .005em;
+}
+
+.dashboard-nav-content .dashboard-nav-title {
+  margin-top: 5px;
+  opacity: 0.8;
+}
+// contenido
+$crm-command-bar-height-desktop: 3px !default;
+// $crm-command-bar-height-mobile: 48px !default;
+$crm-command-bar-height-mobile: 0 !default;
+
+$crm-view-bar-height-desktop: 56px !default;
+$crm-view-bar-height-mobile: 84px !default;
+
+//
+
+$crm-component-title-margin: 16px !default;
+$mat-xsmall: 'max-width: 599px';
+$mat-small: 'max-width: 959px';
+
+// https://github.com/angular/material2/blob/master/src/lib/toolbar/toolbar.scss
+
+$mat-toolbar-height-desktop: 60px !default;
+$mat-toolbar-height-mobile: 3px !default;
+$mat-toolbar-row-padding: 16px !default;
+
+.component-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: $crm-view-bar-height-desktop;
+  min-height: $crm-view-bar-height-desktop;
+
+  margin-top: $mat-toolbar-height-desktop + $crm-command-bar-height-desktop;
+
+  @media ($mat-xsmall) {
+    height: $crm-view-bar-height-mobile;
+    min-height: $crm-view-bar-height-mobile;
+
+    margin-top: $mat-toolbar-height-mobile + $crm-command-bar-height-mobile;
+  }
+}

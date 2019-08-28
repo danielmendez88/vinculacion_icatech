@@ -1,0 +1,20 @@
+<mat-card [ngClass]="bgclass">
+  <!--header-->
+  <mat-card-header>
+    <!--avatar-->
+      <div mat-card-avatar>
+        <mat-icon class="icon-lg">{{ icon }}</mat-icon>
+      </div>
+      <!--fin avatar-->
+      <!--titulo-->
+      <mat-card-title>{{ contador }}</mat-card-title>
+      <!--subtitle-->
+      <mat-card-subtitle>{{ label }}</mat-card-subtitle>
+  </mat-card-header>
+  <!--actions-->
+  <mat-card-actions>
+    <a class="float-right card-inverse">
+      Ver Detalles
+    </a>
+  </mat-card-actions>
+</mat-card>

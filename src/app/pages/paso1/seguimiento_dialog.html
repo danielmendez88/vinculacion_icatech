@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Mensaje del Sistema</h1>
+<div mat-dialog-content>
+  <p>¿Desea dar seguimiento a esta vinculación?</p>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()" color="warn">Cancelar</button>
+  <button mat-raised-button color="accent" cdkFocusInitial (click)="onAcceptClick(data.idAgenda)">Aceptar</button>
+</div>

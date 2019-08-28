@@ -1,0 +1,25 @@
+.carta {
+  max-width: 800px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container > * {
+  width: 100%;
+}
+
+mat-card {
+  margin: 2em;
+}
+
+.example-header-image {
+  background-image: url('../../../assets/img/user.png');
+  background-size: cover;
+}
+.submit {
+  margin-left: 7em;
+  margin-top: -2.5em;
+}

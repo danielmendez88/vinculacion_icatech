@@ -1,0 +1,24 @@
+<!--creamos el dashboard-->
+<div class="component-title-container">
+</div>
+
+<div #contentContainer class="content-container">
+  <!--div flex layout-->
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <mat-card class="carta-lista">
+      <mat-card-header>
+      </mat-card-header>
+      <mat-card-content>
+        <full-calendar *ngIf="options"
+            #calendario
+            [buttonText]="options.buttonText"
+            [events] = "calendarEvents"
+            [height]="options.height"
+            [locale]="options.locale"
+            defaultView="dayGridMonth"
+            [plugins]="calendarPlugins"
+            (eventClick)="eventClick($event)"></full-calendar>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

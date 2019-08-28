@@ -1,0 +1,194 @@
+$crm-command-bar-height-desktop: 3px !default;
+// $crm-command-bar-height-mobile: 48px !default;
+$crm-command-bar-height-mobile: 0 !default;
+
+$crm-view-bar-height-desktop: 96px !default;
+$crm-view-bar-height-mobile: 84px !default;
+
+//
+
+$crm-component-title-margin: 16px !default;
+$mat-xsmall: 'max-width: 599px';
+$mat-small: 'max-width: 959px';
+
+// https://github.com/angular/material2/blob/master/src/lib/toolbar/toolbar.scss
+
+$mat-toolbar-height-desktop: 64px !default;
+$mat-toolbar-height-mobile: 3px !default;
+$mat-toolbar-row-padding: 16px !default;
+
+.component-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: $crm-view-bar-height-desktop;
+  min-height: $crm-view-bar-height-desktop;
+
+  margin-top: $mat-toolbar-height-desktop + $crm-command-bar-height-desktop;
+
+  @media ($mat-xsmall) {
+    height: $crm-view-bar-height-mobile;
+    min-height: $crm-view-bar-height-mobile;
+
+    margin-top: $mat-toolbar-height-mobile + $crm-command-bar-height-mobile;
+  }
+}
+
+.curso_lista {
+  margin: 2%;
+}
+.example-tab-icon {
+  margin-right: 8px;
+}
+
+div.b {
+  word-wrap: break-word;
+}
+// .img {
+//   width: 55%;
+//   height: 45%;
+//   display: block;
+//   margin-left: auto;
+//   margin-right: auto;
+// }
+.imgpdf {
+  width: 51%;
+  height: 45%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.example-card {
+  max-width: 600px;
+}
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+img.logopdf {
+  max-width:100%;
+  max-height:300px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+}
+.example-full-width {
+  width: 75%;
+}
+.radio-group {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+}
+.empleo-radio {
+  margin: 5px;
+}
+.empleados-radio-group {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+}
+.radio-group-capital {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+.templategandp {
+  margin-top: 2em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+/* contenedor comentario */
+.contenedor-comentario {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5em;
+}
+
+.contenedor-comentario > * {
+  width: 80%;
+}
+.contenedor-vinculacion {
+  display: flex;
+  flex-direction: column;
+}
+.contenedor-vinculacion > * {
+  width: 60%;
+}
+// file area
+.file-drop-area {
+  border: 1px dashed #008000;
+  border-radius: 3px;
+  position: relative;
+  width: 360px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0.5em 0.5em 0.5em 0.5em; // top, left, bottom, left
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  margin-bottom: 1em;
+  display: flex;
+  align-items: baseline;
+  grid-column-gap: 10px;
+}
+.imgfile {
+  // border: 1px solid #ddd; /* Gray border */
+  // border-radius: 4px;  /* Rounded border */
+  // padding: 10px; /* Some padding */
+  // width: 150px; /* Set a small width */
+  // display: block;
+  // margin: 0 auto;
+  position: relative;
+  width: 150px;
+  height: 100px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 4px;  /* Rounded border */
+  padding: 10px; /* Some padding */
+}
+.imgfile img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+}
+.imgfilepdf {
+  // border: 1px solid #ddd; /* Gray border */
+  // border-radius: 4px;  /* Rounded border */
+  // padding: 10px; /* Some padding */
+  // width: 150px; /* Set a small width */
+  // display: block;
+  // margin: 0 auto;
+  position: relative;
+  width: 150px;
+  height: 100px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 4px;  /* Rounded border */
+  padding: 10px; /* Some padding */
+}
+.imgfilepdf img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+}
+// clase de nombre del archivo
+.nombreArchivo {
+  font-size: 14px;
+  font-family: 'Times New Roman';
+  position: relative;
+  margin-bottom: -30px;
+  top: -50px;
+}

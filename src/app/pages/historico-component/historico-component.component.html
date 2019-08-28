@@ -1,0 +1,49 @@
+<!--creamos el dashboard-->
+<div class="component-title-container">
+</div>
+
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <div fxFlex="15%"></div>
+  <div fxFlex="70%" class="curso_lista">
+    <!--cargamos la lista-->
+    <mat-card>
+      <mat-card-content>
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Búsqueda">
+        </mat-form-field>
+        <!--tabla-->
+        <mat-table [dataSource]="datasource" matSort matSortStart="desc" matSortDirection="asc">
+          <!-- Progress Column -->
+              <ng-container matColumnDef="vista">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Vista </mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="vista"> {{row.vista}}</mat-cell>
+              </ng-container>
+
+              <!-- ID Column -->
+              <!-- Name Column -->
+              <ng-container matColumnDef="institucion">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Institución </mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="institucion"> {{row.institucion}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="fecha">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="fecha">{{row.fecha}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="tipoAgenda">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo Agenda</mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="tipoAgenda">{{ row.tipoAgenda }}</mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <!--tabla-->
+          <!--paginador-->
+        <mat-paginator [pageSizeOptions]="[6]"></mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex></div>
+</div>

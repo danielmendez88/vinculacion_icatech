@@ -1,0 +1,68 @@
+$crm-command-bar-height-desktop: 3px !default;
+// $crm-command-bar-height-mobile: 48px !default;
+$crm-command-bar-height-mobile: 0 !default;
+
+$crm-view-bar-height-desktop: 26px !default;
+$crm-view-bar-height-mobile: 30px !default;
+
+//
+
+$crm-component-title-margin: 16px !default;
+$mat-xsmall: 'max-width: 599px';
+$mat-small: 'max-width: 959px';
+
+// https://github.com/angular/material2/blob/master/src/lib/toolbar/toolbar.scss
+
+$mat-toolbar-height-desktop: 60px !default;
+$mat-toolbar-height-mobile: 3px !default;
+$mat-toolbar-row-padding: 16px !default;
+
+.component-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: $crm-view-bar-height-desktop;
+  min-height: $crm-view-bar-height-desktop;
+
+  margin-top: 50px;
+
+  @media ($mat-xsmall) {
+    height: $crm-view-bar-height-mobile;
+    min-height: $crm-view-bar-height-mobile;
+
+    margin-top: 25px;
+  }
+}
+
+.section {
+  display: flex !important;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: transparent !important;
+}
+
+.section > * {
+  width: 100%;
+}
+.curso_lista {
+  margin: 2%;
+}
+.tab-actions {
+  display: inline-block;
+  position: fixed;
+  bottom: 120px;
+  right: 30px;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.item.info {
+  background: linear-gradient(60deg, #26c6da, #00acc1);
+}

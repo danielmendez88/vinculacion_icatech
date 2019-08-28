@@ -1,0 +1,36 @@
+$crm-command-bar-height-desktop: 56px !default;
+// $crm-command-bar-height-mobile: 48px !default;
+$crm-command-bar-height-mobile: 0 !default;
+
+$crm-view-bar-height-desktop: 96px !default;
+$crm-view-bar-height-mobile: 84px !default;
+
+//
+
+$crm-component-title-margin: 16px !default;
+$mat-xsmall: 'max-width: 599px';
+$mat-small: 'max-width: 959px';
+
+// https://github.com/angular/material2/blob/master/src/lib/toolbar/toolbar.scss
+
+$mat-toolbar-height-desktop: 64px !default;
+$mat-toolbar-height-mobile: 56px !default;
+$mat-toolbar-row-padding: 16px !default;
+
+.crm-command-bar-height {
+  position: fixed;
+  top: $mat-toolbar-height-desktop;
+  left: 0;
+  right: 0;
+  z-index: 997;
+  height: $crm-command-bar-height-desktop;
+  min-height: $crm-command-bar-height-desktop;
+
+  @media ($mat-xsmall) {
+    top: $mat-toolbar-height-mobile;
+    height: $crm-command-bar-height-mobile;
+    min-height: $crm-command-bar-height-mobile;
+  }
+
+background-color: #f5f5f5;
+}

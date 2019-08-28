@@ -1,0 +1,80 @@
+<!--creamos el dashboard-->
+<div class="component-title-container">
+</div>
+<!---->
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <div fxFlex="60%" class="curso_lista">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          Agenda de Recorrido
+        </mat-card-title>
+      </mat-card-header>
+      <!--contenido-->
+      <mat-card-content>
+        <!--spinner-->
+        <div class="spinner-container" *ngIf="isSubmitted">
+          <mat-progress-bar class="progress-bar"
+              color="warn" mode="query"
+              value="50" bufferValue="75">
+          </mat-progress-bar>
+        </div>
+        <!--spinner end-->
+        <!--form-->
+        <form [formGroup]="agendaFormGroup" #myform="ngForm" (ngSubmit)="onSaveAgenda(myform)">
+          <input type="hidden" formControleName="id" value=""/>
+          <div fxLayout="row wrap" fxLayoutGap="25px">
+            <mat-form-field fxFlex="calc(50%-25px)">
+              <mat-label>Sector</mat-label>
+              <mat-select  formControlName="seleccionarSector">
+                <mat-option value="1">Gubernamental</mat-option>
+                <mat-option value="2">Empresarial</mat-option>
+                <mat-option value="3">Social</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!--matformfield-->
+            <mat-form-field fxFlex="calc(50%-25px)">
+              <mat-label>Clientes</mat-label>
+              <mat-select formControlName="clienteSelector">
+                <mat-option *ngFor="let clientes of clientesModel" [value]="clientes.id">{{clientes.institucion}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!--matformfield-->
+            <mat-form-field fxFlex="calc(50%-25px)">
+              <mat-label>Vinculador</mat-label>
+              <mat-select formControlName="vinculadorSelector">
+                <mat-option *ngFor="let vinculadores of vinculadorModel" [value]="vinculadores.id">{{vinculadores.nombre}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!--matformfield-->
+            <mat-form-field fxFlex="calc(50%-25px)">
+              <mat-label>Tipo de Visita</mat-label>
+              <mat-select formControlName="tipoVisitaSelector">
+                <mat-option *ngFor="let visita of visitaModel" [value]="visita.id">{{visita.tipo}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!--matformfield-->
+            <mat-form-field fxFlex="calc(50%-25px)">
+              <input matInput formControlName="Fecha" [matDatepicker]="dp3" placeholder="Fecha">
+              <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+              <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+            </mat-form-field>
+            <!--matformfield-->
+            <mat-form-field fxFlex="calc(50%-25px)">
+              <input matInput formControlName="hora" [ngxTimepicker]="picker" placeholder="Horario de la agenda" aria-label="12hr format" [ngxTimepicker]="default" readonly>
+              <ngx-material-timepicker #picker></ngx-material-timepicker>
+            </mat-form-field>
+            <!--matformfield-->
+            <mat-form-field class="example-full-width" fxFlex="calc(100%-25px)">
+              <textarea matInput formControlName="observaciones" placeholder="Observaciones"></textarea>
+            </mat-form-field>
+            <button mat-flat-button type="submit" color="warn"  [disabled]="!agendaFormGroup.valid || isOnload">Guardar</button>
+          </div>
+        </form>
+        <!-- .form end-->
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="30%" class="curso_lista">
+  </div>
+</div>

@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
+
+// you must include each plugins' css
+// paths prefixed with ~ signify node_modules
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+// You can add global styles to this file, and also import other style files
+@import "../node_modules/ng2-slim-loading-bar/style.css";
+
+.mt-2,
+.my-2 {
+  margin-top: 0.5rem !important;
+}
+
+.pt-3,
+.py-3 {
+  padding-top: 1rem !important;
+}
+
+.pb-3,
+.py-3 {
+  padding-bottom: 1rem !important;
+}
+.text-white {
+  color: #fff !important;
+}
+.lead {
+  font-size: 0.9rem;
+  font-weight: 200;
+}
+.mt-3,
+.my-3 {
+  margin-top: 1rem !important;
+}

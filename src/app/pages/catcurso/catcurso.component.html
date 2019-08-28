@@ -1,0 +1,115 @@
+<div class="component-title-container"></div>
+
+<div class="section">
+  <div fxLayout="row" fxFlex  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <!--primer div-->
+    <div fxFlex="30%" class="curso_lista">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Cursos del Instituto</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field>
+            <mat-label>Elegir un curso</mat-label>
+            <mat-select (selectionChange)="getCursosby($event.value)">
+              <mat-option *ngFor="let categoria of catCurso" [value]="categoria.id">
+                {{ categoria.categoria }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div [hidden]="!show">
+            <mat-progress-spinner color="warn" mode="indeterminate" [diameter]="25" *ngIf="spinnerService.visibility | async">
+            </mat-progress-spinner> procesando...
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <!--segundo div-->
+    <div fxFlex="60%" class="curso_lista">
+      <mat-card>
+        <mat-card-content>
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Búsqueda">
+          </mat-form-field>
+          <!--tabla-->
+          <mat-table [dataSource]="datasource" matSort matSortStart="desc" matSortDirection="asc">
+              <!--columna del checkbox-->
+              <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                [aria-label]="checkboxLabel()">
+                  </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null"
+                                [checked]="selection.isSelected(row)"
+                                [aria-label]="checkboxLabel(row)">
+                  </mat-checkbox>
+                </mat-cell>
+              </ng-container>
+              <!--columna del checkbox end-->
+                <!--id column-->
+                <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> id </mat-header-cell>
+                  <mat-cell *matCellDef="let row" data-label="id"> {{row.id}}</mat-cell>
+                </ng-container>
+
+                <!-- Progress Column -->
+                <ng-container matColumnDef="curso">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Cursos </mat-header-cell>
+                  <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
+                </ng-container>
+
+                <!-- ID Column -->
+                <!--<ng-container matColumnDef="especialidad">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Especialidad </mat-header-cell>
+                  <mat-cell *matCellDef="let row" data-label="especialidad"> {{row.especialidad}} </mat-cell>
+                </ng-container>-->
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="clasificacion">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Clasificación </mat-header-cell>
+                  <mat-cell *matCellDef="let row" data-label="clasificacion"> {{row.clasificacion}} </mat-cell>
+                </ng-container>
+
+
+                <ng-container matColumnDef="costo">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> costo </mat-header-cell>
+                  <mat-cell *matCellDef="let row" [style.color]="yellow" data-label="tipo"> $ {{row.costo}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="detalle">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Detalles</mat-header-cell>
+                  <mat-cell *matCellDef="let row" data-label="detalle">
+                    <button mat-icon-button color="primary" (click)="openBottomSheet(row.id, row.objetivo)">
+                        <mat-icon class="mat-18">visibility</mat-icon>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row (click)="selection.toggle(row); selectRow(row);" *matRowDef="let row; columns: displayedColumns;">
+                </mat-row>
+          </mat-table>
+          <!--end tabla-->
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <!--tercer div-->
+    <div fxFlex>
+    </div>
+  </div>
+</div>
+
+<!--end div-->
+<section class="tab-actions">
+    <button mat-fab color="primary"
+      matTooltip="Imprimir Cursos" (click)="imprimirActa();">
+      <mat-icon>print</mat-icon>
+    </button>
+</section>

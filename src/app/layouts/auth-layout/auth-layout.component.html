@@ -1,0 +1,37 @@
+<!-- flex container mostrará a sus hijos como columnas -->
+<section class="app flex-container" fxLayout="column" fxLayoutAlign="start stretch">
+  <mat-toolbar color="primary" class="mat-elevation-z6">
+    <mat-icon>fingerprint</mat-icon>
+    Inicio de Sesión
+  </mat-toolbar>
+  <!--contenedor este articulo toma el resto de la pantalla in altura-->
+  <mat-sidenav-container fxFlex>
+    <!--detalles-->
+      <mat-sidenav mode="side" position="end" opened #sidenav class="mat-elevation-z6">
+          <mat-tab-group>
+            <mat-tab label="Inicio Sesión">
+              <!--agregar el componente de login-->
+              <router-outlet></router-outlet>
+            </mat-tab>
+            <mat-tab label="Acerca de"></mat-tab>
+          </mat-tab-group>
+      </mat-sidenav>
+    <!--detalles end-->
+    <!--mat grid list-->
+    <mat-grid-list cols="2" rowHeight="199px">
+      <mat-grid-tile *ngFor="let mod of models" [colspan]="mod.cols"
+      [rowspan]="mod.rows">
+        <img src="../../../assets/{{ mod.imagen }}"/>
+        <!--tile footer-->
+        <mat-grid-tile-footer>
+          <h3 mat-line>{{mod.name}}</h3>
+            <span mat-line>{{mod.status}}</span>
+            <button mat-icon-button>
+                <mat-icon>info</mat-icon>
+            </button>
+        </mat-grid-tile-footer>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <!--end mat grid list-->
+  </mat-sidenav-container>
+</section>

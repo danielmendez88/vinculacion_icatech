@@ -1,0 +1,89 @@
+.navigation-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding: 0.5em;
+  cursor: pointer;
+}
+.example-spacer{
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  height: 48px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 998;
+}
+.toolbar-title {
+  background-image: url('../../../assets/img/credencial.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 58px;
+  width: 22%;
+  background-size: 85% 95%; // w h
+  position: relative;
+  border: none;
+}
+::ng-deep .mat-menu-content {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.mat-menu-item{
+  line-height:35px;
+  height:40px;
+}
+div.menutitle{
+  text-align: left;
+  font-size: 1.3em;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+div.verMas {
+  text-align: center;
+  font-size: 0.9em;
+  font-weight: bold;
+  font-size-adjust: inherit !important;
+  font-family: "Times New Roman", Times, serif;
+}
+div.verMas a:link {
+  color: steelblue;
+  text-decoration: none;
+}
+div.notifies {
+  max-width: 350px;
+}
+div.notifies .mat-icon {
+  font-size: 20px;
+}
+
+div.notificaciones{
+  text-align: justify;
+  font-size: 0.9em;
+  font-weight: bolder;
+  font-size-adjust: inherit !important;
+  font-family: "Times New Roman", Times, serif;
+}
+.mat-menu-panel.notifications-dropdown {
+  max-width:none;
+  width: 350px;
+  margin-top: 10px;
+  overflow: visible;
+}
+.badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  font-size: 12px;
+  line-height: 13px;
+  border-radius: 50%;
+  width: 13px;
+  height: 13px;
+  background-color: #ff0000;
+  border: 4px solid #ff0000;
+  color: #ffffff;
+  text-align: center;
+}

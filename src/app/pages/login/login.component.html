@@ -1,0 +1,46 @@
+<section class="flex-container" fxLayout="column" fxLayoutAlign="start stretch">
+  <form [formGroup]="loginForm" (ngSubmit)="InEnvio()">
+    <mat-card class="carta">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Inicio de Sesión</mat-card-title>
+      </mat-card-header>
+      <br/>
+      <mat-card-content>
+        <div class="form-container">
+
+            <mat-form-field appearance="fill">
+              <mat-label>Número de Enlace</mat-label>
+              <input matInput type="text" formControlName="numeroEnlace" [ngClass]="{ 'is-invalid': submitted && f.numeroEnlace.errors }">
+              <mat-icon matSuffix>dialpad</mat-icon>
+            </mat-form-field>
+            <div *ngIf="submitted && f.numeroEnlace.errors" class="invalid-feedback">
+              <div *ngIf="f.numeroEnlace.errors.required">Número de Enlace es requerido</div>
+            </div>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Contraseña</mat-label>
+              <input matInput type="password" formControlName="passcode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.passcode.errors }">
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+            <div *ngIf="submitted && f.passcode.errors" class="invalid-feedback">
+              <div *ngIf="f.passcode.errors.required">Contraseña Requerida</div>
+            </div>
+
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button type="submit" mat-raised-button color="warn">
+          <mat-icon>
+            verified_user
+          </mat-icon>
+          Log In
+        </button>
+        <div class="submit" *ngIf="loading">
+          <mat-progress-spinner color="primary" mode="indeterminate" [diameter]="25">
+          </mat-progress-spinner> Procesando
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</section>

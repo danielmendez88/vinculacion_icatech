@@ -1,0 +1,36 @@
+
+div {
+  flex-basis: 100%;
+}
+.section{
+  background-color: transparent !important;
+  display: flex !important;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width:100%;
+  height: 100%;
+}
+
+.section > * {
+  width: 100%;
+}
+// imagenes
+.imgBackground {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../../../assets/img/accessdenied.png');
+  background-size: 85% 95%; // w h
+  height: 58px !important;
+  width: 22% !important;
+  margin: 0 auto;
+  padding: 5em;
+}
+.is {
+  text-align: center;
+}
+
+.is h3 {
+  word-wrap: break-word;
+}

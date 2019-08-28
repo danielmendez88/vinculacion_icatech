@@ -1,0 +1,51 @@
+@import "../../../themes/themes.scss";
+.mat-sidenav-container {
+  height: 100%;
+}
+
+/*
+.sidenav-container {
+  height: 100%;
+}
+*/
+
+// https://github.com/angular/material2/blob/master/src/lib/core/style/_variables.scss
+
+$sidenav-width: 300px; // 240px;
+
+.mat-sidenav {
+  width: $sidenav-width;
+}
+
+.toolbar-title {
+  margin: 0 16px 0 16px;
+}
+
+.mat-subheader {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.app-nav-list-icon {
+  margin: 0 12px 0 12px;
+}
+.img-logo {
+  width: 220px; height: 70px;
+  padding-bottom: 22px;
+  padding-top: 15px;
+}
+.with-bg {
+  //background: url('../../../assets/img/logo.jpg') no-repeat center;
+  background-color: #500c25 !important;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  max-height: 110px;
+}
+.circle {
+  border-radius: 50%;
+}

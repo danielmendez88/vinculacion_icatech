@@ -1,0 +1,45 @@
+.doc-footer {
+  font-size: 12px;
+  margin-top: 20px;
+  background: #262626;
+  color: #ffffff;
+  border-top: 0.5em solid #b0995b;
+}
+.docs-footer-list {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 0.6em;
+}
+.docs-footer-logo {
+  flex: 1;
+}
+.docs-footer-angular-logo {
+  height: 70px;
+  width: 180px;
+}
+
+.docs-footer-logo span {
+  display: inline-block;
+  line-height: 30px;
+  margin: 0 40px;
+  vertical-align: bottom;
+  font-size: 16px;
+  padding: 0;
+  color: inherit;
+}
+
+// version
+.docs-footer-version {
+  flex: 1;
+  text-align: center;
+}
+// copyright
+.docs-footer-copyright {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  flex-direction: column;
+  min-width: 225px;
+  text-align: center;
+}

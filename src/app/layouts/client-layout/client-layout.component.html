@@ -1,0 +1,32 @@
+<mat-sidenav-container class="all-wrap">
+  <!--sidevar-->
+  <mat-sidenav #sidenav made="over">
+    <app-nav></app-nav>
+  </mat-sidenav>
+  <!--sidenav-->
+  <mat-sidenav-content class="site">
+    <app-navigation-bar ></app-navigation-bar>
+    <app-command-bar class="crm-command-bar" fxHide.xs>
+       <button mat-button class="crm-command-bar-button" [disabled]="true">
+          <mat-icon>save</mat-icon>
+          GUARDAR COMO..
+        </button>
+
+        <button mat-button class="crm-command-bar-button" [disabled]="true">
+          <mat-icon>dashboard</mat-icon>
+          NUEVO
+        </button>
+
+        <button mat-button class="crm-command-bar-button" [disabled]="false">
+          <mat-icon>keyboard_backspace</mat-icon>
+          Regresar
+        </button>
+    </app-command-bar>
+    <main class="site-content">
+      <router-outlet></router-outlet>
+    </main>
+
+    <!--footer-->
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
