@@ -268,7 +268,7 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
        datosDnc: this.getFromApi(this.idAgendas)
       };
       // imprimir
-      this.pdfWorker.postMessage(JSON.stringify(dncGubernamental));
+      this.pdfWorker.postMessage(JSON.stringify(''));
     } catch (error) {
       this.errorPdf = false;
       this.snack.showSnackBar(JSON.stringify(error), 'Error');
@@ -285,7 +285,7 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
         datosDncSocial: this.getFromApi(this.idAgendas)
       };
       // imprimir
-      this.pdfWorkerSocial.postMessage(JSON.stringify(dncSocial));
+      this.pdfWorkerSocial.postMessage(JSON.stringify(''));
     } catch (error) {
       this.errorPdfSocial = false;
       this.snack.showSnackBar(JSON.stringify(error), 'Error');

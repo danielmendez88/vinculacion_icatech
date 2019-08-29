@@ -197,13 +197,166 @@ importScripts('../logos.js');
             style: 'questions'
           },
           {
-
+            style: 'answers',
+            text: ''
+          },
+          {
+            text: '4. ¿Cuál fuel el último curso que recibieron y qué tema?',
+            style: 'questions'
+          },
+          {
+            style: 'tableanswers',
+            table: {
+              heights: 35,
+              widths: [200, 40, 200],
+              body: [
+                [
+                  {
+                    text: 'Curso: ',
+                    border: [false, false, false, true], // left, top, left, bottom
+                    fontSize: 9,
+                  },
+                  {
+                    text: '',
+                    border: [false, false, false, false], // left, top, left, bottom
+                    fontSize: 9,
+                  },
+                  {
+                    text: 'Tema: ',
+                    border: [false, false, false, true], // left, top, left, bottom
+                    fontSize: 9,
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            text: '¿Qué tan de acuerdo está usted con la siguiente afirmación? el último curso me dio	los resultados esperados.',
+            style: 'questions'
+          },
+          {
+            style: 'answers',
+            text: ''
+          },
+          {
+            text: '¿En qué cursos está usted interesado actualmente',
+            style: 'question',
+          },
+          {
+            style: 'answers',
+            text: ''
+          },
+          {
+            text: '¿Por qué?',
+            style: 'question',
+          },
+          {
+            style: 'answers',
+            text: ''
+          },
+          {
+            text: '7. ¿De cuántas horas al día dispone para capacitarse y en que horario?',
+            style: 'question',
+          },
+          {
+            style: 'tableanswers',
+            table: {
+              heights: 35,
+              widths: [200, 40, 200],
+              body: [
+                [
+                  {
+                    text: 'Horas: ',
+                    border: [false, false, false, true], // left, top, left, bottom
+                    fontSize: 9,
+                  },
+                  {
+                    text: '',
+                    border: [false, false, false, false], // left, top, left, bottom
+                    fontSize: 9,
+                  },
+                  {
+                    text: 'Horario: ',
+                    border: [false, false, false, true], // left, top, left, bottom
+                    fontSize: 9,
+                  }
+                ]
+              ]
+            }
           }
-        ]
+        ],
+        pageSize: 'A4',
+        compress: true,
+        pageOrientation: 'portrait',
+        pageMargins: [40, 80, 40, 40],
+        footer: function(currentPage, pageCount) {
+          return { style: 'piePagina', text: 'Página ' + currentPage.toString() + ' de ' + pageCount, alignment: 'center', image: 'footerlogo' };
+        },
+        styles: {
+          header: {
+            fontSize: 9,
+            bold: true,
+            alignment: 'center',
+            margin: [-5, 15, 10, 0]
+          },
+          sample: {
+            alignment: 'right',
+            margin: [0, 15, 10, 0], // r,t,l,b
+          },
+          tableExample: {
+            margin: [0, 10, 0, 15] //right,top,left,bottom
+          },
+          tableDates: {
+            margin: [170, -12, 10, 0], // margen left, top, right, bottom
+          },
+          tableData: {
+            margin: [25, 25, 10, 0],// margen left, top, right, bottom
+          },
+          objetivoclass: {
+            margin: [25, 15, 9, 0],// margen left, top, right, bottom
+            fontSize: 10
+          },
+          question: {
+            margin: [25, 10, 9, 0],// margen left, top, right, bottom
+            fontSize: 10
+          },
+          tableanswers: {
+            margin: [25, 10, 9, 0],// margen left, top, right, bottom
+            fontSize: 10
+          },
+          answers: {
+            margin: [25, 10, 9, 0],// margen left, top, right, bottom
+            fontSize: 10
+          }
+        },
+        images: {
+          logoprincipal: LOGOPRINCIPAL,
+          footerlogo: LOGOICATECH,
+          logochiapas: LOGOCHIAPAS,
+        }
       }
+
+      pdfMake.createPdf( dd ).getBase64( function( base64 ) {
+        postMessage( { fileName: 'DNC_Social.pdf', base64: base64 } );
+      });
     } catch (error) {
       console.error(error);
       throw {error: error};
     }
+  }
+
+  function formatDate(date) {
+    var monthNames = [
+      "Enero", "Febrero", "Marzo",
+      "Abril", "Mayo", "Junio", "Julio",
+      "Agosto", "Septiembre", "Octubre",
+      "Noviembre", "Diciembre"
+    ];
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
   }
 })();

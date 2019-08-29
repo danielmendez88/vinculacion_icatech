@@ -184,7 +184,7 @@
                   <!--input button-->
                   <div fxLayout="column">
                       <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-                        <button  mat-raised-button color="primary">
+                        <button  mat-raised-button color="primary" (click)="printEmpGubWithData()">
                           <mat-icon>print</mat-icon>
                           Imprimir
                         </button>
@@ -544,7 +544,7 @@
               <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
                 <div fxFlex>
                   <br><br>
-                  <button mat-raised-button color="primary" (click)="printsocialDncWithData()">
+                  <button mat-raised-button color="primary" (click)="printDNCSocialWithData()">
                     <mat-icon>print</mat-icon>
                     Imprimir
                   </button>
