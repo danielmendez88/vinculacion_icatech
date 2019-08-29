@@ -40,7 +40,9 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
   loading = false;
   cursoTrabajo: string;
   // pasamos el decorador output
-  @Output() dncActive = new EventEmitter<number>();
+  @Output() dncActive = new EventEmitter();
+  // nuevo output
+  @Output() dncGubernamental = new EventEmitter();
   // generamos el modelo
   DNCmodelo: any = [];
   // declarar worker
@@ -205,7 +207,7 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
       this.snack.showSnackBar(JSON.stringify(result), 'Listo');
       this.submitted = false;
       // enviar al formulario
-      this.dncActive.emit(this.dncactivity);
+      // this.dncActive.emit(this.dncactivity);
       // limpiar formulario
       this.resetForm(this.dncForm);
       this.isdnc = 1;
@@ -275,23 +277,28 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
     }
   }
 
-  /**
-   * funciones de impresion dnc social con datos
-   */
-  printDNCSocialWithData() {
-    try {
-      this.cargandoPdfSocial = true;
-      const dncSocial = {
-        datosDncSocial: this.getFromApi(this.idAgendas)
-      };
-      // imprimir
-      this.pdfWorkerSocial.postMessage(JSON.stringify(''));
-    } catch (error) {
-      this.errorPdfSocial = false;
-      this.snack.showSnackBar(JSON.stringify(error), 'Error');
-    }
-  }
 
+  /**
+   * 
+   * cuando se lance el evento click en la plantilla llamaremos a este método
+   */
+  cargardncsocialData( event ) {
+    // usamos el método emit
+    const dncSocial = {
+      datosDnc: this.DNCmodelo
+     };
+    this.dncActive.emit(dncSocial);
+  }
+  /**
+   * cuando se lance el evento click en la pantalla cargamos datos en dnc gubernamental
+   */
+  cargardncgubernamentalData( evt ) {
+    // usar método emit
+    const dncGubernamentalDatos = {
+      datosDnc: this.DNCmodelo
+     };
+    this.dncGubernamental.emit(dncGubernamentalDatos);
+  }
   /**
    * base 64 to blob
    */

@@ -71,6 +71,15 @@ export class Paso1Component implements OnInit {
   ActivoDNC: number;
   // declaramos la entrada del componente hijo dialog
   @Input() data;
+  // declarar worker cuestionario dnc social
+  private pdfWorkerSocial: Worker;
+  // error y carga de pdf social
+  cargandoPdfSocial = false;
+  errorPdfSocial = false;
+  // worker gubernamental con datos
+  private pdfWorkerGobData: Worker;
+  cargandoPdfGobData = false;
+  errorPdfGobData = false;
 
   // tipo incidencia deshabilitado
   tipoincidenciaDisabled = true;
@@ -145,6 +154,8 @@ export class Paso1Component implements OnInit {
   ngOnInit() {
     // función del worker inicializamos el objeto para generar los reportes con webworkers
     this.pdfWorker = new Worker('/assets/workers/dnc/workerdnc.js'); // !importante
+    this.pdfWorkerSocial = new Worker('/assets/workers/dnc/workerdncSocial.js'); // !importante
+    this.pdfWorkerGobData = new Worker('/assets/workers/dnc/workerdncgubernamentaldata.js'); // !importante
     const isLoad = this.route.snapshot.paramMap.get('loader');
     const AgendaId = this.route.snapshot.data.getAgenda.id;
     this.editable = this.route.snapshot.data.getAgenda.seguimiento;
@@ -193,6 +204,38 @@ export class Paso1Component implements OnInit {
       $ngzone .run(() => {
         console.log(e);
         self.errorPDF = false;
+      });
+    };
+
+    this.pdfWorkerSocial.onmessage = function( event ) {
+      // esto es un hack porque estamos fuera del contexto del worker
+      $ngzone.run(() => {
+        self.cargandoPdfSocial = false;
+      });
+      // file saver
+      FileSaver.saveAs(self.base64ToBlob( event.data.base64, 'application/pdf'), event.data.fileName);
+    };
+    //pdf social
+    this.pdfWorkerSocial.onerror = function(e) {
+      $ngzone.run(() => {
+        self.snackservice.showSnackBar(JSON.stringify(e), 'Error');
+        self.errorPdfSocial = false;
+      });
+    };
+
+    this.pdfWorkerGobData.onmessage = function( evt ) {
+      // esto es un hack porque estamos fuera del contexto del worker
+      $ngzone.run(() => {
+        self.cargandoPdfGobData = false;
+      });
+      // file saver
+      FileSaver.saveAs(self.base64ToBlob( evt.data.base64, 'application/pdf'), evt.data.fileName);
+    };
+    //pdf gubernamental
+    this.pdfWorkerGobData.onerror = function(e) {
+      $ngzone.run(() => {
+        self.snackservice.showSnackBar(JSON.stringify(e), 'Error');
+        self.errorPdfGobData = false;
       });
     };
     // enviar el detalle
@@ -369,8 +412,29 @@ export class Paso1Component implements OnInit {
   //       });
   // }
 
-  receiveMessage($event) {
-    this.ActivoDNC = $event;
+  receiveMessage($event): void {
+    try {
+      this.cargandoPdfSocial = true;
+      console.log($event);
+      // imprimir
+      this.pdfWorkerSocial.postMessage(JSON.stringify($event));
+    } catch (error) {
+      this.errorPdfSocial = false;
+      this.snackservice.showSnackBar(JSON.stringify(error), 'Error');
+    }
+    // this.ActivoDNC = $event;
+  }
+
+  printDncGob($evt): void {
+    try {
+      this.cargandoPdfGobData = true;
+      // imprimir
+      this.pdfWorkerGobData.postMessage(JSON.stringify($evt));
+      console.log($evt);
+    } catch (error) {
+      this.errorPdfSocial = false;
+      this.snackservice.showSnackBar(JSON.stringify(error), 'Error');
+    }
   }
 
 }

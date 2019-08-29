@@ -3,10 +3,7 @@ var window = this;
 importScripts('../../scripts/pdfmake.min.js', '../../scripts/vfs_fonts.js');
 importScripts('../logos.js');
 
-/**
- * use strict
- */
-(function() {
+(function(){
   'use strict';
 
   onmessage = function(evt) {
@@ -61,7 +58,7 @@ importScripts('../logos.js');
               body: [
                 [
                   {
-                    text: 'Sector Social',
+                    text: 'Sector Empresarial/Gubernamental',
                     fillColor: '#eeeeee',
                     border: [false, false, false, false], // left, top, left, bottom
                     fontSize: 9
@@ -78,20 +75,20 @@ importScripts('../logos.js');
                   }
                 ],
                 [
-                  {
-                    text: '',
-                    border: [false, false, false, false], // left, top, left, bottom
-                    fontSize: 9
-                  },
-                  {
-                    text: 'Unidad de Capacitación: ',
-                    border: [false, false, false, false], // left, top, left, bottom
-                    fontSize: 9
-                  },
-                  {
-                    text: '',
-                    border: [false, false, false, true], // left, top, left, bottom
-                  }
+                    {
+                      text: '',
+                      border: [false, false, false, false], // left, top, left, bottom
+                      fontSize: 9
+                    },
+                    {
+                      text: 'Unidad de Capacitación: ',
+                      border: [false, false, false, false], // left, top, left, bottom
+                      fontSize: 9
+                    },
+                    {
+                      text: '',
+                      border: [false, false, false, true], // left, top, left, bottom
+                    }
                 ],
                 [
                   {
@@ -118,31 +115,19 @@ importScripts('../logos.js');
             table: {
               heights: 35,
               widths: [220, 220],
-              body :
-              [
+              body: [
                 [
                   {
-                    text: 'Nombre:\n\n',
+                    text: 'Nombre de la Empresa:\n\n',
                     colSpan: 2,
                     fontSize: 10
                   },
                   {
-
                   }
                 ],
                 [
                   {
                     text: 'Dirección: \n\n',
-                    fontSize: 10
-                  },
-                  {
-                    text: 'Municipio: \n\n',
-                    fontSize: 10
-                  }
-                ],
-                [
-                  {
-                    text: 'Colonia: \n\n',
                     fontSize: 10
                   },
                   {
@@ -152,11 +137,21 @@ importScripts('../logos.js');
                 ],
                 [
                   {
-                    text: 'Correo electrónico: \n\n',
+                    text: 'Correo Electrónico: \n\n',
                     fontSize: 10
                   },
                   {
-                    text: 'Edad: \n\n',
+                    text: 'Número de Empleados: \n\n',
+                    fontSize: 10
+                  }
+                ],
+                [
+                  {
+                    text: 'Nombre del responsable área de capacitaión: \n\n',
+                    fontSize: 10
+                  },
+                  {
+                    text: 'Puesto: \n\n',
                     fontSize: 10
                   }
                 ]
@@ -177,23 +172,7 @@ importScripts('../logos.js');
             style: 'objetivoclass'
           },
           {
-            text: '1. ¿Dígame por favor usted ha recibido algún curso de capacitación para desempeñar algún trabajo?',
-            style: 'questions'
-          },
-          {
-            style: 'answers',
-            text: 'R.- '+ data.datosDnc[0].respuesta
-          },
-          {
-            text: '2. ¿Cuando fue la última vez que recibió un curso?',
-            style: 'questions'
-          },
-          {
-            style: 'answers',
-            text: 'R.- '+ data.datosDnc[1].respuesta
-          },
-          {
-            text: '3. ¿Qué cursos ha recibido?',
+            text: '1. ¿Los empleados reciben curso de inducción a la empresa y al puesto de trabajo a desempeñar?',
             style: 'questions'
           },
           {
@@ -201,7 +180,50 @@ importScripts('../logos.js');
             text: 'R.- '+ data.datosDnc[2].respuesta
           },
           {
-            text: '4. ¿Cuál fuel el último curso que recibieron y qué tema?',
+            text: '2. ¿La empresa maneja un plan anual de capacitación?',
+            style: 'questions'
+          },
+          {
+            style: 'answers',
+            text: 'R.- '+ data.datosDnc[2].respuesta
+          },
+          {
+            text: '3. ¿Cuándo fue la última vez que su capital humano fue capacitado mediante un curso?',
+            style: 'questions'
+          },
+          {
+            color: 'blue',
+            markerColor: 'red',
+            style: 'answers',
+            ol: [
+              'Hace más de 1 año.',
+              'Hace menos de 1 año.',
+              'Hace no más de 6 meses.',
+              'No ha recibido.'
+            ]
+          },
+          {
+            text: '4. ¿Qué cursos ha tomado su capital humano?',
+            style: 'questions'
+          },
+          {
+            style: 'tableanswers',
+            table: {
+              heights: 35,
+              widths: [440],
+              body: [
+                [
+                  {
+                    text: '',
+                    border: [false, false, false, false], // left, top, left, bottom
+                    fontSize: 9,
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            text: '5. ¿Cuál fue el último curso que recibieron y qué tema?',
             style: 'questions'
           },
           {
@@ -212,7 +234,7 @@ importScripts('../logos.js');
               body: [
                 [
                   {
-                    text: 'Curso: ' + data.datosDnc[3].respuesta,
+                    text: 'Curso: ',
                     border: [false, false, false, true], // left, top, left, bottom
                     fontSize: 9,
                   },
@@ -222,7 +244,7 @@ importScripts('../logos.js');
                     fontSize: 9,
                   },
                   {
-                    text: 'Tema: ' + data.datosDnc[4].respuesta,
+                    text: 'Tema: ',
                     border: [false, false, false, true], // left, top, left, bottom
                     fontSize: 9,
                   }
@@ -231,42 +253,74 @@ importScripts('../logos.js');
             }
           },
           {
-            text: '¿Qué tan de acuerdo está usted con la siguiente afirmación? el último curso me dio	los resultados esperados.',
+            text: '6. Qué tan de acuerdo está usted con la siguiente afirmación? el último curso nos dio los resultados esperados',
+            style: 'questions',
+            pageBreak: 'before'
+          },
+          {
+            color: 'blue',
+            markerColor: 'red',
+            style: 'answers',
+            ol: [
+              'Completamente de acuerdo',
+              'De acuerdo',
+              'En desacuerdo',
+              'Completamente en desacuerdo'
+            ]
+          },
+          {
+            text: '7. ¿En qué cursos está usted interesado actualmente?',
             style: 'questions'
-          },
-          {
-            style: 'answers',
-            text: 'R.- ' + data.datosDnc[5].respuesta
-          },
-          {
-            text: '¿En qué cursos está usted interesado actualmente',
-            style: 'questions',
-          },
-          {
-            style: 'answers',
-            text: 'R.-' + data.datosDnc[6].respuesta
-          },
-          {
-            text: '¿Por qué?',
-            style: 'questions',
-          },
-          {
-            style: 'answers',
-            text: 'R.-' + data.datosDnc[7].respuesta
-          },
-          {
-            text: '7. ¿De cuántas horas al día dispone para capacitarse y en que horario?',
-            style: 'questions',
           },
           {
             style: 'tableanswers',
             table: {
               heights: 35,
-              widths: [200, 40, 200],
+              widths: [440],
               body: [
                 [
                   {
-                    text: 'Horas: ' + data.datosDnc[8].respuesta,
+                    text: '',
+                    border: [false, false, false, false], // left, top, left, bottom
+                    fontSize: 9,
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            text: '7.1 ¿Por qué?',
+            style: 'questions'
+          },
+          {
+            style: 'tableanswers',
+            table: {
+              heights: 35,
+              widths: [440],
+              body: [
+                [
+                  {
+                    text: '',
+                    border: [false, false, false, false], // left, top, left, bottom
+                    fontSize: 9,
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            text: '8 ¿De cuántas horas al día dispone para capacitación de su capital humano y en que horario?',
+            style: 'questions'
+          },
+          {
+            style: 'tableanswers',
+            table: {
+              heights: 35,
+              widths: [100, 40, 100],
+              body: [
+                [
+                  {
+                    text: 'Horas: ',
                     border: [false, false, false, true], // left, top, left, bottom
                     fontSize: 9,
                   },
@@ -276,9 +330,69 @@ importScripts('../logos.js');
                     fontSize: 9,
                   },
                   {
-                    text: 'Horario: ' + data.datosDnc[9].respuesta,
+                    text: 'Horario: ',
                     border: [false, false, false, true], // left, top, left, bottom
                     fontSize: 9,
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            text: '9  ¿En relación último grado de estudios de su capital humano, dígame por favor que porcentaje cuenta con? (mencionar cada nivel de estudios)',
+            style: 'questions'
+          },
+          {
+            style: 'tableanswers',
+            table: {
+              heights: 35,
+              widths: [70,8,70,8,70,8,70,8,70],
+              body: [
+                [
+                  {
+                    text: 'Primaria: %',
+                    border: [false, false, false, true], // left, top, left, bottom
+                    fontSize: 8,
+                  },
+                  {
+                    text: '',
+                    border: [false, false, false, false], // left, top, left, bottom
+                    fontSize: 8,
+                  },
+                  {
+                    text: 'Secundaria: %',
+                    border: [false, false, false, true], // left, top, left, bottom
+                    fontSize: 8,
+                  },
+                  {
+                    text: '',
+                    border: [false, false, false, false], // left, top, left, bottom
+                    fontSize: 8,
+                  },
+                  {
+                    text: 'Bachillerato: %',
+                    border: [false, false, false, true], // left, top, left, bottom
+                    fontSize: 8,
+                  },
+                  {
+                    text: '',
+                    border: [false, false, false, false], // left, top, left, bottom
+                    fontSize: 8,
+                  },
+                  {
+                    text: 'Licenciatura: %',
+                    border: [false, false, false, true], // left, top, left, bottom
+                    fontSize: 8,
+                  },
+                  {
+                    text: '',
+                    border: [false, false, false, false], // left, top, left, bottom
+                    fontSize: 8,
+                  },
+                  {
+                    text: 'Posgrado: %',
+                    border: [false, false, false, true], // left, top, left, bottom
+                    fontSize: 8,
                   }
                 ]
               ]
@@ -293,18 +407,51 @@ importScripts('../logos.js');
           return { style: 'piePagina', text: 'Página ' + currentPage.toString() + ' de ' + pageCount, alignment: 'center', image: 'footerlogo' };
         },
         styles: {
-          header: {
-            fontSize: 9,
+          headerimg: {
+            alignment: 'left',
+            margin: [0, 5, 0, 30], // r,t,l,b
+            opacity: 1.0
+          },
+          subheaderimg: {
+            alignment: 'right',
+            margin: [0, 5, 0, 30],
+            opacity: 1.0
+          },
+          subheader: {
+            fontSize:8,
             bold: true,
             alignment: 'center',
-            margin: [-5, 15, 10, 0]
           },
-          sample: {
+          loationanddate: {
             alignment: 'right',
-            margin: [0, 15, 10, 0], // r,t,l,b
+            fontSize: 14
+          },
+          present: {
+            alignment: 'left',
+            bold: true,
+            fontSize: 16
+          },
+          vinculadores: {
+            alignment: 'right',
+            bold:true,
+          },
+          contentText: {
+            fontSize: 12,
+            margin: [0, 12],
+            alignment: 'justified'
+          },
+          piePagina: {
+            fontSize: 6,
+            italics: true,
+            bold: false
           },
           tableExample: {
-            margin: [0, 10, 0, 15] //right,top,left,bottom
+			    margin: [0, 10, 0, 15] //right,top,left,bottom
+		      },
+          tableHeader: {
+            bold: true,
+            fontSize: 13,
+            color: 'black'
           },
           tableDates: {
             margin: [170, -12, 10, 0], // margen left, top, right, bottom
@@ -320,14 +467,24 @@ importScripts('../logos.js');
             margin: [25, 10, 9, 0],// margen left, top, right, bottom
             fontSize: 10
           },
+          answers: {
+            margin: [25, 10, 9, 0],// margen left, top, right, bottom
+            fontSize: 10
+          },
           tableanswers: {
             margin: [25, 10, 9, 0],// margen left, top, right, bottom
             fontSize: 10
           },
-          answers: {
-            margin: [25, 10, 9, 0],// margen left, top, right, bottom
-            fontSize: 10
-          }
+          sample: {
+            alignment: 'right',
+            margin: [0, 15, 10, 0], // r,t,l,b
+          },
+          header: {
+            fontSize: 9,
+            bold: true,
+            alignment: 'center',
+            margin: [-5, 15, 10, 0]
+          },
         },
         images: {
           logoprincipal: LOGOPRINCIPAL,
@@ -335,12 +492,13 @@ importScripts('../logos.js');
           logochiapas: LOGOCHIAPAS,
         }
       }
+
       pdfMake.createPdf( dd ).getBase64( function( base64 ) {
-        postMessage( { fileName: 'DNC_Social.pdf', base64: base64 } );
+        postMessage( { fileName: 'DNC_Empresarial_y_Gubernamental.pdf', base64: base64 } );
       });
-    } catch (error) {
-      console.error(error);
-      throw {error: error};
+    } catch (e) {
+      console.error(e);
+      throw {error: e};
     }
   }
 

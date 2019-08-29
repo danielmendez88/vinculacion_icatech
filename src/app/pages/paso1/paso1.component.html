@@ -184,7 +184,7 @@
         <!--paso 2 end-->
         <!--paso 3-->
         <mat-step label="Encuesta DNC">
-          <app-encuesta (dncActive)="receiveMessage($event)" [datosEncuesta]="Agend"></app-encuesta>
+          <app-encuesta (dncGubernamental)="printDncGob($event)" (dncActive)="receiveMessage($event)" [datosEncuesta]="Agend"></app-encuesta>
         </mat-step>
         <!--paso 3 end-->
       </mat-horizontal-stepper>

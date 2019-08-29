@@ -66,7 +66,7 @@ import { CuestionarioSharedService } from './services/cuestionario-shared.servic
   declarations: [
     AppComponent,
     AuthLayoutComponent,
-    ClientLayoutComponent
+    ClientLayoutComponent,
   ],
   imports: [
     BrowserAnimationsModule,
