@@ -177,7 +177,7 @@ importScripts('../logos.js');
           },
           {
             style: 'answers',
-            text: 'R.- '+ data.datosDnc[2].respuesta
+            text: 'R.- '+ data.datosDnc[0].respuesta
           },
           {
             text: '2. ¿La empresa maneja un plan anual de capacitación?',
@@ -185,22 +185,15 @@ importScripts('../logos.js');
           },
           {
             style: 'answers',
-            text: 'R.- '+ data.datosDnc[2].respuesta
+            text: 'R.- '+ data.datosDnc[1].respuesta
           },
           {
             text: '3. ¿Cuándo fue la última vez que su capital humano fue capacitado mediante un curso?',
             style: 'questions'
           },
           {
-            color: 'blue',
-            markerColor: 'red',
             style: 'answers',
-            ol: [
-              'Hace más de 1 año.',
-              'Hace menos de 1 año.',
-              'Hace no más de 6 meses.',
-              'No ha recibido.'
-            ]
+            text: 'R.- ' + data.datosDnc[2].respuesta
           },
           {
             text: '4. ¿Qué cursos ha tomado su capital humano?',
@@ -214,7 +207,7 @@ importScripts('../logos.js');
               body: [
                 [
                   {
-                    text: '',
+                    text: data.datosDnc[3].respuesta,
                     border: [false, false, false, false], // left, top, left, bottom
                     fontSize: 9,
                   }
@@ -234,7 +227,7 @@ importScripts('../logos.js');
               body: [
                 [
                   {
-                    text: 'Curso: ',
+                    text: 'Curso: ' + data.datosDnc[4].respuesta,
                     border: [false, false, false, true], // left, top, left, bottom
                     fontSize: 9,
                   },
@@ -244,7 +237,7 @@ importScripts('../logos.js');
                     fontSize: 9,
                   },
                   {
-                    text: 'Tema: ',
+                    text: 'Tema: ' + data.datosDnc[5].respuesta,
                     border: [false, false, false, true], // left, top, left, bottom
                     fontSize: 9,
                   }
@@ -258,15 +251,8 @@ importScripts('../logos.js');
             pageBreak: 'before'
           },
           {
-            color: 'blue',
-            markerColor: 'red',
             style: 'answers',
-            ol: [
-              'Completamente de acuerdo',
-              'De acuerdo',
-              'En desacuerdo',
-              'Completamente en desacuerdo'
-            ]
+            text: 'R.- ' + data.datosDnc[6].respuesta
           },
           {
             text: '7. ¿En qué cursos está usted interesado actualmente?',
@@ -280,7 +266,7 @@ importScripts('../logos.js');
               body: [
                 [
                   {
-                    text: '',
+                    text: 'R.- ' + data.datosDnc[7].respuesta,
                     border: [false, false, false, false], // left, top, left, bottom
                     fontSize: 9,
                   }
@@ -300,7 +286,7 @@ importScripts('../logos.js');
               body: [
                 [
                   {
-                    text: '',
+                    text: 'R.- ' + data.datosDnc[8].respuesta,
                     border: [false, false, false, false], // left, top, left, bottom
                     fontSize: 9,
                   }
@@ -320,7 +306,7 @@ importScripts('../logos.js');
               body: [
                 [
                   {
-                    text: 'Horas: ',
+                    text: 'Horas: ' + data.datosDnc[9].respuesta,
                     border: [false, false, false, true], // left, top, left, bottom
                     fontSize: 9,
                   },
@@ -330,7 +316,7 @@ importScripts('../logos.js');
                     fontSize: 9,
                   },
                   {
-                    text: 'Horario: ',
+                    text: 'Horario: ' + data.datosDnc[10].respuesta,
                     border: [false, false, false, true], // left, top, left, bottom
                     fontSize: 9,
                   }
@@ -350,7 +336,7 @@ importScripts('../logos.js');
               body: [
                 [
                   {
-                    text: 'Primaria: %',
+                    text: 'Primaria: % '+ data.datosDnc[11].respuesta,
                     border: [false, false, false, true], // left, top, left, bottom
                     fontSize: 8,
                   },
@@ -360,7 +346,7 @@ importScripts('../logos.js');
                     fontSize: 8,
                   },
                   {
-                    text: 'Secundaria: %',
+                    text: 'Secundaria: % ' + data.datosDnc[12].respuesta,
                     border: [false, false, false, true], // left, top, left, bottom
                     fontSize: 8,
                   },
@@ -370,7 +356,7 @@ importScripts('../logos.js');
                     fontSize: 8,
                   },
                   {
-                    text: 'Bachillerato: %',
+                    text: 'Bachillerato: % ' + data.datosDnc[13].respuesta,
                     border: [false, false, false, true], // left, top, left, bottom
                     fontSize: 8,
                   },
@@ -380,7 +366,7 @@ importScripts('../logos.js');
                     fontSize: 8,
                   },
                   {
-                    text: 'Licenciatura: %',
+                    text: 'Licenciatura: % ' + data.datosDnc[14].respuesta,
                     border: [false, false, false, true], // left, top, left, bottom
                     fontSize: 8,
                   },
@@ -390,7 +376,7 @@ importScripts('../logos.js');
                     fontSize: 8,
                   },
                   {
-                    text: 'Posgrado: %',
+                    text: 'Posgrado: % ' + data.datosDnc[15].respuesta,
                     border: [false, false, false, true], // left, top, left, bottom
                     fontSize: 8,
                   }

@@ -113,11 +113,19 @@
                     </div>
                     <!--input row-->
                     <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                      <h4>¿cuál fue el último curso que recibieron y qué tema?</h4>
+                    </div>
+                    <!--input row-->
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
                       <mat-form-field fxFlex>
-                        <input matInput formControlName="ultimoCurso" placeholder="¿cuál fue el último curso que recibieron y qué tema?">
+                        <input matInput formControlName="ultimoCurso" placeholder="Último Curso">
                         <mat-error *ngIf="formControls.ultimoCurso.invalid">Elemento Requerido</mat-error>
                       </mat-form-field>
 
+                      <mat-form-field fxFlex>
+                        <input matInput formControlName="temaUltimoCurso" placeholder="Tema">
+                        <mat-error *ngIf="formControls.temaUltimoCurso.invalid">Elemento Requerido</mat-error>
+                      </mat-form-field>
                     </div>
                     <!--input row-->
                     <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
@@ -186,7 +194,7 @@
                       <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
                         <button  mat-raised-button color="primary" (click)="printEmpGubWithData()">
                           <mat-icon>print</mat-icon>
-                          Imprimir
+                          Generar Dnc
                         </button>
                       </div>
                   </div>
@@ -295,14 +303,10 @@
                 </div>
                 <!--div-->
                 <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-                  <div fxFlex>
-                    Licenciatura %:
-                    {{ DNCmodelo[13]?.respuesta }}
-                  </div>
                   <!--fxFlex-->
                   <div fxFlex>
                     Posgrado %:
-                    {{ DNCmodelo[14]?.respuesta }}
+                    {{ DNCmodelo[15]?.respuesta }}
                   </div>
                 </div>
                 <!--div-->
@@ -311,7 +315,7 @@
                     <br><br>
                     <button mat-raised-button color="primary" (click)="cargardncgubernamentalData($event)">
                       <mat-icon>print</mat-icon>
-                      Imprimir
+                      Generar DNC
                     </button>
                   </div>
                 </div>

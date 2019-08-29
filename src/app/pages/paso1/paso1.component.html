@@ -60,6 +60,16 @@
         </mat-step>
         <!--paso 1 end-->
         <!--paso 2-->
+        <mat-step label="Encuesta DNC">
+          <app-encuesta (dncGubernamental)="printDncGob($event)" (dncActive)="receiveMessage($event)" [datosEncuesta]="Agend"></app-encuesta>
+        </mat-step>
+        <!--paso 2 end-->
+        <!--paso 3 init-->
+        <mat-step label="Curso">
+          <app-child-paso1-curso></app-child-paso1-curso>
+        </mat-step>
+        <!--paso 3 end-->
+        <!--paso 4-->
         <mat-step label="Seguimineto">
           <!--spinner-->
           <div class="spinner-wrapper" *ngIf="isLoadingResults">
@@ -97,15 +107,15 @@
                         <mat-card-content>
 
                           <div class="file-drop-area">
-                            <span class="fake-btn-img">Elejir Imagen</span>
-                            <span class="file-msg">{{fileToUpload ? fileToUpload.name : 'cargar imagen' }}</span>
+                            <span class="fake-btn-img">Elegir Imagen</span>
+                            <span class="file-msg">{{fileToUpload ? fileToUpload.name : 'Extensiones permitidas jpg png' }}</span>
                             <input class="file-input" formControlName="imagen" #ImageFile matTooltip="extensiones .jpg .png" type="file" accept="image/jpeg, image/png" (change)="handleFileInput($event)">
                           </div>
                           <!--file input-->
                           <div *ngIf="ActivoDNC == 0">
                             <div class="file-drop-area" [hidden]="!tipoincidenciaDisabled">
-                              <span class="fake-btn">Elejir Archivo</span>
-                              <span class="file-msg">{{fileUpload ? fileUpload.name : 'cargar archivo' }}</span>
+                              <span class="fake-btn">elegir Archivo</span>
+                              <span class="file-msg">{{fileUpload ? fileUpload.name : 'Extensiones permitidas pdf' }}</span>
                               <input class="file-input" formControlName="nombreArchivo" #Document accept="application/pdf" matTooltip="extensiones .pdf" (change)="onSelectedFile($event)" type="file">
                             </div>
                           </div>
@@ -181,12 +191,7 @@
           <!--spinner-->
           <!--imagenes fin-->
         </mat-step>
-        <!--paso 2 end-->
-        <!--paso 3-->
-        <mat-step label="Encuesta DNC">
-          <app-encuesta (dncGubernamental)="printDncGob($event)" (dncActive)="receiveMessage($event)" [datosEncuesta]="Agend"></app-encuesta>
-        </mat-step>
-        <!--paso 3 end-->
+        <!--paso 4 end-->
       </mat-horizontal-stepper>
       <!--stepper end-->
     </mat-card>

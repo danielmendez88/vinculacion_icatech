@@ -59,6 +59,8 @@ import { HistoricoComponentComponent } from '../../pages/historico-component/his
 import { Historicodirectores } from '../../resolver/historicodirectores';
 // importar cuestionario componente
 import { EncuestaComponent } from '../../pages/encuesta/encuesta.component';
+// importar componente hijo cursos
+import { ChildPaso1CursoComponent } from '../../pages/child-paso1-curso/child-paso1-curso.component';
 
 // rutas
 const ClientLayoutRoutes: Routes = [
@@ -141,7 +143,8 @@ const ClientLayoutRoutes: Routes = [
     DialogOverView,
     DialogSeguimiento,
     HistoricoComponentComponent,
-    EncuestaComponent
+    EncuestaComponent,
+    ChildPaso1CursoComponent
   ],
   providers: [
     SnackserviceService,

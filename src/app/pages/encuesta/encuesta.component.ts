@@ -142,6 +142,7 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
       chCapacitado: new FormControl('', Validators.required),
       cursosCapitalHumano: new FormControl(''),
       ultimoCurso: new FormControl('', Validators.required),
+      temaUltimoCurso: new FormControl('', Validators.required),
       resultadoEsperado: new FormControl('', Validators.required),
       cursoInteresActual: new FormControl('', Validators.required),
       porqueCursoActual: new FormControl(''),
@@ -204,7 +205,7 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
     // tslint:disable-next-line:no-string-literal
     this.dncForm.controls['idAgenda'].setValue(this.idAgendas);
     this.dncCuestionario.addDnc(this.dncForm.value).subscribe((result) => {
-      this.snack.showSnackBar(JSON.stringify(result), 'Listo');
+      this.snack.showSnackBar(JSON.stringify(result[1]), 'Listo');
       this.submitted = false;
       // enviar al formulario
       // this.dncActive.emit(this.dncactivity);

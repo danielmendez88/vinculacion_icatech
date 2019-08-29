@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone, Inject, Input } from 
 // importar servicio
 import { SnackserviceService } from '../../services/snackservice.service';
 // formulario
-import {FormControl, Validators, FormBuilder, FormGroup, NgForm} from '@angular/forms';
+import {FormControl, Validators, FormBuilder, FormGroup, NgForm, AbstractControl} from '@angular/forms';
 // servicio agenda
 import { AgendaService } from '../../services/agenda.service';
 // rutas
@@ -56,7 +56,7 @@ export class Paso1Component implements OnInit {
   // formato hora
   formatoHora: string;
   contadorArchivos: number;
-  archivosArray = [];
+  archivosArray: any = [];
   // incidencia
   incidencias = [];
   // status de la agenda
@@ -332,19 +332,44 @@ export class Paso1Component implements OnInit {
     this.sg.createSeguimiento(id, formData)
          .subscribe(res => {
            this.isLoadingResults = false;
+           this.resetForm(this.form); // reseteamos el formulario
            /**
             * redireccionar al componente mismo para ver si podemos actualizar
             */
-           this.router.navigateByUrl('/calendario', { skipLocationChange: true }).then(() => {
-             console.log(decodeURI(this.$location.path()));
-             this.router.navigate([decodeURI(this.$location.path())]);
+           this.sg.getFilesFromSeguimientoById(id).subscribe(response => {
+            this.contadorArchivos = 1;
+             if (this.contadorArchivos > 0) {
+               this.archivosArray = response;
+             }
+           }, (err) => {
+            this.snackservice.showSnackBar(JSON.stringify(err), 'Error!');
            });
+           // cargar el nombre de la incidencia nombreDeLaIncidencia
+           this.sg.getSeguimientobyId(id).subscribe((respuesta) => {
+             this.seguimientoPropuesta = respuesta[0].propuesta;
+           },(error) => {
+             this.snackservice.showSnackBar(JSON.stringify(error), 'Error!');
+           })
            // this.router.navigate(['calendario']);
-           this.form.reset(); // reseteamos el formulario
+           //mostrar resultado
+           this.snackservice.showSnackBar(JSON.stringify(res['success']), 'Listo');
          }, err => {
           console.error(err);
           this.isLoadingResults = false;
          });
+  }
+
+  // función para resetear el formulario
+  resetForm(frm: FormGroup) {
+    let control: AbstractControl = null;
+    frm.reset();
+    frm.markAsUntouched();
+    Object.keys(frm.controls).forEach((name) => {
+      control = frm.controls[name];
+      control.setErrors(null);
+    });
+    // tslint:disable-next-line:object-literal-key-quotes
+    frm.setErrors({'invalid': true});
   }
 
   // imprimir el documento pdf
@@ -428,6 +453,7 @@ export class Paso1Component implements OnInit {
   printDncGob($evt): void {
     try {
       this.cargandoPdfGobData = true;
+      console.log($evt);
       // imprimir
       this.pdfWorkerGobData.postMessage(JSON.stringify($evt));
       console.log($evt);
