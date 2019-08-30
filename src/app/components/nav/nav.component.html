@@ -26,13 +26,15 @@
 
       <a mat-list-item routerLink="/" style="height: 0;"></a>
       <!--datos-->
-      <a *ngFor="let items of menuItems" mat-list-item
+      <div *ngFor="let items of menuItems">
+        <a  mat-list-item
         (click)="navser.closeNav()"
         [routerLink]="[items.route]"
         routerLinkActive="list-item-active">
-        <mat-icon matListIcon class="app-nav-list-icon"> {{ items.icon }} </mat-icon>
-        {{items.title}}
-      </a>
+          <mat-icon matListIcon class="app-nav-list-icon"> {{ items.icon }} </mat-icon>
+          {{items.title}}
+        </a>
+      </div>
 
       <mat-divider></mat-divider>
 

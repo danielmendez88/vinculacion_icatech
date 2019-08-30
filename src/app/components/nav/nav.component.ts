@@ -5,6 +5,9 @@ import { Route } from '../../models/route';
 import { Router } from '@angular/router';
 // importamos el servicio
 import { NavserviceService } from '../../services/navservice.service';
+// importar auth service
+import { AuthService } from '../../services/auth.service';
+import { Observable } from 'rxjs';
 
 // declaramos
 export const clientRoutes: Route[] = [
@@ -63,9 +66,10 @@ export class NavComponent implements OnInit {
   public menuItems: any[];
   public clientItems: any[];
   public historicalItems: any[];
-  public isCollapse: true;
+  public isCollapse: boolean;
+  userRole$: string; // observable
 
-  constructor(private router: Router, public navser: NavserviceService) {
+  constructor(private router: Router, public navser: NavserviceService, private as: AuthService) {
     this.navser.nav = this.appDrawer;
   }
 
@@ -73,6 +77,7 @@ export class NavComponent implements OnInit {
     this.menuItems = clientRoutes.filter(items => items);
     this.clientItems = clientGeneral.filter(item => item);
     this.historicalItems = clientHistorical.filter(item => item);
+    this.userRole$ = this.as.UserRoleCurrent;
     this.router.events.subscribe((event) => {
       this.isCollapse = true;
     });

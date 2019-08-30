@@ -29,6 +29,7 @@ export class AuthService {
   private adscription: string;
   private currentId: string;
   private roles: any;
+  private currentUserRole: BehaviorSubject<string>;
   authToken: any;
 
   // damos permisos a las opciones http
@@ -44,6 +45,7 @@ export class AuthService {
   constructor(private httpclient: HttpClient, private route: Router) {
     this.currentUserSubject = new BehaviorSubject<Usuario>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+    this.currentUserRole = new BehaviorSubject<string>(localStorage.getItem('currentRol'));
   }
 
   // obtenemos el valor del usuario actual
@@ -85,6 +87,7 @@ export class AuthService {
         localStorage.setItem('currentRol', JSON.stringify(this.roles));
         localStorage.setItem('currentUserName', this.loggedUser);
         this.currentUserSubject.next(datos);
+        this.currentUserRole.next(localStorage.getItem('currentRol'));
       }
       return datos;
     }));
@@ -118,6 +121,20 @@ export class AuthService {
    // get currentUser
    getCurrentUser(): string {
      return localStorage.getItem('currentUserId');
+   }
+   // get current user rol
+   get UserRoleCurrent() {
+     return this.currentUserSubject.value.role;
+   }
+
+   //tiene roles
+   hasRoles(roles: string[]): boolean {
+     for( const oneRole of roles) {
+       if (!this.currentUserSubject || !this.currentUserSubject.value.role.includes(oneRole)) {
+         return false;
+       }
+     }
+     return true;
    }
    // rol match method
    roleMatch(allowedRoles): boolean {
