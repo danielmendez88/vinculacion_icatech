@@ -280,7 +280,7 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
 
 
   /**
-   * 
+   *
    * cuando se lance el evento click en la plantilla llamaremos a este método
    */
   cargardncsocialData( event ) {

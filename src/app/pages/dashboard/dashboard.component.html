@@ -1,8 +1,9 @@
 <div class="component-title-container">
 </div>
 <!--contenido-->
-<div class="content">
-
+<div class="content" [ngSwitch]="userRole">
+  <ng-template [ngSwitchCase]="'Directores'">
+    <!--contenido-->
     <div class="mb-20" fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
         <!--nuevo dashboard-->
           <div fxFlex>
@@ -41,6 +42,59 @@
           <app-shared [bgclass]="'info'" [icon]="'contact_support'" [contador]="13" [label]="'New Tickets!'"></app-shared>
         </div>
     </div>
+    <!--contenido END-->
+  </ng-template>
+  <!--plantilla-->
+  <ng-template [ngSwitchCase]="'Vinculador'">
+      <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
+        <!--div-->
+        <div fxFlex>
+          <mat-card class="cards">
+              <img mat-card-image src="https://picsum.photos/id/237/200/300">
+              <mat-card-header style="justify-content: center">
+                  <mat-card-title>
+                      <h3 class="m-0">Office Studio</h3>
+                  </mat-card-title>
+              </mat-card-header>
+              <mat-card-actions>
+                  <button mat-button>
+                      <mat-icon class="nav-icon">location_on</mat-icon> Localidad
+                  </button>
+              </mat-card-actions>
+          </mat-card>
+          <!--div-->
+        </div>
+        <!--div-->
+        <div fxFlex>
+          <mat-card class="cards">
+              <img mat-card-image src="https://picsum.photos/200/300?grayscale">
+              <mat-card-header style="justify-content: center">
+                  <mat-card-title>
+                      <h3 class="m-0">Office Studio</h3>
+                  </mat-card-title>
+              </mat-card-header>
+              <mat-card-actions>
+                  <button mat-button>
+                      <mat-icon class="nav-icon">location_on</mat-icon> Localidad
+                  </button>
+              </mat-card-actions>
+          </mat-card>
+        </div>
+        <!--div-->
+        <div fxFlex>
+          <mat-card class="cards">
+              <img mat-card-image src="https://picsum.photos/200/300/?blur=2">
+              <mat-card-header style="justify-content: center">
+                  <mat-card-title>
+                      <h3 class="m-0">Office Studio</h3>
+                  </mat-card-title>
+              </mat-card-header>
+              <mat-card-actions>
+                  <button mat-button>Hola Nuevamente</button>
+              </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+  </ng-template>
+
 </div>
-
-

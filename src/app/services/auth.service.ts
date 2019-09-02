@@ -45,7 +45,7 @@ export class AuthService {
   constructor(private httpclient: HttpClient, private route: Router) {
     this.currentUserSubject = new BehaviorSubject<Usuario>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
-    this.currentUserRole = new BehaviorSubject<string>(localStorage.getItem('currentRol'));
+    this.currentUserRole = new BehaviorSubject<string>(JSON.parse(localStorage.getItem('currentRol')));
   }
 
   // obtenemos el valor del usuario actual
@@ -123,13 +123,13 @@ export class AuthService {
      return localStorage.getItem('currentUserId');
    }
    // get current user rol
-   get UserRoleCurrent() {
-     return this.currentUserSubject.value.role;
+   get UserRoleCurrent(): string {
+     return this.currentUserRole.value;
    }
 
-   //tiene roles
+   // tiene roles
    hasRoles(roles: string[]): boolean {
-     for( const oneRole of roles) {
+     for ( const oneRole of roles) {
        if (!this.currentUserSubject || !this.currentUserSubject.value.role.includes(oneRole)) {
          return false;
        }
