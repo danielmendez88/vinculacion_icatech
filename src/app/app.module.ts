@@ -61,6 +61,8 @@ import { Historicodirectores } from './resolver/historicodirectores';
 import { CuestionariodncService } from './services/cuestionariodnc.service';
 // agregar el servicio compartido del cuestionario
 import { CuestionarioSharedService } from './services/cuestionario-shared.service';
+// importar el rol resolver
+import { RolResolver } from './resolver/rol-resolver';
 
 @NgModule({
   declarations: [
@@ -102,7 +104,8 @@ import { CuestionarioSharedService } from './services/cuestionario-shared.servic
     Filesresolver,
     Historicodirectores,
     CuestionariodncService,
-    CuestionarioSharedService
+    CuestionarioSharedService,
+    RolResolver
   ],
   bootstrap: [AppComponent]
 })

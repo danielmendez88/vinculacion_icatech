@@ -103,6 +103,7 @@ mat-card {
 .cards {
   max-width: 350px;
 }
-.mb-20 {
-    margin-bottom: 20px;
+
+mat-card >:not(mat-card-content) img, mat-card >img {
+  height: 300px !important;
 }

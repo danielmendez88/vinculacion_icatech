@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 // forms
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // auth service
@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private snack: MatSnackBar,
+    private ngz: NgZone
   ) {
     // redireccionar a home si ya estamos logueados
     if (this.authtenticationService.currentUserValue) {
@@ -65,8 +66,10 @@ export class LoginComponent implements OnInit {
     this.authtenticationService.login(this.f.numeroEnlace.value, this.f.passcode.value)
       .subscribe(
         data => {
-          console.log(data);
-          this.router.navigate([this.returnUrl]);
+          this.ngz.run(() => {
+            this.router.navigate([this.returnUrl]);
+          });
+          // this.router.navigate([this.returnUrl]);
         },
         error => {
           this.error = error;
@@ -82,7 +85,6 @@ export class LoginComponent implements OnInit {
             verticalPosition: 'bottom',
             horizontalPosition: 'right'
           });
-          console.log(errorMessage);
         }
       );
   }

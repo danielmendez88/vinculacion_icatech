@@ -61,6 +61,8 @@ import { Historicodirectores } from '../../resolver/historicodirectores';
 import { EncuestaComponent } from '../../pages/encuesta/encuesta.component';
 // importar componente hijo cursos
 import { ChildPaso1CursoComponent } from '../../pages/child-paso1-curso/child-paso1-curso.component';
+// importar resolver
+import { RolResolver } from '../../resolver/rol-resolver';
 
 // rutas
 const ClientLayoutRoutes: Routes = [
@@ -68,7 +70,8 @@ const ClientLayoutRoutes: Routes = [
     path: 'index',
     component: DashboardComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['Directores', 'Vinculador'] }
+    data: { roles: ['Directores', 'Vinculador'] },
+    resolve: { roldata: RolResolver}
   },
   {
     path: 'agenda',
