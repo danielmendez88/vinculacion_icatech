@@ -25,16 +25,33 @@
       <h2 matSubheader>Menú</h2>
 
       <a mat-list-item routerLink="/" style="height: 0;"></a>
-      <!--datos-->
-      <div *ngFor="let items of menuItems">
-        <a  mat-list-item
-        (click)="navser.closeNav()"
-        [routerLink]="[items.route]"
-        routerLinkActive="list-item-active">
-          <mat-icon matListIcon class="app-nav-list-icon"> {{ items.icon }} </mat-icon>
-          {{items.title}}
-        </a>
+      <div [ngSwitch]="Role$">
+        <div *ngSwitchCase="'Directores'">
+          <div *ngFor="let items of menuItems">
+            <a  mat-list-item
+            (click)="navser.closeNav()"
+            [routerLink]="[items.route]"
+            routerLinkActive="list-item-active">
+              <mat-icon matListIcon class="app-nav-list-icon"> {{ items.icon }} </mat-icon>
+              {{items.title}}
+            </a>
+          </div>
+        </div>
+        <div *ngSwitchCase="'Vinculador'">
+          <div *ngFor="let tems of vinculadorItems">
+            <a  mat-list-item
+            (click)="navser.closeNav()"
+            [routerLink]="[tems.route]"
+            routerLinkActive="list-item-active">
+              <mat-icon matListIcon class="app-nav-list-icon"> {{ tems.icon }} </mat-icon>
+              {{tems.title}}
+            </a>
+          </div>
+        </div>
+        <div *ngSwitchDefault>output2</div>
       </div>
+      <!--datos-->
+      <!--divider-->      
 
       <mat-divider></mat-divider>
 

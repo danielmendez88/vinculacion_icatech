@@ -1,18 +1,8 @@
 <div class="component-title-container">
 </div>
 <!--contenido-->
-
-<ng-container *ngIf="userRole$ === 1; else vinculadorTemplate">
-  <h3>Hola Director!</h3>
-</ng-container>
-<ng-template #vinculadorTemplate>
-  <h3>Hola Vinculador!</h3>
-</ng-template>
-
-
-
-<div class="content">
-  <ng-template *ngIf="userRole$ === 'Directores'; else vinculadorTemplate">
+<div class="content" [ngSwitch]="userRole$">
+  <ng-container *ngSwitchCase="'Directores'">
     <!--contenido-->
     <div class="mb-20" fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
         <!--nuevo dashboard-->
@@ -52,44 +42,29 @@
           <app-shared [bgclass]="'info'" [icon]="'contact_support'" [contador]="13" [label]="'New Tickets!'"></app-shared>
         </div>
     </div>
-    <!--contenido END-->
-  </ng-template>
+  <!--contenido END-->
+  </ng-container>
   <!--plantilla-->
-  <ng-template #vinculadorTemplate>
+  <ng-container *ngSwitchCase="'Vinculador'">
       <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
         <!--div-->
         <div fxFlex>
-          <mat-card class="cards">
-              <img mat-card-image src="https://picsum.photos/id/237/200/300">
-              <mat-card-header style="justify-content: center">
-                  <mat-card-title>
-                      <h3 class="m-0">Office Studio</h3>
-                  </mat-card-title>
-              </mat-card-header>
-              <mat-card-actions>
-                  <button mat-button>
-                      <mat-icon class="nav-icon">location_on</mat-icon> Localidad
-                  </button>
-              </mat-card-actions>
-          </mat-card>
+          <app-stat [bgC]="'info'" [icons]="'info'" [counts]="123" [labels]="'Total Vinculaciones'"></app-stat>
           <!--div-->
         </div>
         <!--div-->
         <div fxFlex>
-          <mat-card class="cards">
-              <img mat-card-image src="https://picsum.photos/200/300?grayscale">
-              <mat-card-header style="justify-content: center">
-                  <mat-card-title>
-                      <h3 class="m-0">Office Studio</h3>
-                  </mat-card-title>
-              </mat-card-header>
-              <mat-card-actions>
-                  <button mat-button>
-                      <mat-icon class="nav-icon">location_on</mat-icon> Localidad
-                  </button>
-              </mat-card-actions>
-          </mat-card>
+          <!--app stat-->
+          <app-stat [bgC]="'success'" [icons]="'done'" [counts]="12" [labels]="'Vinculaciones Terminadas'"></app-stat>
+          <!--app star-->
         </div>
+        <!--div fxFlex-->
+        <div fxFlex>
+          <!--app stat-->
+          <app-stat [bgC]="'danger'" [icons]="'chrome_reader_mode'" [counts]="12" [labels]="'No atendidas'"></app-stat>
+          <!--app star end-->
+        </div>
+        <!--div fxFlex-->
         <!--div-->
         <div fxFlex>
           <mat-card class="cards">
@@ -105,5 +80,5 @@
           </mat-card>
         </div>
       </div>
-  </ng-template>
+  </ng-container>
 </div>

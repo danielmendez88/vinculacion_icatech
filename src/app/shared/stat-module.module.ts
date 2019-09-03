@@ -4,16 +4,18 @@ import { CommonModule } from '@angular/common';
 import { SharedComponent } from './shared.component';
 // importar los componentes de material
 import { MatCardModule, MatIconModule  } from '@angular/material';
+import { StatComponent } from './stat/stat.component';
 
 @NgModule({
-  declarations: [SharedComponent],
+  declarations: [SharedComponent, StatComponent],
   imports: [
     CommonModule,
     MatCardModule,
     MatIconModule
   ],
   exports: [
-    SharedComponent
+    SharedComponent,
+    StatComponent
   ]
 })
 export class StatModuleModule { }

@@ -124,7 +124,7 @@ export class AuthService {
    }
    // get current user rol
    get UserRoleCurrent(): string {
-     return this.currentUserRole.value;
+     return JSON.parse(localStorage.getItem('currentRol'));
    }
 
    // tiene roles
