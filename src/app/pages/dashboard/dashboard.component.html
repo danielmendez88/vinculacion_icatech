@@ -2,14 +2,17 @@
 </div>
 <!--contenido-->
 
-  <div [ngSwitch]="userRole$">
-    <div *ngSwitchCase="'Directores'">Moderator Template</div>
-    <div *ngSwitchCase="'Vinculador'">Admin Template</div>
-    <div *ngSwitchDefault>Guest Template (Default)</div>
-  </div>
+<ng-container *ngIf="userRole$ === 1; else vinculadorTemplate">
+  <h3>Hola Director!</h3>
+</ng-container>
+<ng-template #vinculadorTemplate>
+  <h3>Hola Vinculador!</h3>
+</ng-template>
 
-<div class="content" [ngSwitch]="userRole$">
-  <ng-template ngSwitchCase="Directores">
+
+
+<div class="content">
+  <ng-template *ngIf="userRole$ === 'Directores'; else vinculadorTemplate">
     <!--contenido-->
     <div class="mb-20" fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
         <!--nuevo dashboard-->
@@ -52,7 +55,7 @@
     <!--contenido END-->
   </ng-template>
   <!--plantilla-->
-  <ng-template ngSwitchCase="Vinculador">
+  <ng-template #vinculadorTemplate>
       <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
         <!--div-->
         <div fxFlex>
@@ -103,5 +106,4 @@
         </div>
       </div>
   </ng-template>
-
 </div>

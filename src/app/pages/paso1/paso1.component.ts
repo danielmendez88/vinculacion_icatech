@@ -207,6 +207,7 @@ export class Paso1Component implements OnInit {
       });
     };
 
+    // tslint:disable-next-line:only-arrow-functions
     this.pdfWorkerSocial.onmessage = function( event ) {
       // esto es un hack porque estamos fuera del contexto del worker
       $ngzone.run(() => {
@@ -215,7 +216,8 @@ export class Paso1Component implements OnInit {
       // file saver
       FileSaver.saveAs(self.base64ToBlob( event.data.base64, 'application/pdf'), event.data.fileName);
     };
-    //pdf social
+    // pdf social
+    // tslint:disable-next-line:only-arrow-functions
     this.pdfWorkerSocial.onerror = function(e) {
       $ngzone.run(() => {
         self.snackservice.showSnackBar(JSON.stringify(e), 'Error');
@@ -223,6 +225,7 @@ export class Paso1Component implements OnInit {
       });
     };
 
+    // tslint:disable-next-line:only-arrow-functions
     this.pdfWorkerGobData.onmessage = function( evt ) {
       // esto es un hack porque estamos fuera del contexto del worker
       $ngzone.run(() => {
@@ -231,7 +234,8 @@ export class Paso1Component implements OnInit {
       // file saver
       FileSaver.saveAs(self.base64ToBlob( evt.data.base64, 'application/pdf'), evt.data.fileName);
     };
-    //pdf gubernamental
+    // pdf gubernamental
+    // tslint:disable-next-line:only-arrow-functions
     this.pdfWorkerGobData.onerror = function(e) {
       $ngzone.run(() => {
         self.snackservice.showSnackBar(JSON.stringify(e), 'Error');
@@ -337,22 +341,22 @@ export class Paso1Component implements OnInit {
             * redireccionar al componente mismo para ver si podemos actualizar
             */
            this.sg.getFilesFromSeguimientoById(id).subscribe(response => {
-            this.contadorArchivos = 1;
-             if (this.contadorArchivos > 0) {
+              this.contadorArchivos = 1;
+              if (this.contadorArchivos > 0) {
                this.archivosArray = response;
-             }
+              }
            }, (err) => {
             this.snackservice.showSnackBar(JSON.stringify(err), 'Error!');
            });
            // cargar el nombre de la incidencia nombreDeLaIncidencia
            this.sg.getSeguimientobyId(id).subscribe((respuesta) => {
              this.seguimientoPropuesta = respuesta[0].propuesta;
-           },(error) => {
+           }, (error) => {
              this.snackservice.showSnackBar(JSON.stringify(error), 'Error!');
-           })
+           });
            // this.router.navigate(['calendario']);
-           //mostrar resultado
-           this.snackservice.showSnackBar(JSON.stringify(res['success']), 'Listo');
+           // mostrar resultado
+           this.snackservice.showSnackBar(JSON.stringify(res.success), 'Listo');
          }, err => {
           console.error(err);
           this.isLoadingResults = false;

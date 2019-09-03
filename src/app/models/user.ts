@@ -5,6 +5,6 @@ export interface Usuario {
   categoria?: string;
   nombre?: string;
   activo?: boolean;
-  role: string;
+  rol?: string;
   token?: string;
 }

@@ -130,7 +130,7 @@ export class AuthService {
    // tiene roles
    hasRoles(roles: string[]): boolean {
      for ( const oneRole of roles) {
-       if (!this.currentUserSubject || !this.currentUserSubject.value.role.includes(oneRole)) {
+       if (!this.currentUserSubject || !this.currentUserSubject.value.rol.includes(oneRole)) {
          return false;
        }
      }
