@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 // cursos
 import { CursosService } from '../../services/cursos.service';
 // modelo
@@ -6,6 +6,8 @@ import { CategoriaCursos, Cursos } from '../../models/cursos';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 // importamos snackbar
 import { SnackserviceService } from '../../services/snackservice.service';
+// importar los dialogos de material
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 
 @Component({
@@ -29,7 +31,8 @@ export class ChildPaso1CursoComponent implements OnInit {
 
   constructor(
     private serviceCourse: CursosService,
-    private snack: SnackserviceService) { }
+    private snack: SnackserviceService,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     // cargamos las categorias
@@ -49,7 +52,19 @@ export class ChildPaso1CursoComponent implements OnInit {
     });
   }
 
-  // filtrar cursos
+  /**
+   * abrir dialogo
+   */
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DailogCurso, {
+      width: '250px'
+    })
+  }
+
+  /**
+   * filtrar cursos
+   * @param event 
+   */
   getCursoByFilter(event) {
     this.show = true;
     this.serviceCourse.getCursoPorCategoria(event)
@@ -75,4 +90,16 @@ export class ChildPaso1CursoComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.datasource.filter = filterValue.trim().toLowerCase();
   }
+}
+
+/**
+ * componente
+ */
+@Component({
+  selector: 'app-child-paso1-curso',
+  templateUrl: './dialog-curso.html',
+})
+export class DailogCurso {
+  constructor(
+    public dialogRef: MatDialogRef<DailogCurso>) {}
 }

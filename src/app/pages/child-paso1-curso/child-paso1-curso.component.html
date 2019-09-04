@@ -49,7 +49,7 @@
             <ng-container matColumnDef="detalle">
               <mat-header-cell *matHeaderCellDef mat-sort-header>Detalles</mat-header-cell>
               <mat-cell *matCellDef="let row" data-label="detalle">
-                <button mat-icon-button color="primary">
+                <button mat-icon-button color="primary" (click)="openDialog()">
                     <mat-icon class="mat-18">search</mat-icon>
                 </button>
               </mat-cell>
