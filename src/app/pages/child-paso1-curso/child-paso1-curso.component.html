@@ -1,14 +1,82 @@
-<div fxLayout="row wrap" fxLayoutGap="0.5%" fxLayoutAlign="center">
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
   <!--div flex-->
-  <div fxFlex="30%" class="curso_lista">
-      <div>
-        <mat-form-field>
-          <mat-select placeholder="Select">
-            <mat-option value="option">Option</mat-option>
-          </mat-select>
+  <div fxFlex="60%" class="curso_lista">
+    <mat-card>
+      <!--cabecera de la carta-->
+      <mat-card-header>
+        <mat-card-title>Cursos que imparte el instituto</mat-card-title>
+        <mat-card-subtitle>
+          <mat-form-field>
+            <mat-label>Filtro Cursos...</mat-label>
+            <mat-select (selectionChange)="getCursoByFilter($event.value)">
+              <mat-option *ngFor="let itemCategoria of catCurso" [value]="itemCategoria.id">
+                {{ itemCategoria.categoria }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <!--cabecera de la carta end-->
+      <!--contenido de la carta-->
+      <mat-card-content>
+        <mat-form-field class="filtro">
+          <input matInput placeholder="Buscar Curso ...">
         </mat-form-field>
-      </div>
+        <mat-table [dataSource]="datasource" matSort matSortStart="desc" matSortDirection="asc">
+  
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+          
+            <!-- Position Column -->
+            <ng-container matColumnDef="curso">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Curso </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="costo">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Costo </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="costo"> {{row.costo}}</mat-cell>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="detalle">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Detalles</mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="detalle">
+                <button mat-icon-button color="primary">
+                    <mat-icon class="mat-18">search</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+          
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </mat-card-content>
+    </mat-card>
   </div>
   <!--div flex-->
-  <div fxFlex="70%"></div>
+  <div fxFlex="40%" class="curso_lista">
+    <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            Cursos Seleccionados
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list role="list">
+            <mat-list-item role="listitem">Item 1</mat-list-item>
+            <mat-list-item role="listitem">Item 2</mat-list-item>
+            <mat-list-item role="listitem">Item 3</mat-list-item>
+          </mat-list>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">
+            <mat-icon>local_printshop</mat-icon>
+            Generar documento
+          </button>
+        </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
