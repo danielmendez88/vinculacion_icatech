@@ -1,4 +1,10 @@
 <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <div class="spinner-wrapper" *ngIf="isLoadingResults">
+    <mat-progress-spinner color="warn" mode="indeterminate" [diameter]="70">
+    </mat-progress-spinner>
+    <br/>
+    <h3>Procesando ...</h3>
+  </div>
   <!--div flex-->
   <div fxFlex="60%" class="curso_lista">
     <mat-card>
@@ -20,7 +26,7 @@
       <!--contenido de la carta-->
       <mat-card-content>
         <mat-form-field class="filtro">
-          <input matInput placeholder="Buscar Curso ...">
+          <input matInput placeholder="Buscar Curso ..." (keyup)="applyFilter($event.target.value)">
         </mat-form-field>
         <mat-table [dataSource]="datasource" matSort matSortStart="desc" matSortDirection="asc">
   
@@ -36,7 +42,7 @@
             <!-- Name Column -->
             <ng-container matColumnDef="costo">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Costo </mat-header-cell>
-              <mat-cell *matCellDef="let row" data-label="costo"> {{row.costo}}</mat-cell>
+              <mat-cell *matCellDef="let row" data-label="costo">  $ {{row.costo}} </mat-cell>
             </ng-container>
           
             <!-- Weight Column -->

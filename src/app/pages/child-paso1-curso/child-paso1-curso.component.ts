@@ -32,7 +32,11 @@ export class ChildPaso1CursoComponent implements OnInit {
     private snack: SnackserviceService) { }
 
   ngOnInit() {
+    // cargamos las categorias
     this.getCategories();
+    /**
+     * cargamos todos los cursos que tenemos en la base de datos
+     */
     this.serviceCourse.getAllCursos().subscribe(
       response => {
       // llemamos la tabla
@@ -65,5 +69,10 @@ export class ChildPaso1CursoComponent implements OnInit {
         ((respose: CategoriaCursos[]) => {
             this.catCurso = respose;
         });
+  }
+
+  // filtro
+  applyFilter(filterValue: string) {
+    this.datasource.filter = filterValue.trim().toLowerCase();
   }
 }

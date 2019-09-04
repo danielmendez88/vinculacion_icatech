@@ -9,3 +9,15 @@ table {
    font-size: 14px;
    width: 100%;
 }
+// mat spinner
+.spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 998;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
