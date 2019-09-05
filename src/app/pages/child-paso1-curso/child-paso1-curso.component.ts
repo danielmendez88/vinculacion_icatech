@@ -7,7 +7,9 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 // importamos snackbar
 import { SnackserviceService } from '../../services/snackservice.service';
 // importar los dialogos de material
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
+// importar el componente
+import { DialogrefviewComponent } from '../../pages/dialogrefview/dialogrefview.component';
 
 
 @Component({
@@ -53,12 +55,13 @@ export class ChildPaso1CursoComponent implements OnInit {
   }
 
   /**
-   * abrir dialogo
+   * dialogo con modal component
    */
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DailogCurso, {
-      width: '250px'
-    })
+  openDialog(id): void {
+    const dialogRef = this.dialog.open(DialogrefviewComponent, {
+      width: '450px',
+      data: {idCurso: id}
+    });
   }
 
   /**
@@ -90,16 +93,4 @@ export class ChildPaso1CursoComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.datasource.filter = filterValue.trim().toLowerCase();
   }
-}
-
-/**
- * componente
- */
-@Component({
-  selector: 'app-child-paso1-curso',
-  templateUrl: './dialog-curso.html',
-})
-export class DailogCurso {
-  constructor(
-    public dialogRef: MatDialogRef<DailogCurso>) {}
 }

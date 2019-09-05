@@ -8,3 +8,14 @@ export interface Cursos {
   id?: number;
   especialidad?: string;
 }
+
+export interface CursosbyId {
+  curso?: string,
+  especialidad?: string,
+  objetivo?: string,
+  perfilIngreso?: string,
+  duracion?: number,
+  modalidad?: string,
+  clasificacion?: string,
+  costo?: string
+}

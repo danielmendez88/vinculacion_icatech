@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 // servicio auth
 import { AuthService } from '../services/auth.service';
 // interface
-import { CategoriaCursos, Cursos } from '../models/cursos';
+import { CategoriaCursos, Cursos, CursosbyId } from '../models/cursos';
 // cachable
 import { Cacheable } from 'ngx-cacheable';
 /**
@@ -19,6 +19,7 @@ import { Cacheable } from 'ngx-cacheable';
 const URLCATEGORIACURSO = 'categoriacurso';
 const URLALLCURSOS = 'cursostotales';
 const URLCURSOPORCATEGORIA = 'cursosporcategoria';
+const URLCURSOBYID = 'cursobyid';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +70,16 @@ export class CursosService {
                     .pipe(
                       retry(3),
                       map(result => result),
+                      catchError(this.handleError)
+                    );
+  }
+
+  @Cacheable()
+  getCursoById(idCurso: string): Observable<CursosbyId> {
+    return this.http.get<CursosbyId>(`${environment.PATH_BASE}/${URLCURSOBYID}/${idCurso}`, this.httpOptions)
+                    .pipe(
+                      retry(3),
+                      map(response => response),
                       catchError(this.handleError)
                     );
   }

@@ -60,9 +60,11 @@ import { Historicodirectores } from '../../resolver/historicodirectores';
 // importar cuestionario componente
 import { EncuestaComponent } from '../../pages/encuesta/encuesta.component';
 // importar componente hijo cursos
-import { ChildPaso1CursoComponent, DailogCurso } from '../../pages/child-paso1-curso/child-paso1-curso.component';
+import { ChildPaso1CursoComponent } from '../../pages/child-paso1-curso/child-paso1-curso.component';
 // importar resolver
 import { RolResolver } from '../../resolver/rol-resolver';
+// dialogo
+import { DialogrefviewComponent } from '../../pages/dialogrefview/dialogrefview.component';
 
 // rutas
 const ClientLayoutRoutes: Routes = [
@@ -148,7 +150,7 @@ const ClientLayoutRoutes: Routes = [
     HistoricoComponentComponent,
     EncuestaComponent,
     ChildPaso1CursoComponent,
-    DailogCurso
+    DialogrefviewComponent
   ],
   providers: [
     SnackserviceService,
@@ -157,6 +159,6 @@ const ClientLayoutRoutes: Routes = [
   exports: [
     RouterModule
   ], // exportar
-  entryComponents: [BottomSheet, DialogOverView, DialogSeguimiento, DailogCurso]
+  entryComponents: [BottomSheet, DialogOverView, DialogSeguimiento, DialogrefviewComponent]
 })
 export class ClientLayoutModule { }
