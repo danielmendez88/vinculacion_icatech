@@ -174,7 +174,7 @@
                     </mat-card-title>
                       <!--plantilla ng if extension -->
                       <ng-template [ngIf]="agendaDetail.extension === 'jpg' || agendaDetail.extension === 'png' || agendaDetail.extension === 'jpeg' || agendaDetail.extension === 'JPG'" [ngIfElse]="plantillapdf">
-                        <img mat-card-image src="http://localhost:8000/archivos/{{ agendaDetail.agendaId }}/{{ agendaDetail.nombreArchivo }}">
+                        <img mat-card-image src="{{ agendaDetail.ruta }}">
                       </ng-template>
                       <!--mostrar plantilla pdf-->
                       <ng-template #plantillapdf>
