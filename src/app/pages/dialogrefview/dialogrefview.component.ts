@@ -1,14 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 // dialog
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-// servicios de cursos 
+// servicios de cursos
 import { CursosService } from '../../services/cursos.service';
 // importar el modelo de curso
 import { CursosbyId } from '../../models/cursos';
 
 // exportando una interface
 export interface DialogDataCurso {
-  idCurso: number
+  idCurso: number;
 }
 
 @Component({
@@ -17,7 +17,7 @@ export interface DialogDataCurso {
   styleUrls: ['./dialogrefview.component.scss']
 })
 export class DialogrefviewComponent implements OnInit {
-  private cursoBy : CursosbyId = {
+  private cursoBy: CursosbyId = {
     curso: '',
     especialidad: '',
     objetivo: '',
@@ -26,7 +26,7 @@ export class DialogrefviewComponent implements OnInit {
     modalidad: '',
     clasificacion: '',
     costo: ''
-  }
+  };
 
   uniqueIdCurso: number;
 
@@ -36,21 +36,13 @@ export class DialogrefviewComponent implements OnInit {
     private cs: CursosService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     /**
      * colocamos el valor a la variable
      */
     this.uniqueIdCurso = this.data.idCurso;
 
-    this.cs.getCursoById(btoa(this.uniqueIdCurso.toString())).subscribe(
-      result => {
-        this.cursoBy = result;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    
+    this.cursoBy = await this.cs.getCursoById(btoa(this.uniqueIdCurso.toString()));
   }
 
   /**

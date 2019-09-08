@@ -29,22 +29,22 @@
           <input matInput placeholder="Buscar Curso ..." (keyup)="applyFilter($event.target.value)">
         </mat-form-field>
         <mat-table [dataSource]="datasource" matSort matSortStart="desc" matSortDirection="asc">
-  
+
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
-          
+
             <!-- Position Column -->
             <ng-container matColumnDef="curso">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Curso </mat-header-cell>
               <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
             </ng-container>
-          
+
             <!-- Name Column -->
             <ng-container matColumnDef="costo">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Costo </mat-header-cell>
               <mat-cell *matCellDef="let row" data-label="costo">  $ {{row.costo}} </mat-cell>
             </ng-container>
-          
+
             <!-- Weight Column -->
             <ng-container matColumnDef="detalle">
               <mat-header-cell *matHeaderCellDef mat-sort-header>Detalles</mat-header-cell>
@@ -54,7 +54,16 @@
                 </button>
               </mat-cell>
             </ng-container>
-          
+            <!--add column-->
+            <ng-container matColumnDef="agregar">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Agregar</mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="agregar">
+                <button mat-icon-button color="primary" (click)="selectRow(row.id)">
+                    <mat-icon class="mat-18">library_add</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
@@ -71,10 +80,9 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <mat-list role="list">
-            <mat-list-item role="listitem">Item 1</mat-list-item>
-            <mat-list-item role="listitem">Item 2</mat-list-item>
-            <mat-list-item role="listitem">Item 3</mat-list-item>
+          <mat-list role="list" *ngFor="let item of cursoList">
+            <mat-list-item role="listitem">{{ item.curso }}</mat-list-item>
+            <mat-divider></mat-divider>
           </mat-list>
         </mat-card-content>
         <mat-card-actions>

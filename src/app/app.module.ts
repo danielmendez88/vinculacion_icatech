@@ -63,6 +63,8 @@ import { CuestionariodncService } from './services/cuestionariodnc.service';
 import { CuestionarioSharedService } from './services/cuestionario-shared.service';
 // importar el rol resolver
 import { RolResolver } from './resolver/rol-resolver';
+// decode and encode service
+import { DecodeencodeserviceService } from './services/decodeencodeservice.service';
 
 @NgModule({
   declarations: [
@@ -105,7 +107,8 @@ import { RolResolver } from './resolver/rol-resolver';
     Historicodirectores,
     CuestionariodncService,
     CuestionarioSharedService,
-    RolResolver
+    RolResolver,
+    DecodeencodeserviceService
   ],
   bootstrap: [AppComponent]
 })

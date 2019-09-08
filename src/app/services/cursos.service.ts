@@ -74,14 +74,10 @@ export class CursosService {
                     );
   }
 
-  @Cacheable()
-  getCursoById(idCurso: string): Observable<CursosbyId> {
-    return this.http.get<CursosbyId>(`${environment.PATH_BASE}/${URLCURSOBYID}/${idCurso}`, this.httpOptions)
-                    .pipe(
-                      retry(3),
-                      map(response => response),
-                      catchError(this.handleError)
-                    );
+  async getCursoById(idCurso: string): Promise<any> {
+    const response = await this.http.get<CursosbyId>(`${environment.PATH_BASE}/${URLCURSOBYID}/${idCurso}`, this.httpOptions)
+                    .toPromise();
+    return response;
   }
 
   /**

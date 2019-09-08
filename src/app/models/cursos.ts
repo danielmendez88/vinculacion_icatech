@@ -10,12 +10,24 @@ export interface Cursos {
 }
 
 export interface CursosbyId {
-  curso?: string,
-  especialidad?: string,
-  objetivo?: string,
-  perfilIngreso?: string,
-  duracion?: number,
-  modalidad?: string,
-  clasificacion?: string,
-  costo?: string
+  curso?: string;
+  especialidad?: string;
+  objetivo?: string;
+  perfilIngreso?: string;
+  duracion?: number;
+  modalidad?: string;
+  clasificacion?: string;
+  costo?: string;
+}
+
+export interface CursoById {
+  id?: number;
+  curso?: string;
+  especialidad?: string;
+  objetivo?: string;
+  perfilIngreso?: string;
+  duracion?: number;
+  modalidad?: string;
+  clasificacion?: string;
+  costo?: string;
 }
