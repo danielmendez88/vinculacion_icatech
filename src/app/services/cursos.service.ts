@@ -20,6 +20,7 @@ const URLCATEGORIACURSO = 'categoriacurso';
 const URLALLCURSOS = 'cursostotales';
 const URLCURSOPORCATEGORIA = 'cursosporcategoria';
 const URLCURSOBYID = 'cursobyid';
+const URLPOSTCURSOSBYAGENDA = 'agendacursos';
 
 @Injectable({
   providedIn: 'root'
@@ -77,6 +78,12 @@ export class CursosService {
   async getCursoById(idCurso: string): Promise<any> {
     const response = await this.http.get<CursosbyId>(`${environment.PATH_BASE}/${URLCURSOBYID}/${idCurso}`, this.httpOptions)
                     .toPromise();
+    return response;
+  }
+
+  async sendCursosByAgenda(idAgenda: number, form): Promise<any> {
+    const response = await this.http.post(`${environment.PATH_BASE}/${URLPOSTCURSOSBYAGENDA}/${idAgenda}`, form, this.httpOptions)
+                     .toPromise();
     return response;
   }
 

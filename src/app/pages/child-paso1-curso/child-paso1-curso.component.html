@@ -91,7 +91,7 @@
                     {{ item.curso }}
                   </mat-panel-title>
                   <mat-panel-description>
-                    {{ item.descripcion }}
+                    {{ item.clasificacion }}
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                   <button mat-icon-button color="primary" (click)="removeCurso(item, i)">
@@ -102,8 +102,8 @@
             </mat-accordion>
           </ng-template>
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary">
+        <mat-card-actions *ngIf="isNotEmptyArray">
+          <button mat-raised-button color="primary" (click)="sendData()">
             <mat-icon>local_printshop</mat-icon>
             Generar documento
           </button>

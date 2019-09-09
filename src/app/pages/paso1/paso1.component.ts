@@ -80,6 +80,8 @@ export class Paso1Component implements OnInit {
   private pdfWorkerGobData: Worker;
   cargandoPdfGobData = false;
   errorPdfGobData = false;
+  // idAgenda
+  private idAgend: number;
 
   // tipo incidencia deshabilitado
   tipoincidenciaDisabled = true;
@@ -158,6 +160,7 @@ export class Paso1Component implements OnInit {
     this.pdfWorkerGobData = new Worker('/assets/workers/dnc/workerdncgubernamentaldata.js'); // !importante
     const isLoad = this.route.snapshot.paramMap.get('loader');
     const AgendaId = this.route.snapshot.data.getAgenda.id;
+    this.idAgend = this.route.snapshot.data.getAgenda.id;
     this.editable = this.route.snapshot.data.getAgenda.seguimiento;
     /**
      * cargamos el valor de los archivos desde el resolver - separamos esta funcionalidad

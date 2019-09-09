@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, NgZone, Input } from '@angular/core';
 // cursos
 import { CursosService } from '../../services/cursos.service';
 // modelo
@@ -63,6 +63,8 @@ export class ChildPaso1CursoComponent implements OnInit {
   errorPdf = false;
   // es el elemento vacio
   isNotEmptyArray = false;
+  // input
+  @Input() idAgenda;
 
   constructor(
     private serviceCourse: CursosService,
@@ -227,5 +229,12 @@ export class ChildPaso1CursoComponent implements OnInit {
     } catch (error) {
       this.cargandoPdf = false;
     }
+  }
+  /**
+   * enviar data
+   */
+  async sendData() {
+    const data = await this.serviceCourse.sendCursosByAgenda(this.idAgenda, this.cursoList);
+    console.log(data);
   }
  }
