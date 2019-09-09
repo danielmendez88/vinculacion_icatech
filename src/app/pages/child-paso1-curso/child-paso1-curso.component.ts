@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, NgZone } from '@angular/core';
 // cursos
 import { CursosService } from '../../services/cursos.service';
 // modelo
@@ -14,6 +14,8 @@ import { DialogrefviewComponent } from '../../pages/dialogrefview/dialogrefview.
 import { CursosArreglo } from '../../models/custom';
 // servicio decode
 import { DecodeencodeserviceService } from '../../services/decodeencodeservice.service';
+// importar file saver
+import * as FileSaver from 'file-saver';
 
 
 @Component({
@@ -52,17 +54,55 @@ export class ChildPaso1CursoComponent implements OnInit {
   // encode id
   encodeId: string;
   isLoadingResults = false;
+  // panel Open state
+  panelOpenState = false;
+  // worker
+  private pdfworker: Worker;
+  // error y carga de pdf
+  cargandoPdf = false;
+  errorPdf = false;
+  // es el elemento vacio
+  isNotEmptyArray = false;
 
   constructor(
     private serviceCourse: CursosService,
     private snack: SnackserviceService,
     private dialog: MatDialog,
-    private encodeAndDecode: DecodeencodeserviceService
+    private encodeAndDecode: DecodeencodeserviceService,
+    private ngz: NgZone
   ) { }
 
   ngOnInit() {
     // cargamos las categorias
     this.getCategories();
+
+    const $ngZone = this.ngz;
+    const self = this;
+    // funcion del worker inicializando el objecto para generar los reportes del worker
+    this.pdfworker = new Worker('/assets/workers/cursos/workers.js');
+    this.pdfworker.onmessage = function(evt) {
+      $ngZone.run(() => {
+        self.cargandoPdf = false;
+      });
+      FileSaver.saveAs( self.base64ToBlob(evt.data.base64, 'application/pdf'), evt.data.fileName );
+    }
+    /**
+     * pdf error
+     */
+    // tslint:disable-next-line:only-arrow-functions
+    this.pdfworker.onerror = function(e) {
+      $ngZone.run(() => {
+        self.errorPdf = false;
+      });
+    }
+    /**
+     * es diferente el arreglo a una longitud mayor a cero
+     */
+    if (this.cursoList.length === 0) {
+      this.isNotEmptyArray = false;
+    } else {
+      this.isNotEmptyArray = true;
+    }
     /**
      * cargamos todos los cursos que tenemos en la base de datos
      */
@@ -133,6 +173,7 @@ export class ChildPaso1CursoComponent implements OnInit {
     this.isinArray = this.objectFindByKey(this.cursoList, 'id', this.idcurso);
     // si el objecto no se encuentra en el arreglo empleamos a traer un serivcio para obtener los datos
     if (this.isinArray === false) {
+      this.isNotEmptyArray = true;
       // necesitamos llamar el servicio del curso que agregaremos
       const str = this.encodeAndDecode.b64EncodeUnicode(this.idcurso.toString());
       this.cursoById = await this.serviceCourse.getCursoById(str);
@@ -149,4 +190,42 @@ export class ChildPaso1CursoComponent implements OnInit {
       this.isLoadingResults = false;
     }
   }
-}
+
+  /**
+   * removeCurso
+   */
+  removeCurso(cursosi, index): void {
+    this.cursoList.splice(index, 1);
+    if (this.cursoList.length === 0) {
+      this.isNotEmptyArray = false;
+    }
+  }
+
+  /**
+   * base 64 to blob
+   */
+  base64ToBlob(base64, type) {
+    // tslint:disable-next-line:one-variable-per-declaration
+    const bytes = atob(base64); const len = bytes.length;
+    const buffer = new ArrayBuffer( len ); const view = new Uint8Array( buffer );
+    for (let i = 0; i < len; i++) {
+      // tslint:disable-next-line:no-bitwise
+      view[i] = bytes.charCodeAt(i) & 0xff;
+    }
+    return new Blob( [ buffer ], { type } );
+  }
+  // imprimir documento pdf
+  /**
+   * esta parte del código nos permitirá imprimir un documento pdf con
+   * los datos seleccionados de los cursos se imprimiran en este documento.
+   */
+  imprimirActa() {
+    try {
+      const datosImpresion = {
+
+      };
+    } catch (error) {
+      this.cargandoPdf = false;
+    }
+  }
+ }

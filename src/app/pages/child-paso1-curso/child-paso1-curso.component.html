@@ -80,10 +80,27 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <mat-list role="list" *ngFor="let item of cursoList">
-            <mat-list-item role="listitem">{{ item.curso }}</mat-list-item>
-            <mat-divider></mat-divider>
-          </mat-list>
+          <ng-container *ngIf="!isNotEmptyArray; else elseTemplate">
+            <h2>No Hay Elementos</h2>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <mat-accordion>
+              <mat-expansion-panel *ngFor="let item of cursoList; let i = index">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{ item.curso }}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{ item.descripcion }}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                  <button mat-icon-button color="primary" (click)="removeCurso(item, i)">
+                      <mat-icon class="mat-18">remove</mat-icon>
+                      Eliminar
+                  </button>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ng-template>
         </mat-card-content>
         <mat-card-actions>
           <button mat-raised-button color="primary">
