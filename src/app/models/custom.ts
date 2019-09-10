@@ -1,5 +1,5 @@
 export interface CursosArreglo {
-  id?: number;
+  idCurso?: number;
   curso?: string;
   costo?: string;
   duracion?: number;

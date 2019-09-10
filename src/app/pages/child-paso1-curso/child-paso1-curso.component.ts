@@ -82,12 +82,13 @@ export class ChildPaso1CursoComponent implements OnInit {
     const self = this;
     // funcion del worker inicializando el objecto para generar los reportes del worker
     this.pdfworker = new Worker('/assets/workers/cursos/workers.js');
+    // tslint:disable-next-line:only-arrow-functions
     this.pdfworker.onmessage = function(evt) {
       $ngZone.run(() => {
         self.cargandoPdf = false;
       });
       FileSaver.saveAs( self.base64ToBlob(evt.data.base64, 'application/pdf'), evt.data.fileName );
-    }
+    };
     /**
      * pdf error
      */
@@ -96,7 +97,7 @@ export class ChildPaso1CursoComponent implements OnInit {
       $ngZone.run(() => {
         self.errorPdf = false;
       });
-    }
+    };
     /**
      * es diferente el arreglo a una longitud mayor a cero
      */
@@ -172,7 +173,7 @@ export class ChildPaso1CursoComponent implements OnInit {
   async selectRow(row) {
     this.isLoadingResults = true;
     this.idcurso = row;
-    this.isinArray = this.objectFindByKey(this.cursoList, 'id', this.idcurso);
+    this.isinArray = this.objectFindByKey(this.cursoList, 'idCurso', this.idcurso);
     // si el objecto no se encuentra en el arreglo empleamos a traer un serivcio para obtener los datos
     if (this.isinArray === false) {
       this.isNotEmptyArray = true;
@@ -181,7 +182,7 @@ export class ChildPaso1CursoComponent implements OnInit {
       this.cursoById = await this.serviceCourse.getCursoById(str);
       // armando el arreglo
       this.cursoList.push({
-        id: this.cursoById[0].id,
+        idCurso: this.cursoById[0].id,
         curso: this.cursoById[0].curso,
         costo: this.cursoById[0].costo,
         duracion: this.cursoById[0].duracion,
@@ -236,5 +237,8 @@ export class ChildPaso1CursoComponent implements OnInit {
   async sendData() {
     const data = await this.serviceCourse.sendCursosByAgenda(this.idAgenda, this.cursoList);
     console.log(data);
+    if (data[1] === 'saved') {
+      console.log('data');
+    }
   }
  }

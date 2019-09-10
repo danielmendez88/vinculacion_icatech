@@ -169,7 +169,7 @@ export class CatcursoComponent implements OnInit {
     this.isinArray = this.objectFindByKey(this.emptyList, 'id', row.id);
     if (this.isinArray === false) {
       // tslint:disable-next-line:max-line-length
-      this.emptyList.push({id: this.idcurso, curso: this.curso, costo: this.costo, duracion: this.duracion, clasificacion: this.clasificacion });
+      this.emptyList.push({idCurso: this.idcurso, curso: this.curso, costo: this.costo, duracion: this.duracion, clasificacion: this.clasificacion });
     }
   }
 
