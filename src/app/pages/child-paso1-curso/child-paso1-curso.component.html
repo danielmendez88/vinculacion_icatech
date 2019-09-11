@@ -5,109 +5,115 @@
     <br/>
     <h3>Procesando ...</h3>
   </div>
-  <!--div flex-->
-  <div fxFlex="60%" class="curso_lista">
-    <mat-card>
-      <!--cabecera de la carta-->
-      <mat-card-header>
-        <mat-card-title>Cursos que imparte el instituto</mat-card-title>
-        <mat-card-subtitle>
-          <mat-form-field>
-            <mat-label>Filtro Cursos...</mat-label>
-            <mat-select (selectionChange)="getCursoByFilter($event.value)">
-              <mat-option *ngFor="let itemCategoria of catCurso" [value]="itemCategoria.id">
-                {{ itemCategoria.categoria }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </mat-card-subtitle>
-      </mat-card-header>
-      <!--cabecera de la carta end-->
-      <!--contenido de la carta-->
-      <mat-card-content>
-        <mat-form-field class="filtro">
-          <input matInput placeholder="Buscar Curso ..." (keyup)="applyFilter($event.target.value)">
-        </mat-form-field>
-        <mat-table [dataSource]="datasource" matSort matSortStart="desc" matSortDirection="asc">
-
-            <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-
-            <!-- Position Column -->
-            <ng-container matColumnDef="curso">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Curso </mat-header-cell>
-              <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="costo">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Costo </mat-header-cell>
-              <mat-cell *matCellDef="let row" data-label="costo">  $ {{row.costo}} </mat-cell>
-            </ng-container>
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="detalle">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Detalles</mat-header-cell>
-              <mat-cell *matCellDef="let row" data-label="detalle">
-                <button mat-icon-button color="primary" (click)="openDialog(row.id)">
-                    <mat-icon class="mat-18">search</mat-icon>
-                </button>
-              </mat-cell>
-            </ng-container>
-            <!--add column-->
-            <ng-container matColumnDef="agregar">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Agregar</mat-header-cell>
-              <mat-cell *matCellDef="let row" data-label="agregar">
-                <button mat-icon-button color="primary" (click)="selectRow(row.id)">
-                    <mat-icon class="mat-18">library_add</mat-icon>
-                </button>
-              </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <!--div flex-->
-  <div fxFlex="40%" class="curso_lista">
-    <mat-card>
+  <ng-container *ngIf="cursoFlag; else cursoFlagFalse">
+    <h2>Verdadero</h2>
+  </ng-container>
+  <ng-template #cursoFlagFalse>
+    <!--div flex-->
+    <div fxFlex="60%" class="curso_lista">
+      <mat-card>
+        <!--cabecera de la carta-->
         <mat-card-header>
-          <mat-card-title>
-            Cursos Seleccionados
-          </mat-card-title>
+          <mat-card-title>Cursos que imparte el instituto</mat-card-title>
+          <mat-card-subtitle>
+            <mat-form-field>
+              <mat-label>Filtro Cursos...</mat-label>
+              <mat-select (selectionChange)="getCursoByFilter($event.value)">
+                <mat-option *ngFor="let itemCategoria of catCurso" [value]="itemCategoria.id">
+                  {{ itemCategoria.categoria }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-card-subtitle>
         </mat-card-header>
+        <!--cabecera de la carta end-->
+        <!--contenido de la carta-->
         <mat-card-content>
-          <ng-container *ngIf="!isNotEmptyArray; else elseTemplate">
-            <h2>No Hay Elementos</h2>
-          </ng-container>
-          <ng-template #elseTemplate>
-            <mat-accordion>
-              <mat-expansion-panel *ngFor="let item of cursoList; let i = index">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    {{ item.curso }}
-                  </mat-panel-title>
-                  <mat-panel-description>
-                    {{ item.clasificacion }}
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-                  <button mat-icon-button color="primary" (click)="removeCurso(item, i)">
-                      <mat-icon class="mat-18">remove</mat-icon>
-                      Eliminar
+          <mat-form-field class="filtro">
+            <input matInput placeholder="Buscar Curso ..." (keyup)="applyFilter($event.target.value)">
+          </mat-form-field>
+          <mat-table [dataSource]="datasource" matSort matSortStart="desc" matSortDirection="asc">
+  
+              <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+  
+              <!-- Position Column -->
+              <ng-container matColumnDef="curso">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Curso </mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
+              </ng-container>
+  
+              <!-- Name Column -->
+              <ng-container matColumnDef="costo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Costo </mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="costo">  $ {{row.costo}} </mat-cell>
+              </ng-container>
+  
+              <!-- Weight Column -->
+              <ng-container matColumnDef="detalle">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Detalles</mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="detalle">
+                  <button mat-icon-button color="primary" (click)="openDialog(row.id)">
+                      <mat-icon class="mat-18">search</mat-icon>
                   </button>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </ng-template>
+                </mat-cell>
+              </ng-container>
+              <!--add column-->
+              <ng-container matColumnDef="agregar">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Agregar</mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="agregar">
+                  <button mat-icon-button color="primary" (click)="selectRow(row.id)">
+                      <mat-icon class="mat-18">library_add</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+  
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
         </mat-card-content>
-        <mat-card-actions *ngIf="isNotEmptyArray">
-          <button mat-raised-button color="primary" (click)="sendData()">
-            <mat-icon>local_printshop</mat-icon>
-            Generar documento
-          </button>
-        </mat-card-actions>
-    </mat-card>
-  </div>
+      </mat-card>
+    </div>
+    <!--div flex-->
+    <div fxFlex="40%" class="curso_lista">
+      <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              Cursos Seleccionados
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <ng-container *ngIf="!isNotEmptyArray; else elseTemplate">
+              <h2>No Hay Elementos</h2>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <mat-accordion>
+                <mat-expansion-panel *ngFor="let item of cursoList; let i = index">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{ item.curso }}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      {{ item.clasificacion }}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                    <button mat-icon-button color="primary" (click)="removeCurso(item, i)">
+                        <mat-icon class="mat-18">remove</mat-icon>
+                        Eliminar
+                    </button>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </ng-template>
+          </mat-card-content>
+          <mat-card-actions *ngIf="isNotEmptyArray">
+            <button mat-raised-button color="primary" (click)="sendData()">
+              <mat-icon>local_printshop</mat-icon>
+              Generar documento
+            </button>
+          </mat-card-actions>
+      </mat-card>
+    </div>
+  </ng-template>
+
 </div>

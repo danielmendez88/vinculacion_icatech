@@ -21,6 +21,7 @@ const URLOWN = 'ownagenda';
 const URLSEGUIMIENTOUPDATE = 'updateseguimiento';
 const URLUPDATE = 'updatevinculacion';
 const URLHISTORY = 'gethistorico';
+const URLUPDATEAGENDABYCURSO = 'updateagendabycurso';
 
 @Injectable({
   providedIn: 'root'
@@ -124,6 +125,16 @@ export class AgendaService {
                  tap((response) => console.log(response)),
                  catchError(this.handleError<Agenda>('addAgend'))
                );
+  }
+
+  /**
+   * 
+   * update flag in service
+   */
+  async updateIsCurso(id: string): Promise<any> {
+    const respuesta = await this.http.get(`${environment.PATH_BASE}/${URLUPDATEAGENDABYCURSO}/${id}`, this.httpOptions)
+                      .toPromise();
+    return respuesta;
   }
 
 }

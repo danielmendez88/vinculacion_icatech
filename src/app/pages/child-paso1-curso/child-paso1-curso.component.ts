@@ -16,6 +16,8 @@ import { CursosArreglo } from '../../models/custom';
 import { DecodeencodeserviceService } from '../../services/decodeencodeservice.service';
 // importar file saver
 import * as FileSaver from 'file-saver';
+// importar agenda service
+import { AgendaService } from '../../services/agenda.service';
 
 
 @Component({
@@ -65,16 +67,22 @@ export class ChildPaso1CursoComponent implements OnInit {
   isNotEmptyArray = false;
   // input
   @Input() idAgenda;
+  // boolean value
+  isCursoIncorporated = false;
+  @Input() cursoFlag;
 
   constructor(
     private serviceCourse: CursosService,
     private snack: SnackserviceService,
     private dialog: MatDialog,
     private encodeAndDecode: DecodeencodeserviceService,
-    private ngz: NgZone
+    private ngz: NgZone,
+    private agendas: AgendaService
   ) { }
 
   ngOnInit() {
+    // flag
+    console.log(this.cursoFlag);
     // cargamos las categorias
     this.getCategories();
 
@@ -109,16 +117,25 @@ export class ChildPaso1CursoComponent implements OnInit {
     /**
      * cargamos todos los cursos que tenemos en la base de datos
      */
-    this.serviceCourse.getAllCursos().subscribe(
-      response => {
-      // llemamos la tabla
-      this.datasource.data = response;
-      this.datasource.sort = this.sort;
-      this.datasource.paginator = this.paginator;
-    }, error => {
-      // mandamos un mensaje de error
-      this.snack.showSnackBar(error, 'Error!');
-    });
+    if (this.cursoFlag === false) {
+      /**
+       * si es falso generas la subscripción
+       */
+      this.serviceCourse.getAllCursos().subscribe(
+        response => {
+        // llemamos la tabla
+        this.datasource.data = response;
+        this.datasource.sort = this.sort;
+        this.datasource.paginator = this.paginator;
+      }, error => {
+        // mandamos un mensaje de error
+        this.snack.showSnackBar(error, 'Error!');
+      });
+    } else {
+      /**
+       * si es verdadero llamamos a otra servicio y nos subscribimos
+       */
+    }
   }
 
   /**
@@ -235,10 +252,23 @@ export class ChildPaso1CursoComponent implements OnInit {
    * enviar data
    */
   async sendData() {
+    this.isLoadingResults = true;
     const data = await this.serviceCourse.sendCursosByAgenda(this.idAgenda, this.cursoList);
-    console.log(data);
-    if (data[1] === 'saved') {
-      console.log('data');
+    const keys = Object.keys(data);
+    if (keys[0] === 'success') {
+      const strAgenda = this.encodeAndDecode.b64EncodeUnicode(this.idAgenda.toString());
+      this.isLoadingResults = false;
+      /**
+       * vamos a hacer una consulta
+       * para actualizar un componente
+       * via un el servicio de la agenda
+       */
+      const updateValue = await this.agendas.updateIsCurso(strAgenda);
+      const keysAgenda = Object.keys(updateValue);
+      if (keysAgenda[0] === 'success') {
+        // actualizamos componente
+        this.cursoFlag = true;
+      }
     }
   }
  }

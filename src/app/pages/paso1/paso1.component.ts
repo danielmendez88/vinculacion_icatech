@@ -151,6 +151,8 @@ export class Paso1Component implements OnInit {
     return this.email.hasError('required') ? 'debes ingresar un valor' :
       this.email.hasError('email') ? 'no es un correo Válido' : '';
   }
+  // boolean type value
+  private iscurso: boolean;
 
 
   ngOnInit() {
@@ -162,6 +164,10 @@ export class Paso1Component implements OnInit {
     const AgendaId = this.route.snapshot.data.getAgenda.id;
     this.idAgend = this.route.snapshot.data.getAgenda.id;
     this.editable = this.route.snapshot.data.getAgenda.seguimiento;
+    /**
+     * iscursoincorporated en false por defecto
+     */
+    this.iscurso = this.route.snapshot.data.getAgenda.iscursoincorporated;
     /**
      * cargamos el valor de los archivos desde el resolver - separamos esta funcionalidad
      * con el fin de tener un mejor control en el proceso del sistema
