@@ -31,8 +31,10 @@ export class ChildPaso1CursoComponent implements OnInit {
   cursos: Cursos[];
    // columnas
   displayedColumns = ['curso', 'costo', 'detalle', 'agregar'];
+  dpColumns = ['curso', 'costo', 'detalle'];
   // datasource
   datasource = new MatTableDataSource<Cursos>();
+  sourceData = new MatTableDataSource<Cursos>();
   // paginadores
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -135,6 +137,8 @@ export class ChildPaso1CursoComponent implements OnInit {
       /**
        * si es verdadero llamamos a otra servicio y nos subscribimos
        */
+      const agendastr = this.encodeAndDecode.b64EncodeUnicode(this.idAgenda.toString());
+      this.loadCursoByAgenda(agendastr);
     }
   }
 
@@ -270,5 +274,13 @@ export class ChildPaso1CursoComponent implements OnInit {
         this.cursoFlag = true;
       }
     }
+  }
+  /**
+   * load cursos
+   */
+  async loadCursoByAgenda(id: string) {
+    const resultado = await this.serviceCourse.getCursobyIdAgenda(id);
+    this.sourceData = resultado;
+    this.sourceData.sort = this.sort;
   }
  }
