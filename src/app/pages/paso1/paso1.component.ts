@@ -81,7 +81,7 @@ export class Paso1Component implements OnInit {
   cargandoPdfGobData = false;
   errorPdfGobData = false;
   // idAgenda
-  private idAgend: number;
+  public idAgend: number;
 
   // tipo incidencia deshabilitado
   tipoincidenciaDisabled = true;
@@ -123,6 +123,14 @@ export class Paso1Component implements OnInit {
     nombre: '',
     nombreEntidad: '',
     seguimento: false,
+    tipoVista: '',
+    institucion: '',
+    nombreTitular: '',
+    cargo: '',
+    telfonoInstitucional: '',
+    nombreEnlace: '',
+    cargoEnlace: '',
+    telefonoEnlace: ''
   };
 
   // obtener interface del detalle
@@ -152,7 +160,7 @@ export class Paso1Component implements OnInit {
       this.email.hasError('email') ? 'no es un correo Válido' : '';
   }
   // boolean type value
-  private iscurso: boolean;
+  public iscurso: boolean;
 
 
   ngOnInit() {
@@ -412,7 +420,7 @@ export class Paso1Component implements OnInit {
   openDialog(agenda): void {
     const diglogRef = this.dialog.open(DialogSeguimiento, {
       width: '250px',
-      data: {idAgenda: agenda, service: this.As}
+      data: {id: agenda, service: this.As}
     });
     diglogRef.afterClosed().subscribe(result => {
       // si abirmos el dialogo obtenemos un valor del child view que se acaba de cerrar

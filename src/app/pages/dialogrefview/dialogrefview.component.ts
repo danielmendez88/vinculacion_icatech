@@ -17,7 +17,7 @@ export interface DialogDataCurso {
   styleUrls: ['./dialogrefview.component.scss']
 })
 export class DialogrefviewComponent implements OnInit {
-  private cursoBy: CursosbyId = {
+  public cursoBy: CursosbyId = {
     curso: '',
     especialidad: '',
     objetivo: '',

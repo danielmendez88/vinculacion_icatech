@@ -17,4 +17,12 @@ export interface AgendaDetails {
   seguimento?: boolean;
   hora?: Date;
   isdnc?: number;
+  tipoVista?: string;
+  institucion?: string;
+  nombreTitular?: string;
+  cargo?: string;
+  telfonoInstitucional?: string;
+  nombreEnlace?: string;
+  cargoEnlace?: string;
+  telefonoEnlace?: string;
 }

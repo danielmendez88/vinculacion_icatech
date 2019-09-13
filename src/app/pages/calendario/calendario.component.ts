@@ -11,6 +11,8 @@ import { Events } from '../../models/events';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+// titulo
+import { Title } from '@angular/platform-browser';
 
 export interface DialogData {
   eventId: string;
@@ -39,7 +41,12 @@ export class CalendarioComponent implements OnInit {
   // referencias por el calendario en la plantilla
   @ViewChild('calendario') CalendaroComponente: FullCalendarComponent;
 
-  constructor(private Agenda: AgendaService, private router: ActivatedRoute, private dialog: MatDialog) {
+  constructor(
+    private Agenda: AgendaService,
+    private router: ActivatedRoute,
+    private dialog: MatDialog,
+    private titulo: Title
+  ) {
     // this.getallAgenda();
     // this.getAllOwnAgend(this.userId);
     this.calendar = this.router.snapshot.data.getAllOwnAgenda;
@@ -47,6 +54,8 @@ export class CalendarioComponent implements OnInit {
   }
 
   ngOnInit() {
+    // set titulos
+    this.titulo.setTitle('Icatech / Agendas en Calendario');
     this.options = {
       locale: 'es',
       editable: true,

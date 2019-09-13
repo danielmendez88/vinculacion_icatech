@@ -15,37 +15,44 @@
         <!--cabecera-->
         <!--contenido-->
         <mat-card-content>
-          <table mat-table [dataSource]="sourceData">
+          <mat-table mat-table [dataSource]="sourceData">
             <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
             <!--columna-->
             <ng-container matColumnDef="curso">
-              <th mat-header-cell *matHeaderCellDef> Curso </th>
-              <td mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</td>
+              <mat-header-cell *matHeaderCellDef> Curso </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
             </ng-container>
   
             <!-- Name Column -->
             <ng-container matColumnDef="costo">
-              <th mat-header-cell *matHeaderCellDef> Costo </th>
-              <td mat-cell *matCellDef="let row" data-label="costo">  $ {{row.costo}} </td>
+              <mat-header-cell *matHeaderCellDef> Costo </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="costo">  $ {{row.costo}} </mat-cell>
             </ng-container>
   
             <!-- Columna detalle-->
             <ng-container matColumnDef="detalle">
-              <th mat-header-cell *matHeaderCellDef>Detalles</th>
-              <td mat-cell *matCellDef="let row" data-label="detalle">
+              <mat-header-cell *matHeaderCellDef>Detalles</mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="detalle">
                 <button mat-icon-button color="primary" (click)="openDialog(row.idCurso)">
                     <mat-icon class="mat-18">search</mat-icon>
                 </button>
-              </td>
+              </mat-cell>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="dpColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: dpColumns;"></tr>
-          </table>
+            <mat-header-row *matHeaderRowDef="dpColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: dpColumns;"></mat-row>
+          </mat-table>
         </mat-card-content>
         <!--contenido-->
       </mat-card>
+    </div>
+    <!--div fxFlex-->
+    <div fxFlex="20%" class="curso_lista">
+      <button mat-raised-button color="primary" (click)="sendData()">
+        <mat-icon>local_printshop</mat-icon>
+        Documento
+      </button>
     </div>
   </ng-container>
   <ng-template #cursoFlagFalse>

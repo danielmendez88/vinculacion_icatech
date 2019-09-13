@@ -50,7 +50,14 @@ export class CatcursoComponent implements OnInit {
   // seleccion
   selection = new SelectionModel<Cursos>(true, []);
   // tslint:disable-next-line:max-line-length
-  constructor(private Curso: CursosService, private router: ActivatedRoute, private btnsheet: MatBottomSheet, private ngz: NgZone, private titulo: Title, private spinnerService: SpinnerServiceService) {  }
+  constructor(
+    private Curso: CursosService,
+    private router: ActivatedRoute,
+    private btnsheet: MatBottomSheet,
+    private ngz: NgZone,
+    private titulo: Title,
+    public spinnerService: SpinnerServiceService
+  ) {  }
 
   ngOnInit() {
     this.titulo.setTitle('Icatech / Cursos');
