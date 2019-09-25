@@ -12,6 +12,8 @@ import { AuthService } from '../services/auth.service';
 import { CategoriaCursos, Cursos, CursosbyId } from '../models/cursos';
 // cachable
 import { Cacheable } from 'ngx-cacheable';
+// importar cryptojs
+import * as CryptoJS from 'crypto-js';
 /**
  * DESARROLLADO POR DANIEL MÉNDEZ CRUZ V.1.0
  */
@@ -22,6 +24,7 @@ const URLCURSOPORCATEGORIA = 'cursosporcategoria';
 const URLCURSOBYID = 'cursobyid';
 const URLPOSTCURSOSBYAGENDA = 'agendacursos';
 const URLGETCURSOBYAGENDA = 'getcursoagenda';
+const URLGETPRINTCURSOS = 'getprintcursos';
 
 @Injectable({
   providedIn: 'root'
@@ -95,6 +98,15 @@ export class CursosService {
     const respuesta = await this.http.get<CursosbyId>(`${environment.PATH_BASE}/${URLGETCURSOBYAGENDA}/${id}`, this.httpOptions)
                       .toPromise();
     return respuesta;
+  }
+
+  /**
+   * curso para impirmir servicio por agenda
+   */
+  async getCursosByAgendToPrint(id: string): Promise<any> {
+    const response = await this.http.get<any>(`${environment.PATH_BASE}/${URLGETPRINTCURSOS}/${id}`, this.httpOptions)
+                     .toPromise();
+    return response;
   }
 
   /**

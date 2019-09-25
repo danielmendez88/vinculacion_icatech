@@ -72,6 +72,8 @@ export class ChildPaso1CursoComponent implements OnInit {
   // boolean value
   isCursoIncorporated = false;
   @Input() cursoFlag;
+  // input titular
+  @Input() titulartag;
 
   constructor(
     private serviceCourse: CursosService,
@@ -83,8 +85,6 @@ export class ChildPaso1CursoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // flag
-    console.log(this.cursoFlag);
     // cargamos las categorias
     this.getCategories();
 
@@ -245,9 +245,15 @@ export class ChildPaso1CursoComponent implements OnInit {
    */
   imprimirActa() {
     try {
+      // obtenemos el usuario que tiene la sesión iniciada
+      const usuarioActual = localStorage.getItem('currentUserName');
+      const titular = this.titulartag;
       const datosImpresion = {
-
+        lista: this.loadCursosByPrint(this.idAgenda),
+        usuario: usuarioActual,
+        titular_agenda: titular
       };
+      this.pdfworker.postMessage(JSON.stringify(datosImpresion));
     } catch (error) {
       this.cargandoPdf = false;
     }
@@ -270,6 +276,8 @@ export class ChildPaso1CursoComponent implements OnInit {
       const updateValue = await this.agendas.updateIsCurso(strAgenda);
       const keysAgenda = Object.keys(updateValue);
       if (keysAgenda[0] === 'success') {
+        // borrar contenido array
+        this.cursoList = [];
         // actualizamos componente
         this.cursoFlag = true;
       }
@@ -282,5 +290,12 @@ export class ChildPaso1CursoComponent implements OnInit {
     const resultado = await this.serviceCourse.getCursobyIdAgenda(id);
     this.sourceData = resultado;
     this.sourceData.sort = this.sort;
+  }
+  /**
+   * cargar cursos a imprimir
+   */
+  async loadCursosByPrint(id: string) {
+    const response = await this.serviceCourse.getCursosByAgendToPrint(id);
+    return response;
   }
  }

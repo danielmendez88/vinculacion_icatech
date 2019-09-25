@@ -161,6 +161,8 @@ export class Paso1Component implements OnInit {
   }
   // boolean type value
   public iscurso: boolean;
+  // string titular value
+  public titular: string;
 
 
   ngOnInit() {
@@ -192,6 +194,8 @@ export class Paso1Component implements OnInit {
     this.incidencias = this.route.snapshot.data.incidenciaResolve;
     // agenda
     this.Agend = this.route.snapshot.data.getAgenda;
+    // titular de la agenda
+    this.titular = this.Agend.nombreTitular;
     if (this.Agend.hora !== null) {
       this.formatoHora = this.timeConvert(this.Agend.hora);
     } else {
