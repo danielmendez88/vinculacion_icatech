@@ -96,7 +96,6 @@ export class CalendarioComponent implements OnInit {
 
   // parse data
   parseData(jsonData: string) {
-    console.log(jsonData);
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < jsonData.length; i++) {
       this.calendarEvents = this.calendarEvents.concat(

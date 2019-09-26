@@ -82,6 +82,12 @@ export class Paso1Component implements OnInit {
   errorPdfGobData = false;
   // idAgenda
   public idAgend: number;
+  // boolean type value
+  public iscurso: boolean;
+  // string titular value
+  public titular: string;
+  // formgroup de arhcivo
+  formArchivo: FormGroup;
 
   // tipo incidencia deshabilitado
   tipoincidenciaDisabled = true;
@@ -98,6 +104,7 @@ export class Paso1Component implements OnInit {
     private $location: Location // agregado recientemente
   ) {
     this.createForm();
+    this.createFileForm();
   }
   // tiempo de duración
   durationInSeconds = 5000;
@@ -159,10 +166,6 @@ export class Paso1Component implements OnInit {
     return this.email.hasError('required') ? 'debes ingresar un valor' :
       this.email.hasError('email') ? 'no es un correo Válido' : '';
   }
-  // boolean type value
-  public iscurso: boolean;
-  // string titular value
-  public titular: string;
 
 
   ngOnInit() {
@@ -306,11 +309,24 @@ export class Paso1Component implements OnInit {
       isincidence: new FormControl(false),
       propuesta: new FormControl(null, Validators.required),
       imagen: new FormControl(null, Validators.required),
-      nombreArchivo: new FormControl(null, Validators.required),
       agenda_id: new FormControl(null),
       incidenciaTipo: new FormControl({value: '', disabled: true})
     });
   }
+
+  /**
+   * crear formulario para subir archivo
+   */
+  createFileForm() {
+    this.formArchivo = this.fb.group({
+      nombreArchivo: new FormControl(null, Validators.required),
+    });
+  }
+
+  /**
+   * conveniencia para un fácil acceso a los campos de formulario
+   */
+  get f() { return this.formArchivo.controls; }
 
   // onchange
   onChange(e) {
@@ -320,14 +336,14 @@ export class Paso1Component implements OnInit {
       // si es verdadero
       this.form.controls.incidenciaTipo.enable();
       // deshabilitar archivo
-      this.form.controls.nombreArchivo.disable(); // true
+      this.formArchivo.controls.nombreArchivo.disable(); // true
       this.myDocumento.nativeElement.value = ''; // vuelve el valor del documento cargado a cero
       this.tipoincidenciaDisabled = false;
     } else {
       this.form.controls.incidenciaTipo.disable();
       this.incidenciaType.nativeElement = '';
       // habilitar archivo
-      this.form.controls.nombreArchivo.enable(); // false
+      this.formArchivo.controls.nombreArchivo.enable(); // false
       this.tipoincidenciaDisabled = true;
     }
   }
@@ -346,7 +362,6 @@ export class Paso1Component implements OnInit {
       formData.append('isincidence', this.form.controls.isincidence.value);
       formData.append('incidenciatipo', this.form.controls.incidenciaTipo.value);
     } else if (esIncidencia === null || esIncidencia === false) {
-      formData.append('nombreArchivo', this.fileUpload, this.fileUpload.name);
       formData.append('imagen', this.fileToUpload, this.fileToUpload.name);
       formData.append('propuesta', this.form.controls.propuesta.value);
       formData.append('agenda_id', this.form.controls.agenda_id.value);

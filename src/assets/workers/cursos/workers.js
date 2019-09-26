@@ -57,7 +57,7 @@ importScripts('../logos.js');
           },
           {
             stack: [
-              { text: data.usuario }
+              { text: data.titular_agenda }
             ],
             style: 'vinculadores'
           },

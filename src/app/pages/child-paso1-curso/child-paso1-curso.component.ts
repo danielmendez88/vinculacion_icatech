@@ -74,6 +74,8 @@ export class ChildPaso1CursoComponent implements OnInit {
   @Input() cursoFlag;
   // input titular
   @Input() titulartag;
+  // donde se guardará todos los datos
+  listaImprimir: any = [];
 
   constructor(
     private serviceCourse: CursosService,
@@ -139,6 +141,7 @@ export class ChildPaso1CursoComponent implements OnInit {
        */
       const agendastr = this.encodeAndDecode.b64EncodeUnicode(this.idAgenda.toString());
       this.loadCursoByAgenda(agendastr);
+      this.loadCursosByPrint(this.idAgenda);
     }
   }
 
@@ -248,12 +251,12 @@ export class ChildPaso1CursoComponent implements OnInit {
       // obtenemos el usuario que tiene la sesión iniciada
       const usuarioActual = localStorage.getItem('currentUserName');
       const titular = this.titulartag;
-      const datosImpresion = {
-        lista: this.loadCursosByPrint(this.idAgenda),
+      const datosImprimir = {
+        lista: this.listaImprimir,
         usuario: usuarioActual,
         titular_agenda: titular
       };
-      this.pdfworker.postMessage(JSON.stringify(datosImpresion));
+      this.pdfworker.postMessage(JSON.stringify(datosImprimir));
     } catch (error) {
       this.cargandoPdf = false;
     }
@@ -277,9 +280,11 @@ export class ChildPaso1CursoComponent implements OnInit {
       const keysAgenda = Object.keys(updateValue);
       if (keysAgenda[0] === 'success') {
         // borrar contenido array
-        this.cursoList = [];
+        // this.cursoList = [];
         // actualizamos componente
         this.cursoFlag = true;
+        this.loadCursoByAgenda(strAgenda);
+        this.loadCursosByPrint(this.idAgenda);
       }
     }
   }
@@ -294,8 +299,14 @@ export class ChildPaso1CursoComponent implements OnInit {
   /**
    * cargar cursos a imprimir
    */
-  async loadCursosByPrint(id: string) {
-    const response = await this.serviceCourse.getCursosByAgendToPrint(id);
-    return response;
+  loadCursosByPrint(id: number) {
+    this.serviceCourse.getCursosByAgendToPrint(id).subscribe(
+      (response) => {
+        this.listaImprimir = response;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
  }

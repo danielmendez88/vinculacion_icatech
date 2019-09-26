@@ -23,13 +23,13 @@
               <mat-header-cell *matHeaderCellDef> Curso </mat-header-cell>
               <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
             </ng-container>
-  
+
             <!-- Name Column -->
             <ng-container matColumnDef="costo">
               <mat-header-cell *matHeaderCellDef> Costo </mat-header-cell>
               <mat-cell *matCellDef="let row" data-label="costo">  $ {{row.costo}} </mat-cell>
             </ng-container>
-  
+
             <!-- Columna detalle-->
             <ng-container matColumnDef="detalle">
               <mat-header-cell *matHeaderCellDef>Detalles</mat-header-cell>
@@ -49,7 +49,7 @@
     </div>
     <!--div fxFlex-->
     <div fxFlex="20%" class="curso_lista">
-      <button mat-raised-button color="primary" (click)="sendData()">
+      <button mat-raised-button color="primary" (click)="imprimirActa()">
         <mat-icon>local_printshop</mat-icon>
         Documento
       </button>
@@ -80,22 +80,22 @@
             <input matInput placeholder="Buscar Curso ..." (keyup)="applyFilter($event.target.value)">
           </mat-form-field>
           <mat-table [dataSource]="datasource" matSort matSortStart="desc" matSortDirection="asc">
-  
+
               <!--- Note that these columns can be defined in any order.
                     The actual rendered columns are set as a property on the row definition" -->
-  
+
               <!-- Position Column -->
               <ng-container matColumnDef="curso">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Curso </mat-header-cell>
                 <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
               </ng-container>
-  
+
               <!-- Name Column -->
               <ng-container matColumnDef="costo">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Costo </mat-header-cell>
                 <mat-cell *matCellDef="let row" data-label="costo">  $ {{row.costo}} </mat-cell>
               </ng-container>
-  
+
               <!-- Weight Column -->
               <ng-container matColumnDef="detalle">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Detalles</mat-header-cell>
@@ -114,7 +114,7 @@
                   </button>
                 </mat-cell>
               </ng-container>
-  
+
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>

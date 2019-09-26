@@ -103,10 +103,14 @@ export class CursosService {
   /**
    * curso para impirmir servicio por agenda
    */
-  async getCursosByAgendToPrint(id: string): Promise<any> {
-    const response = await this.http.get<any>(`${environment.PATH_BASE}/${URLGETPRINTCURSOS}/${id}`, this.httpOptions)
-                     .toPromise();
-    return response;
+  @Cacheable()
+  getCursosByAgendToPrint(id: number): Observable<any> {
+    return this.http.get<CursosbyId>(`${environment.PATH_BASE}/${URLGETPRINTCURSOS}/${id}`, this.httpOptions)
+                     .pipe(
+                      retry(3),
+                      map(result => result),
+                      catchError(this.handleError)
+                    );
   }
 
   /**
