@@ -1,13 +1,21 @@
+.login-wrapper .example-form{min-width:100%;max-width:300px;width:100%;}
 .carta {
-  max-width: 800px;
+  position:relative;top:0;opacity:1;float:left;padding:60px 50px 40px 50px;width:100%;background:#fff;border-radius:10px;transform:scale(1);-webkit-transform:scale(1);-ms-transform:scale(1);z-index:5;max-width:330px;
 }
-
-.form-container {
+.example-full-width{
   display: flex;
   flex-direction: column;
 }
 
-.form-container > * {
+.login-wrapper .btn-block, .login-wrapper .submit{
+  width:100%;
+}
+
+.invalid-feedback > *{
+  width: 100%;
+}
+
+.example-full-width > * {
   width: 100%;
 }
 
