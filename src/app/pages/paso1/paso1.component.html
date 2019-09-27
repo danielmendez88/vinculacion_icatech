@@ -75,7 +75,7 @@
           <div class="spinner-wrapper" *ngIf="isLoadingResults">
             <mat-spinner></mat-spinner>
           </div>
-
+          <!--spinner-->
           <!--contador seguimiento-->
           <ng-template [ngIf]="contadorArchivos === 0" [ngIfElse]="AgendaSeguimiento">
 
@@ -113,7 +113,7 @@
                     <mat-card class="carta-detalle">
                         <!--cabecera-->
                         <mat-card-header>
-                            <mat-card-title>Documento</mat-card-title>
+                            <mat-card-title>Prueba Fotográfica</mat-card-title>
                         </mat-card-header>
                         <!--cabecera end-->
                         <!--contenido-->
@@ -141,43 +141,6 @@
                   <!--imagenes end-->
               </div>
               <input #identificador type="hidden" formControlName="agenda_id"/>
-            </form>
-
-            <form [formGroup]="formArchivo" (ngSubmit)="onFormFileSubmit(formArchivo.value)">
-              <div fxLayout="column" fxLayoutAlign="space-evenly none">
-                <div fxFlex="50%" class="curso_lista">
-                    <!--carta-->
-                    <mat-card class="carta-detalle">
-                      <!--cabecera-->
-                      <mat-card-header>
-                          <mat-card-title>Archivo</mat-card-title>
-                      </mat-card-header>
-                      <!--cabecera head-->
-                      <!--contenido-->
-                      <mat-card-content>
-                        <!--file input-->
-                        <div *ngIf="ActivoDNC == 0">
-                          <div class="file-drop-area" [hidden]="!tipoincidenciaDisabled">
-                            <span class="fake-btn">elegir Archivo</span>
-                            <span class="file-msg">{{fileUpload ? fileUpload.name : 'Extensiones permitidas pdf' }}</span>
-                            <input class="file-input" formControlName="nombreArchivo" #Document accept="application/pdf" matTooltip="extensiones .pdf" (change)="onSelectedFile($event)" type="file">
-                          </div>
-                        </div>
-                        <!--file input end-->
-                      </mat-card-content>
-                      <!--contenido end-->
-                      <!--contenido actions-->
-                      <mat-card-actions>
-                        <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid || isLoadingResults">
-                          <mat-icon>attachment</mat-icon>
-                          Adjuntar
-                        </button>
-                      </mat-card-actions>
-                      <!--contenido actions end-->
-                    </mat-card>
-                    <!--carta end-->
-                </div>
-              </div>
             </form>
 
           </ng-template>
@@ -237,12 +200,56 @@
                   </mat-card>
                   <!--cartas-->
                 </div>
-                <!---->
+                <!--imagenes fin-->
               </div>
           </ng-template>
           <!--contador seguimiento end-->
-          <!--spinner-->
-          <!--imagenes fin-->
+          <!--plantilla-->
+          <ng-container *ngIf="contadorArchivos === 0; else templateCatalogoCursos">
+
+            <form [formGroup]="formArchivo" (ngSubmit)="onFormFileSubmit(formArchivo.value)">
+              <div fxLayout="column" fxLayoutAlign="space-evenly none">
+                <div fxFlex="50%" class="curso_lista">
+                    <!--carta-->
+                    <mat-card class="carta-detalle">
+                      <!--cabecera-->
+                      <mat-card-header>
+                          <mat-card-title>Archivo</mat-card-title>
+                      </mat-card-header>
+                      <!--cabecera head-->
+                      <!--contenido-->
+                      <mat-card-content>
+                        <!--file input-->
+                        <div *ngIf="ActivoDNC == 0">
+                          <div class="file-drop-area" [hidden]="!tipoincidenciaDisabled">
+                            <span class="fake-btn">elegir Archivo</span>
+                            <span class="file-msg">{{fileUpload ? fileUpload.name : 'Extensiones permitidas pdf' }}</span>
+                            <input class="file-input" formControlName="nombreArchivo" #Document accept="application/pdf" matTooltip="extensiones .pdf" (change)="onSelectedFile($event)" type="file">
+                          </div>
+                        </div>
+                        <!--file input end-->
+                      </mat-card-content>
+                      <!--contenido end-->
+                      <!--contenido actions-->
+                      <mat-card-actions>
+                        <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid || isLoadingResults">
+                          <mat-icon>attachment</mat-icon>
+                          Adjuntar
+                        </button>
+                      </mat-card-actions>
+                      <!--contenido actions end-->
+                    </mat-card>
+                    <!--carta end-->
+                </div>
+              </div>
+            </form>
+
+          </ng-container>
+          <ng-template #templateCatalogoCursos>
+
+          </ng-template>
+
+          <!--plantilla end-->
         </mat-step>
         <!--paso 4 end-->
       </mat-horizontal-stepper>
