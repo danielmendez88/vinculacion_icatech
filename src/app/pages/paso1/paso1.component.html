@@ -145,8 +145,8 @@
 
           </ng-template>
           <ng-template #AgendaSeguimiento>
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="1%">
-                <div fxFlex.gt-xs="45%">
+              <div fxLayout="column" fxLayoutAlign="space-evenly none">
+                <div fxFlex="50%" class="curso_lista">
                   <mat-chip-list>
                       <div [ngSwitch]="status">
                         <mat-chip class="item success" *ngSwitchCase="1">Iniciado</mat-chip>
@@ -173,30 +173,24 @@
                   <!--descripcion-->
                 </div>
                 <!--imagenes-->
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="left">
+                <div fxFlex="50%" class="curso_lista">
                   <mat-card class="cards" *ngFor="let agendaDetail of archivosArray">
-                    <mat-card-title>
-                      <span fxFlex="80%">{{ agendaDetail.nombreArchivo }}</span>
+                    <mat-card-header>
+                      <mat-card-title>Prueba Fotográfica</mat-card-title>
+                      <mat-card-subtitle>{{ agendaDetail.nombreArchivo }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <!--plantilla ng if extension -->
+                    <ng-template [ngIf]="agendaDetail.extension === 'jpg' || agendaDetail.extension === 'png' || agendaDetail.extension === 'jpeg' || agendaDetail.extension === 'JPG'">
+                      <img mat-card-image src="{{ agendaDetail.ruta }}" alt="{{ agendaDetail.nombreArchivo }}">
+                    </ng-template>
+                    <!--plantilla ng if extension end -->
+                    <mat-card-actions>
                       <ng-template [ngIf]="agendaDetail.extension === 'jpg' || agendaDetail.extension === 'png' || agendaDetail.extension === 'jpeg' || agendaDetail.extension === 'JPG'" [ngIfElse]="downloadDoc">
                         <button mat-flat-button fxFlex="20%" matTooltip="Visualizar Imagen">
                           <mat-icon>pageview</mat-icon>
                         </button>
                       </ng-template>
-                      <ng-template #downloadDoc>
-                        <button mat-flat-button fxFlex="20%" matTooltip="Descargar Archivo">
-                          <mat-icon>cloud_download</mat-icon>
-                        </button>
-                      </ng-template>
-                    </mat-card-title>
-                      <!--plantilla ng if extension -->
-                      <ng-template [ngIf]="agendaDetail.extension === 'jpg' || agendaDetail.extension === 'png' || agendaDetail.extension === 'jpeg' || agendaDetail.extension === 'JPG'" [ngIfElse]="plantillapdf">
-                        <img mat-card-image src="{{ agendaDetail.ruta }}">
-                      </ng-template>
-                      <!--mostrar plantilla pdf-->
-                      <ng-template #plantillapdf>
-                        <img mat-card-image class="logopdf" src="../../../assets/img/pdfFile.png"/>
-                      </ng-template>
-                      <!--plantilla ng if extension end -->
+                    </mat-card-actions>
                   </mat-card>
                   <!--cartas-->
                 </div>
@@ -205,7 +199,7 @@
           </ng-template>
           <!--contador seguimiento end-->
           <!--plantilla-->
-          <ng-container *ngIf="contadorArchivos === 0; else templateCatalogoCursos">
+          <ng-container *ngIf="!propuestacurso; else templateCatalogoCursos">
 
             <form [formGroup]="formArchivo" (ngSubmit)="onFormFileSubmit(formArchivo.value)">
               <div fxLayout="column" fxLayoutAlign="space-evenly none">
@@ -220,11 +214,14 @@
                       <!--contenido-->
                       <mat-card-content>
                         <!--file input-->
-                        <div *ngIf="ActivoDNC == 0">
+                        <div *ngIf="!esIncidencia">
                           <div class="file-drop-area" [hidden]="!tipoincidenciaDisabled">
                             <span class="fake-btn">elegir Archivo</span>
                             <span class="file-msg">{{fileUpload ? fileUpload.name : 'Extensiones permitidas pdf' }}</span>
                             <input class="file-input" formControlName="nombreArchivo" #Document accept="application/pdf" matTooltip="extensiones .pdf" (change)="onSelectedFile($event)" type="file">
+                            <div *ngIf="submitted && f.nombreArchivo.errors" class="invalid-feedback">
+                              <div *ngIf="f.nombreArchivo.errors.required">El archivo es requerido</div>
+                            </div>
                           </div>
                         </div>
                         <!--file input end-->
@@ -232,7 +229,7 @@
                       <!--contenido end-->
                       <!--contenido actions-->
                       <mat-card-actions>
-                        <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid || isLoadingResults">
+                        <button mat-flat-button color="primary" type="submit" [disabled]="!formArchivo.valid || isLoadingResults">
                           <mat-icon>attachment</mat-icon>
                           Adjuntar
                         </button>
@@ -242,11 +239,26 @@
                     <!--carta end-->
                 </div>
               </div>
+              <input #identificador type="hidden" formControlName="agendas_id"/>
             </form>
 
           </ng-container>
+          <!--contenedor del archivo pdf-->
           <ng-template #templateCatalogoCursos>
-
+              <div fxLayout="column" fxLayoutAlign="space-evenly none">
+                <div fxFlex="50%" class="curso_lista">
+                  <mat-card class="cards" *ngFor="let items of archivospropuestaArray">
+                    <mat-card-header>
+                      <mat-card-title>Nombre Archivo</mat-card-title>
+                      <mat-card-subtitle>{{items.nombreArchivo}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image src="../../../assets/img/Catalogocursopdf.jpg" alt="{{items.nombreArchivo}}">
+                    <mat-card-actions>
+                      <button mat-button>Descargar</button>
+                    </mat-card-actions>
+                  </mat-card>
+                </div>
+              </div>
           </ng-template>
 
           <!--plantilla end-->

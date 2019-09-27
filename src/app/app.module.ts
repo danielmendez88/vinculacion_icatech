@@ -65,6 +65,8 @@ import { CuestionarioSharedService } from './services/cuestionario-shared.servic
 import { RolResolver } from './resolver/rol-resolver';
 // decode and encode service
 import { DecodeencodeserviceService } from './services/decodeencodeservice.service';
+// importar resolver pdf
+import { Filepdfresolver } from './resolver/filepdfresolver';
 
 @NgModule({
   declarations: [
@@ -108,7 +110,8 @@ import { DecodeencodeserviceService } from './services/decodeencodeservice.servi
     CuestionariodncService,
     CuestionarioSharedService,
     RolResolver,
-    DecodeencodeserviceService
+    DecodeencodeserviceService,
+    Filepdfresolver
   ],
   bootstrap: [AppComponent]
 })

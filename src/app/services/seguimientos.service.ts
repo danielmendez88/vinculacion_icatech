@@ -15,6 +15,8 @@ import { Seguimiento, Archivos } from '../models/seguimiento';
 const URL = 'seguimiento';
 const URLSEG = 'seguimientosdetalle';
 const URLFILE = 'getfilesfromseguimiento';
+const URLFILEPOST = 'seguimientofile';
+const URLFILEPROPUESTA = 'getfilepdfagenda';
 @Injectable({
   providedIn: 'root'
 })
@@ -48,6 +50,16 @@ export class SeguimientosService {
   // optener el archivos de los seguimientos
   getFilesFromSeguimientoById(id: number): Observable<Archivos> {
     return this.https.get<Archivos>(`${environment.PATH_BASE}/${URLFILE}/${id}`, this.httpOptions);
+  }
+
+  // enviar archivo al seguimiento denominado
+  createfileseguimiento(id: number, formulario): Observable<any> {
+    return this.https.post<any>(`${environment.PATH_BASE}/${URLFILEPOST}/${id}`, formulario, this.httpOptions)
+           .pipe(catchError(this.handleError));
+  }
+  // Obtener los archivos de los seguimientos (sólo pdf)
+  getfilespropuestaFromSeguimientoBy(id: number): Observable<Archivos> {
+    return this.https.get<Archivos>(`${environment.PATH_BASE}/${URLFILEPROPUESTA}/${id}`, this.httpOptions);
   }
 
   /**

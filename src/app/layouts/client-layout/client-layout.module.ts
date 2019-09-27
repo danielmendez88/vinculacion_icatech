@@ -65,6 +65,8 @@ import { ChildPaso1CursoComponent } from '../../pages/child-paso1-curso/child-pa
 import { RolResolver } from '../../resolver/rol-resolver';
 // dialogo
 import { DialogrefviewComponent } from '../../pages/dialogrefview/dialogrefview.component';
+// importar resolver pdf
+import { Filepdfresolver } from '../../resolver/filepdfresolver';
 
 // rutas
 const ClientLayoutRoutes: Routes = [
@@ -93,7 +95,8 @@ const ClientLayoutRoutes: Routes = [
     getAgenda: SeguimientoService, // primer resolver
     detalles: DetalleSeguimientoResolver, // segundo resolver
     incidenciaResolve: IncidenciaResolver, // tercer resolver
-    archivos: Filesresolver // cuarto resolver
+    archivos: Filesresolver, // cuarto resolver
+    archivosPdf: Filepdfresolver //quinto resolver
   }},
   { path: 'calendario', component: CalendarioComponent, canActivate: [AuthGuard], data: { roles: ['Vinculador'] },
   resolve: { getAllOwnAgenda: CalendarioService}},

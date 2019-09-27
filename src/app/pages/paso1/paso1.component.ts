@@ -88,6 +88,12 @@ export class Paso1Component implements OnInit {
   public titular: string;
   // formgroup de arhcivo
   formArchivo: FormGroup;
+  // variable booleana para submiteo
+  submitted = false;
+  // propuestacursoincorporated
+  propuestacurso: boolean;
+  archivospropuestaArray: any = [];
+  contadorpropuestaArchivo: number;
 
   // tipo incidencia deshabilitado
   tipoincidenciaDisabled = true;
@@ -188,10 +194,20 @@ export class Paso1Component implements OnInit {
      */
     this.contadorArchivos = this.route.snapshot.data.archivos.length;
     /**
+     * contador de archivos en pdf
+     */
+    this.contadorpropuestaArchivo = this.route.snapshot.data.archivosPdf.length;
+    /**
      * verificamos que el contador sea mayor a cero
      */
     if (this.contadorArchivos > 0) {
       this.archivosArray = this.route.snapshot.data.archivos;
+    }
+    /**
+     * verificamos que el contador sea mayor a cero
+     */
+    if (this.contadorpropuestaArchivo > 0) {
+      this.archivospropuestaArray = this.route.snapshot.data.archivosPdf;
     }
     // cargamos la incidencia
     this.incidencias = this.route.snapshot.data.incidenciaResolve;
@@ -208,8 +224,12 @@ export class Paso1Component implements OnInit {
     this.esIncidencia = this.route.snapshot.data.detalles[0].esincidencia;
     this.status = this.route.snapshot.data.detalles[0].statusAgenda;
     this.nombreDeLaIncidencia = this.route.snapshot.data.detalles[0].nombreIncidencia;
+    // propuestacursoincorporated
+    this.propuestacurso = this.route.snapshot.data.detalles[0].propuestacursoincorporated;
     // le pasamos el valor del id
     this.form.controls.agenda_id.setValue(AgendaId);
+    // le pasamos el valor del id al control
+    this.formArchivo.controls.agendas_id.setValue(AgendaId);
     // es dnc
     this.ActivoDNC = 0;
     const $ngzone = this.ngz;
@@ -320,6 +340,7 @@ export class Paso1Component implements OnInit {
   createFileForm() {
     this.formArchivo = this.fb.group({
       nombreArchivo: new FormControl(null, Validators.required),
+      agendas_id: new FormControl(null)
     });
   }
 
@@ -397,6 +418,34 @@ export class Paso1Component implements OnInit {
           console.error(err);
           this.isLoadingResults = false;
          });
+  }
+
+  /**
+   * submitformFile
+   */
+  onFormFileSubmit() {
+    this.submitted = true;
+    this.isLoadingResults = true;
+    const id = this.form.controls.agenda_id.value;
+    // nos detenemos si el formulario es invalido
+    if (this.formArchivo.invalid) {
+      return;
+    }
+
+    // de lo contrario enviamos la informacion al servicio de carga de archivos
+    this.sg.createfileseguimiento(id, this.formArchivo.value)
+           .subscribe( result => {
+            this.isLoadingResults = false;
+            this.snackservice.showSnackBar(JSON.stringify(result[1]), 'Listo!');
+            // cargamos los archivos del seguimiento sólo el archivo que contenga el pdf para que muestre en el frontend
+            this.sg.getfilespropuestaFromSeguimientoBy(id).subscribe(response => {
+              this.archivospropuestaArray = response;
+            }, error => {
+              this.snackservice.showSnackBar(JSON.stringify(error), 'Error!');
+            });
+           }, error => {
+             this.snackservice.showSnackBar(JSON.stringify(error[1]), 'Error!');
+           });
   }
 
   // función para resetear el formulario
