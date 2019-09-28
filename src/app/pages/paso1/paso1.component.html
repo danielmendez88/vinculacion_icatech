@@ -73,7 +73,8 @@
         <mat-step label="Seguimineto">
           <!--spinner-->
           <div class="spinner-wrapper" *ngIf="isLoadingResults">
-            <mat-spinner></mat-spinner>
+            <mat-progress-spinner color="primary" mode="indeterminate" [diameter]="40"></mat-progress-spinner>
+            Procesando ...
           </div>
           <!--spinner-->
           <!--contador seguimiento-->
@@ -214,7 +215,7 @@
                       <!--contenido-->
                       <mat-card-content>
                         <!--file input-->
-                        <div *ngIf="!esIncidencia">
+                        <div *ngIf="esIncidencia">
                           <div class="file-drop-area" [hidden]="!tipoincidenciaDisabled">
                             <span class="fake-btn">elegir Archivo</span>
                             <span class="file-msg">{{fileUpload ? fileUpload.name : 'Extensiones permitidas pdf' }}</span>

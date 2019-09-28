@@ -12,12 +12,12 @@ export class Filepdfresolver implements Resolve<any> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
       const id = route.paramMap.get('idvinculacion');
       const idseg = +id;
-        return this.sg.getfilespropuestaFromSeguimientoBy(idseg).pipe(
-            catchError((error) => {
-                return empty();
-                console.error(error);
-            })
-        );
+      return this.sg.getfilespropuestaFromSeguimientoBy(idseg).pipe(
+          catchError((error) => {
+            console.error(error);
+            return empty();
+          })
+      );
     }
 
 }

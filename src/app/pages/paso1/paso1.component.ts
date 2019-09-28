@@ -411,7 +411,6 @@ export class Paso1Component implements OnInit {
            }, (error) => {
              this.snackservice.showSnackBar(JSON.stringify(error), 'Error!');
            });
-           // this.router.navigate(['calendario']);
            // mostrar resultado
            this.snackservice.showSnackBar(JSON.stringify(res.success), 'Listo');
          }, err => {
@@ -426,24 +425,37 @@ export class Paso1Component implements OnInit {
   onFormFileSubmit() {
     this.submitted = true;
     this.isLoadingResults = true;
-    const id = this.form.controls.agenda_id.value;
+    const id = this.formArchivo.controls.agendas_id.value;
     // nos detenemos si el formulario es invalido
     if (this.formArchivo.invalid) {
       return;
     }
 
+    /**
+     * formFileData
+     */
+    const formFileData = new FormData();
+    formFileData.append('nombreArchivo', this.fileUpload, this.fileUpload.name);
+    formFileData.append('agendas_id', this.formArchivo.controls.agendas_id.value);
+    formFileData.append('isincidence', 'false'); // !importante hay que modificar esta linea de código
     // de lo contrario enviamos la informacion al servicio de carga de archivos
-    this.sg.createfileseguimiento(id, this.formArchivo.value)
+    this.sg.createfileseguimiento(id, formFileData)
            .subscribe( result => {
             this.isLoadingResults = false;
-            this.snackservice.showSnackBar(JSON.stringify(result[1]), 'Listo!');
+            this.resetForm(this.formArchivo); // reseteamos el formulario
+            this.snackservice.showSnackBar(JSON.stringify(result.success), 'Listo!');
             // cargamos los archivos del seguimiento sólo el archivo que contenga el pdf para que muestre en el frontend
             this.sg.getfilespropuestaFromSeguimientoBy(id).subscribe(response => {
-              this.archivospropuestaArray = response;
+              this.propuestacurso = true;
+              if (this.propuestacurso) {
+                this.archivospropuestaArray = response;
+              }
             }, error => {
-              this.snackservice.showSnackBar(JSON.stringify(error), 'Error!');
+              this.isLoadingResults = false;
+              this.snackservice.showSnackBar(JSON.stringify('Error al cargar el archivo, intntelo más tarde'), 'Error!');
             });
            }, error => {
+             this.isLoadingResults = false;
              this.snackservice.showSnackBar(JSON.stringify(error[1]), 'Error!');
            });
   }
