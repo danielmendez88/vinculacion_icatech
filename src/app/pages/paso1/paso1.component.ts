@@ -358,7 +358,10 @@ export class Paso1Component implements OnInit {
       this.form.controls.incidenciaTipo.enable();
       // deshabilitar archivo
       this.formArchivo.controls.nombreArchivo.disable(); // true
-      this.myDocumento.nativeElement.value = ''; // vuelve el valor del documento cargado a cero
+      this.myDocumento.nativeElement.value = '';
+      // resetear el formulario completo
+      this.resetForm(this.formArchivo);
+      // this.myDocumento.nativeElement.value = ''; // vuelve el valor del documento cargado a cero
       this.tipoincidenciaDisabled = false;
     } else {
       this.form.controls.incidenciaTipo.disable();
