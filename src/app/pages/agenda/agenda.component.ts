@@ -27,6 +27,8 @@ import { Cliente, Vinculador } from '../../models/clientes';
 import { VinculadorService } from '../../services/vinculador.service';
 // importar servicio de auth
 import { AuthService } from '../../services/auth.service';
+// importar titulo
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-agenda',
@@ -81,7 +83,8 @@ export class AgendaComponent implements OnInit {
     private tipoVisita: TipovisitaService,
     private cliente: ClientesService,
     private vinservice: VinculadorService,
-    private auth: AuthService
+    private auth: AuthService,
+    private titulo: Title
   ) {
     // optener los datos desde el inicio
     this.getEstados();
@@ -94,6 +97,7 @@ export class AgendaComponent implements OnInit {
 
   ngOnInit() {
     // creamos el grupo
+    this.titulo.setTitle('Sivic / Generar Nueva Agenda');
     // generar el formulario del grupo con el frombuilder
   }
 
@@ -170,13 +174,26 @@ export class AgendaComponent implements OnInit {
     this.apiAgenda.addNewAgenda(ObjetoAgenda).subscribe((result) => {
       this.isSubmitted = false;
       this.isLoad = true;
-      this.agendaFormGroup.reset(); // reseteamos el formulario
+      this.resetForm(this.agendaFormGroup); // reseteamos el formulario
       // navegando + result.data.id
       this.router.navigate(['seguimiento/' + result.id, {loader: this.isLoad}]);
     }, (err) => {
       this.openErrorSnackBar();
       console.error(err);
     });
+  }
+
+  // función de resetear formulario
+  resetForm(frm: FormGroup) {
+    let control: AbstractControl = null;
+    frm.reset();
+    frm.markAsUntouched();
+    Object.keys(frm.controls).forEach((name) => {
+      control = frm.controls[name];
+      control.setErrors(null);
+    });
+    // tslint:disable-next-line:object-literal-key-quotes
+    frm.setErrors({'invalid': true});
   }
 
 }

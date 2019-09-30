@@ -151,8 +151,8 @@
                   <mat-chip-list>
                       <div [ngSwitch]="status">
                         <mat-chip class="item success" *ngSwitchCase="1">Iniciado</mat-chip>
-                        <mat-chip class="item warn" *ngSwitchCase="2">En revisión</mat-chip>
-                        <mat-chip class="item danger" *ngSwitchCase="3">Terminado</mat-chip>
+                        <mat-chip class="item success" *ngSwitchCase="2">En revisión</mat-chip>
+                        <mat-chip class="item warn" *ngSwitchCase="3">Incidencia</mat-chip>
                         <mat-chip class="item info" *ngSwitchCase="4">Modificación</mat-chip>
                       </div>
                   </mat-chip-list>
@@ -199,70 +199,76 @@
               </div>
           </ng-template>
           <!--contador seguimiento end-->
-          <!--plantilla-->
-          <ng-container *ngIf="!propuestacurso; else templateCatalogoCursos">
+          <!--es incidencia está en true-->
+          <div *ngIf="!esIncidencia">
+            <!--plantilla-->
+            <ng-container *ngIf="!propuestacurso; else templateCatalogoCursos">
 
-            <div *ngIf="!esIncidencia" [hidden]="!tipoincidenciaDisabled">
-                <form [formGroup]="formArchivo" (ngSubmit)="onFormFileSubmit(formArchivo.value)">
-                    <div fxLayout="column" fxLayoutAlign="space-evenly none">
-                      <div fxFlex="50%" class="curso_lista">
-                          <!--carta-->
-                          <mat-card class="carta-detalle">
-                            <!--cabecera-->
-                            <mat-card-header>
-                                <mat-card-title>Archivo</mat-card-title>
-                            </mat-card-header>
-                            <!--cabecera head-->
-                            <!--contenido-->
-                            <mat-card-content>
-                              <!--file input-->
-                              <div class="file-drop-area">
-                                <span class="fake-btn">elegir Archivo</span>
-                                <span class="file-msg">{{fileUpload ? fileUpload.name : 'Extensiones permitidas pdf' }}</span>
-                                <input class="file-input" formControlName="nombreArchivo" #Document accept="application/pdf" matTooltip="extensiones .pdf" (change)="onSelectedFile($event)" type="file">
-                                <div *ngIf="submitted && f.nombreArchivo.errors" class="invalid-feedback">
-                                  <div *ngIf="f.nombreArchivo.errors.required">El archivo es requerido</div>
+              <div *ngIf="!esIncidencia" [hidden]="!tipoincidenciaDisabled">
+                  <form [formGroup]="formArchivo" (ngSubmit)="onFormFileSubmit(formArchivo.value)">
+                      <div fxLayout="column" fxLayoutAlign="space-evenly none">
+                        <div fxFlex="50%" class="curso_lista">
+                            <!--carta-->
+                            <mat-card class="carta-detalle">
+                              <!--cabecera-->
+                              <mat-card-header>
+                                  <mat-card-title>Archivo</mat-card-title>
+                              </mat-card-header>
+                              <!--cabecera head-->
+                              <!--contenido-->
+                              <mat-card-content>
+                                <!--file input-->
+                                <div class="file-drop-area">
+                                  <span class="fake-btn">elegir Archivo</span>
+                                  <span class="file-msg">{{fileUpload ? fileUpload.name : 'Extensiones permitidas pdf' }}</span>
+                                  <input class="file-input" formControlName="nombreArchivo" #Document accept="application/pdf" matTooltip="extensiones .pdf" (change)="onSelectedFile($event)" type="file">
+                                  <div *ngIf="submitted && f.nombreArchivo.errors" class="invalid-feedback">
+                                    <div *ngIf="f.nombreArchivo.errors.required">El archivo es requerido</div>
+                                  </div>
                                 </div>
-                              </div>
-                              <!--file input end-->
-                            </mat-card-content>
-                            <!--contenido end-->
-                            <!--contenido actions-->
-                            <mat-card-actions>
-                              <button mat-flat-button color="primary" type="submit" [disabled]="!formArchivo.valid || isLoadingResults">
-                                <mat-icon>attachment</mat-icon>
-                                Adjuntar
-                              </button>
-                            </mat-card-actions>
-                            <!--contenido actions end-->
-                          </mat-card>
-                          <!--carta end-->
+                                <!--file input end-->
+                              </mat-card-content>
+                              <!--contenido end-->
+                              <!--contenido actions-->
+                              <mat-card-actions>
+                                <button mat-flat-button color="primary" type="submit" [disabled]="!formArchivo.valid || isLoadingResults">
+                                  <mat-icon>attachment</mat-icon>
+                                  Adjuntar
+                                </button>
+                              </mat-card-actions>
+                              <!--contenido actions end-->
+                            </mat-card>
+                            <!--carta end-->
+                        </div>
                       </div>
-                    </div>
-                    <input #identificador type="hidden" formControlName="agendas_id"/>
-                </form>
-            </div>
-
-          </ng-container>
-          <!--contenedor del archivo pdf-->
-          <ng-template #templateCatalogoCursos>
-              <div fxLayout="column" fxLayoutAlign="space-evenly none">
-                <div fxFlex="50%" class="curso_lista">
-                  <mat-card class="cards" *ngFor="let items of archivospropuestaArray">
-                    <mat-card-header>
-                      <mat-card-title>Nombre Archivo</mat-card-title>
-                      <mat-card-subtitle>{{items.nombreArchivo}}</mat-card-subtitle>
-                    </mat-card-header>
-                    <img mat-card-image src="../../../assets/img/Catalogocursopdf.jpg" alt="{{items.nombreArchivo}}">
-                    <mat-card-actions>
-                      <button mat-button>Descargar</button>
-                    </mat-card-actions>
-                  </mat-card>
-                </div>
+                      <input #identificador type="hidden" formControlName="agendas_id"/>
+                  </form>
               </div>
-          </ng-template>
 
-          <!--plantilla end-->
+            </ng-container>
+            <!--contenedor del archivo pdf-->
+            <ng-template #templateCatalogoCursos>
+                <div fxLayout="column" fxLayoutAlign="space-evenly none">
+                  <div fxFlex="50%" class="curso_lista">
+                    <mat-card class="cards" *ngFor="let items of archivospropuestaArray">
+                      <mat-card-header>
+                        <mat-card-title>Nombre Archivo</mat-card-title>
+                        <mat-card-subtitle>{{items.nombreArchivo}}</mat-card-subtitle>
+                      </mat-card-header>
+                      <img mat-card-image src="../../../assets/img/Catalogocursopdf.jpg" alt="{{items.nombreArchivo}}">
+                      <mat-card-actions>
+                        <button mat-flat-button matTooltip="Descargar Documento">
+                          <mat-icon>cloud_download</mat-icon>
+                          Descargar
+                        </button>
+                      </mat-card-actions>
+                    </mat-card>
+                  </div>
+                </div>
+            </ng-template>
+            <!--plantilla end-->
+          </div>
+          <!--es incidencia está en true-->
         </mat-step>
         <!--paso 4 end-->
       </mat-horizontal-stepper>

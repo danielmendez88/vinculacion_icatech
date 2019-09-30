@@ -20,6 +20,8 @@ import * as FileSaver from 'file-saver';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 // location
 import { Location } from '@angular/common';
+// importar titulo
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-paso1',
@@ -94,7 +96,10 @@ export class Paso1Component implements OnInit {
   propuestacurso: boolean;
   archivospropuestaArray: any = [];
   contadorpropuestaArchivo: number;
-
+  // cargar incidencia
+  loadIncidencia: number;
+  // incidencia
+  tiposincidencias: string | null;
   // tipo incidencia deshabilitado
   tipoincidenciaDisabled = true;
   constructor(
@@ -107,7 +112,8 @@ export class Paso1Component implements OnInit {
     private router: Router,
     private ngz: NgZone,
     private dialog: MatDialog,
-    private $location: Location // agregado recientemente
+    private $location: Location, // agregado recientemente
+    private Titulo: Title,
   ) {
     this.createForm();
     this.createFileForm();
@@ -175,6 +181,9 @@ export class Paso1Component implements OnInit {
 
 
   ngOnInit() {
+    // poner el titulo
+    // set titulos
+    this.Titulo.setTitle('Sivic / Agenda de seguimiento');
     // función del worker inicializamos el objeto para generar los reportes con webworkers
     this.pdfWorker = new Worker('/assets/workers/dnc/workerdnc.js'); // !importante
     this.pdfWorkerSocial = new Worker('/assets/workers/dnc/workerdncSocial.js'); // !importante
@@ -384,12 +393,16 @@ export class Paso1Component implements OnInit {
     const id = this.form.controls.agenda_id.value;
     if (esIncidencia === true) {
       // si es verdadero se carga la siguiente forma el formData
+      this.loadIncidencia = 3;
+      this.tiposincidencias = this.form.controls.incidenciaTipo.value;
       formData.append('imagen', this.fileToUpload, this.fileToUpload.name);
       formData.append('propuesta', this.form.controls.propuesta.value);
       formData.append('agenda_id', this.form.controls.agenda_id.value);
       formData.append('isincidence', this.form.controls.isincidence.value);
       formData.append('incidenciatipo', this.form.controls.incidenciaTipo.value);
     } else if (esIncidencia === null || esIncidencia === false) {
+      this.loadIncidencia = 2;
+      this.tiposincidencias = '';
       formData.append('imagen', this.fileToUpload, this.fileToUpload.name);
       formData.append('propuesta', this.form.controls.propuesta.value);
       formData.append('agenda_id', this.form.controls.agenda_id.value);
@@ -418,6 +431,10 @@ export class Paso1Component implements OnInit {
            }, (error) => {
              this.snackservice.showSnackBar(JSON.stringify(error), 'Error!');
            });
+           // cargar el status según convenga
+           this.status = this.loadIncidencia;
+           this.esIncidencia = esIncidencia;
+           this.nombreDeLaIncidencia = this.tiposincidencias; // nombre de la incidencia
            // mostrar resultado
            this.snackservice.showSnackBar(JSON.stringify(res.success), 'Listo');
          }, err => {

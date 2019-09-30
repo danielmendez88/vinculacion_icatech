@@ -55,7 +55,7 @@ export class CalendarioComponent implements OnInit {
 
   ngOnInit() {
     // set titulos
-    this.titulo.setTitle('Icatech / Agendas en Calendario');
+    this.titulo.setTitle('Sivic / Agendas en Calendario');
     this.options = {
       locale: 'es',
       editable: true,

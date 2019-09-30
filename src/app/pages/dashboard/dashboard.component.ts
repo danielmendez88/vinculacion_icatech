@@ -6,6 +6,8 @@ import { AuthService } from '../../services/auth.service';
 // importar usuario
 import { Usuario } from '../../models/user';
 import { Observable } from 'rxjs';
+// importar titulo
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,9 +19,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private ruta: ActivatedRoute,
+    private titulo: Title
   ) { }
 
   ngOnInit() {
+    this.titulo.setTitle('Sivic / Tablero de Inicio');
     this.userRole$ = this.ruta.snapshot.data.roldata;
   }
 
