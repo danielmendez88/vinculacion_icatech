@@ -364,8 +364,12 @@ export class Paso1Component implements OnInit {
       // this.myDocumento.nativeElement.value = ''; // vuelve el valor del documento cargado a cero
       this.tipoincidenciaDisabled = false;
     } else {
+      const reset = {};
+      // tslint:disable-next-line:no-string-literal
+      reset['incidenciaTipo'] = '';
       this.form.controls.incidenciaTipo.disable();
-      this.incidenciaType.nativeElement = '';
+      this.form.controls.incidenciaTipo.patchValue(reset);
+      this.incidenciaType.nativeElement = undefined;
       // habilitar archivo
       this.formArchivo.controls.nombreArchivo.enable(); // false
       this.tipoincidenciaDisabled = true;
