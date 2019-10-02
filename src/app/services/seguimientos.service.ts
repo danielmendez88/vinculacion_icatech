@@ -75,7 +75,7 @@ export class SeguimientosService {
       console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);
     }
     // return an observable with a user-facing error message
-    return throwError('Something bad happened. Please try again later.');
+    return throwError('Algo Mal sucedio. Por favor intentar más tarde.');
   }
 
 }

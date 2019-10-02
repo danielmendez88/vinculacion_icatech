@@ -57,6 +57,10 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
   errorPdfSocial = false;
   // id Agenda
   idAgenda: number;
+  // salidas del decorador output
+  @Output() dncGubernamentalEmpty = new EventEmitter();
+  // salidas para el decorador dncsocial vacio
+  @Output() dncActiveEmpty = new EventEmitter();
 
   constructor(
     private fbuilder: FormBuilder,
@@ -263,19 +267,12 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
   /**
    * funciones de impresion gubernamental con datos
    */
-  printEmpGubWithData() {
+  cargadncgubernamentalWithoutData(event) {
     //
-    try {
-      this.cargandoPdf = true;
-      const dncGubernamental = {
-       datosDnc: this.getFromApi(this.idAgendas)
-      };
-      // imprimir
-      this.pdfWorker.postMessage(JSON.stringify(''));
-    } catch (error) {
-      this.errorPdf = false;
-      this.snack.showSnackBar(JSON.stringify(error), 'Error');
-    }
+    const dncGubernamentalWOData = {
+      datosWOD: ''
+    };
+    this.dncGubernamentalEmpty.emit(dncGubernamentalWOData);
   }
 
 

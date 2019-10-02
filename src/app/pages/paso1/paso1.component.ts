@@ -393,20 +393,20 @@ export class Paso1Component implements OnInit {
     const id = this.form.controls.agenda_id.value;
     if (esIncidencia === true) {
       // si es verdadero se carga la siguiente forma el formData
-      this.loadIncidencia = 3;
-      this.tiposincidencias = this.form.controls.incidenciaTipo.value;
       formData.append('imagen', this.fileToUpload, this.fileToUpload.name);
       formData.append('propuesta', this.form.controls.propuesta.value);
       formData.append('agenda_id', this.form.controls.agenda_id.value);
       formData.append('isincidence', this.form.controls.isincidence.value);
       formData.append('incidenciatipo', this.form.controls.incidenciaTipo.value);
+      this.loadIncidencia = 3;
+      this.tiposincidencias = this.form.controls.incidenciaTipo.value;
     } else if (esIncidencia === null || esIncidencia === false) {
-      this.loadIncidencia = 2;
-      this.tiposincidencias = '';
       formData.append('imagen', this.fileToUpload, this.fileToUpload.name);
       formData.append('propuesta', this.form.controls.propuesta.value);
       formData.append('agenda_id', this.form.controls.agenda_id.value);
       formData.append('isincidence', this.form.controls.isincidence.value);
+      this.loadIncidencia = 2;
+      this.tiposincidencias = '';
     }
     // enviar datos a la api y esperar respuesta
     this.isLoadingResults = true;
@@ -497,17 +497,6 @@ export class Paso1Component implements OnInit {
     frm.setErrors({'invalid': true});
   }
 
-  // imprimir el documento pdf
-  imprimirDnc() {
-    try {
-      this.cargandoPdf = true;
-      this.pdfWorker.postMessage(JSON.stringify(''));
-    } catch (e) {
-      this.cargandoPdf = false;
-      console.log(e);
-    }
-  }
-
   // base 64 to blob
   base64ToBlob(base64, type) {
     // tslint:disable-next-line:one-variable-per-declaration
@@ -585,6 +574,17 @@ export class Paso1Component implements OnInit {
     } catch (error) {
       this.errorPdfSocial = false;
       this.snackservice.showSnackBar(JSON.stringify(error), 'Error');
+    }
+  }
+
+  // imprimir documento dnc Gubernamental sin datos
+  printDncGobEmpty(): void{
+    try {
+      this.cargandoPdf = true;
+      this.pdfWorker.postMessage(JSON.stringify(''));
+    } catch (error) {
+      this.cargandoPdf = false;
+      console.log(error);
     }
   }
 
