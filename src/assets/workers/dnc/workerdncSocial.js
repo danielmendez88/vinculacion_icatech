@@ -46,7 +46,7 @@ importScripts('../logos.js');
             style: 'tableExample',
             table: {
               headerRows: 1,
-                      widths: [170, 170, 170],
+              widths: [170, 170, 170],
               body: [
                 [{text: '', style: 'tableHeader'}, {text: '', style: 'tableHeader'}, {text: '', style: 'tableHeader'}],
                 ['', '', '']

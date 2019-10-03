@@ -275,6 +275,16 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
     this.dncGubernamentalEmpty.emit(dncGubernamentalWOData);
   }
 
+  /**
+   * cuando se lance el evento click en la plantilla llamaremos a este método
+   */
+  cargadncSocialNoData( event ) {
+    const dncGubernamentalNoData = {
+      datosNoDnc: ''
+    };
+    this.dncActiveEmpty.emit(dncGubernamentalNoData);
+  }
+
 
   /**
    *

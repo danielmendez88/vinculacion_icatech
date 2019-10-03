@@ -102,6 +102,10 @@ export class Paso1Component implements OnInit {
   tiposincidencias: string | null;
   // tipo incidencia deshabilitado
   tipoincidenciaDisabled = true;
+  // worker social Not Data
+  private workerSocialNoData: Worker;
+  cargandopdfsocialNoData = false;
+  errorpdfSocialNoData = false;
   constructor(
     private snackservice: SnackserviceService,
     private As: AgendaService,
@@ -188,6 +192,7 @@ export class Paso1Component implements OnInit {
     this.pdfWorker = new Worker('/assets/workers/dnc/workerdnc.js'); // !importante
     this.pdfWorkerSocial = new Worker('/assets/workers/dnc/workerdncSocial.js'); // !importante
     this.pdfWorkerGobData = new Worker('/assets/workers/dnc/workerdncgubernamentaldata.js'); // !importante
+    this.workerSocialNoData = new Worker('/assets/workers/dnc/workerdncSocialNotData.js'); // !importante
     const isLoad = this.route.snapshot.paramMap.get('loader');
     const AgendaId = this.route.snapshot.data.getAgenda.id;
     this.idAgend = this.route.snapshot.data.getAgenda.id;
@@ -295,6 +300,21 @@ export class Paso1Component implements OnInit {
         self.errorPdfGobData = false;
       });
     };
+    // tslint:disable-next-line:only-arrow-functions
+    this.workerSocialNoData.onmessage = function( evt ) {
+      $ngzone.run(() => {
+        self.cargandopdfsocialNoData = false;
+      });
+      // file saver
+      FileSaver.saveAs(self.base64ToBlob( evt.data.base64, 'application/pdf'), evt.data.fileName);
+    }
+    // tslint:disable-next-line:only-arrow-functions
+    this.workerSocialNoData.onerror = function(e) {
+      $ngzone.run(() => {
+        self.snackservice.showSnackBar(JSON.stringify(e), 'Error');
+        self.errorpdfSocialNoData = false;
+      });
+    }
     // enviar el detalle
     // this.getDetail(AgendaId);
     // mostrar nuevo detalle
@@ -578,12 +598,23 @@ export class Paso1Component implements OnInit {
   }
 
   // imprimir documento dnc Gubernamental sin datos
-  printDncGobEmpty(): void{
+  printDncGobEmpty(): void {
     try {
       this.cargandoPdf = true;
       this.pdfWorker.postMessage(JSON.stringify(''));
     } catch (error) {
       this.cargandoPdf = false;
+      console.log(error);
+    }
+  }
+
+  // imprimir documento dnc social sin datos
+  printDncSocialEmpty(): void {
+    try {
+      this.cargandopdfsocialNoData = true;
+      this.workerSocialNoData.postMessage(JSON.stringify(''));
+    } catch (error) {
+      this.cargandopdfsocialNoData = false;
       console.log(error);
     }
   }
