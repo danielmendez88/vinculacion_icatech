@@ -104,12 +104,12 @@
                           <div class="file-drop-area" *ngFor="let detail of Detalles">
                             <ng-template [ngIf]="detail.extension === 'jpg' || detail.extension === 'png' || detail.extension === 'jpeg'" [ngIfElse]="pdftemplate">
                               <div class="imgfile">
-                                <img src="http://localhost:8000/archivos/{{ detail.agendaId }}/{{ detail.nombreArchivo }}">
+                                <img src="{{ detail.ruta }}" alt="{{ detail.ruta }}">
                               </div>
                             </ng-template>
                             <ng-template #pdftemplate>
                               <div class="imgfilepdf">
-                                <img src="assets/img/pdfFile.png"/>
+                                <img src="assets/img/Catalogocursopdf.jpg" alt="{{ detail.ruta }}"/>
                               </div>
                             </ng-template>
                               <div class="nombreArchivo">
@@ -126,173 +126,7 @@
               <!--end if-->
             </mat-tab>
             <mat-tab label="Cuestionario DNC">
-              <!--layout init-->
-              <div fxLayout="row" fxLayout.xs="column">
-                <!--template ng-->
-                <ng-template [ngIf]="Agend.tipo === 1 || Agend.tipo === 2" [ngIfElse]="sectorSocial">
-                  <div fxFlex.gt-xs="50%" class="templategandp">
-                      <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Nombre de la Empresa">
-                      </mat-form-field>
-                      <!---->
-                      <mat-form-field class="example-full-width">
-                        <textarea matInput placeholder="Dirección"></textarea>
-                      </mat-form-field>
-                      <!--direccion end-->
-                      <mat-form-field class="example-full-width">
-                        <span matPrefix>+052 &nbsp;</span>
-                        <input type="tel" matInput placeholder="Teléfono">
-                        <mat-icon matSuffix>phone</mat-icon>
-                      </mat-form-field>
-                      <!--telefono-->
-
-                      <!--correo electronico end-->
-                      <mat-form-field class="example-full-width">
-                          <input matInput placeholder="Número de Empleados" >
-                      </mat-form-field>
-                      <!--numero de empleados end-->
-                      <mat-form-field class="example-full-width">
-                          <input matInput placeholder="Responsable de Capacitación" >
-                      </mat-form-field>
-                      <!--responsable capacitacion end-->
-                      <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Puesto" >
-                      </mat-form-field><br/>
-                      <!--puesto end-->
-                      <!--otros datos del formulario-->
-                      <label id="empleados-label">¿Reciben curso de inducción a la empresa y al puesto de trabajo a desempeñar?</label>
-                      <mat-radio-group aria-labelledby="empleados-label" class="empleados-radio-group">
-                        <mat-radio-button class="empleo-radio" value="1">Si</mat-radio-button> &nbsp;
-                        <mat-radio-button class="empleo-radio" value="2">No</mat-radio-button>
-                      </mat-radio-group>
-                      <!--empleados group label-->
-                      <label id="empresa-label">¿La empresa maneja un plan anual de capacitación?</label>
-                      <mat-radio-group aria-labelledby="empresa-label" class="empleados-radio-group">
-                        <mat-radio-button class="empleo-radio" value="1">Si</mat-radio-button> &nbsp;
-                        <mat-radio-button class="empleo-radio" value="2">No</mat-radio-button>
-                      </mat-radio-group>
-                      <!--empresa label end-->
-                      <label id="capital-humano">¿Cuando fue la última vez que su capital humano fue capacitado mediante un curso?</label>
-                      <mat-radio-group aria-labelledby="capital-humano" class="radio-group-capital">
-                        <mat-radio-button value="1">Hace más de un año</mat-radio-button>
-                        <mat-radio-button value="2">Hace menos de un año</mat-radio-button>
-                        <mat-radio-button value="3">Hace no más de 6 meses</mat-radio-button>
-                        <mat-radio-button value="4">No ha recibido</mat-radio-button>
-                      </mat-radio-group>
-                      <!--capital humano end-->
-                      <mat-form-field class="example-full-width">
-                        <textarea matInput placeholder="¿Qué cursos ha tomado su capital humano?"></textarea>
-                      </mat-form-field>
-                      <!--curso capital humano end-->
-                      <table class="example-full-width" cellspacing="0">
-                        <tr>
-                          <td colspan="2">
-                            <label>
-                              ¿cuál fue el último curso que recibieron y qué tema?
-                            </label>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <mat-form-field class="example-full-width">
-                              <input matInput placeholder="Curso">
-                            </mat-form-field>
-                          </td>
-                          <td>
-                            <mat-form-field class="example-full-width">
-                              <input matInput placeholder="Tema">
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                      </table>
-                  </div>
-                  <!--div end-->
-                  <div fxFlex.gt-xs="50%" class="templategandp">
-                      <label id="conformidad">¿Qué tan de acuerdo está usted con la siguiente afirmación? el último curso nos dio los resultados esperados.</label>
-                      <mat-radio-group aria-labelledby="conformidad" class="radio-group-capital">
-                        <mat-radio-button class="empleo-radio" value="1">Completamente de acuerdo</mat-radio-button>
-                        <mat-radio-button class="empleo-radio" value="2">De acuerdo</mat-radio-button>
-                        <mat-radio-button class="empleo-radio" value="3">En desacuerdo</mat-radio-button>
-                        <mat-radio-button class="empleo-radio" value="4">Completamente en desacuerdo</mat-radio-button>
-                      </mat-radio-group>
-                      <!---->
-                      <mat-form-field class="example-full-width">
-                        <textarea matInput placeholder="¿En qué cursos está usted interesado actualmente?"></textarea>
-                      </mat-form-field>
-                      <!--por que curso-->
-                      <mat-form-field class="example-full-width">
-                        <textarea matInput placeholder="¿Por qué?"></textarea>
-                      </mat-form-field>
-                      <!--horas disponibles-->
-                      <table class="example-full-width" cellspacing="0">
-                        <tr>
-                          <td colspan="2">
-                            <label>
-                              ¿De cuántas horas al día dispone para capacitación de su capital humano y en que horario?
-                            </label>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <mat-form-field class="example-full-width">
-                              <input matInput placeholder="Horas">
-                            </mat-form-field>
-                          </td>
-                          <td>
-                            <mat-form-field class="example-full-width">
-                              <input matInput placeholder="Horario">
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                      </table>
-                      <!--grado de estudios-->
-                      <table class="example-full-width" cellspacing="0">
-                        <tr>
-                          <td colspan="3">
-                            <label>
-                              En relación ultimo grado de estudios de su capital humano, díga por favor que porcentaje cuenta con…(mencionar cada nivel de estudios)
-                            </label>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <mat-form-field class="example-full-width">
-                              <input matInput placeholder="Primaria %">
-                            </mat-form-field>
-                          </td>
-                          <td>
-                            <mat-form-field class="example-full-width">
-                              <input matInput placeholder="Secundaria %">
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <mat-form-field class="example-full-width">
-                              <input matInput placeholder="Bachillerato %">
-                            </mat-form-field>
-                          </td>
-                          <td>
-                            <mat-form-field class="example-full-width">
-                              <input matInput placeholder="Licenciatura %">
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <mat-form-field class="example-full-width">
-                              <input matInput placeholder="Posgrado %">
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <!--imprimir-->
-                      </table>
-                  </div>
-                </ng-template>
-                <ng-template #sectorSocial>
-                </ng-template>
-              </div>
-              <!--layout end-->
+              <app-cuestionariodncseguimiento [datosCuestionarioDnc]="this.Agend"></app-cuestionariodncseguimiento>
             </mat-tab>
             <!--se agregara un mat tab si la validacion lo permite-->
             <ng-template [ngIf]="statusSeguimiento > 1 || statusSeguimiento < 5">

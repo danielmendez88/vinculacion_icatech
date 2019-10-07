@@ -9,6 +9,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 // matsnackbar
 import {MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material';
+// importar titulo
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +32,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private snack: MatSnackBar,
-    private ngz: NgZone
+    private ngz: NgZone,
+    private Titulo: Title,
   ) {
     // redireccionar a home si ya estamos logueados
     if (this.authtenticationService.currentUserValue) {
@@ -39,6 +42,7 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.Titulo.setTitle('Sivic / Inicio de Sesión');
     this.loginForm = this.formBuilder.group({
       numeroEnlace: ['', Validators.required],
       passcode: ['', Validators.required]

@@ -16,6 +16,7 @@ import { DncModel } from '../models/dncmodel';
  */
 
 const URL = 'agendadnc';
+const URLDNC = 'agendadncseguimiento';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,16 @@ export class CuestionariodncService {
   @Cacheable()
   getDncFromIdAgenda(id: number): Observable<any> {
     return this.http.get(`${environment.PATH_BASE}/${URL}/${id}`, this.httpOptions)
+                    .pipe(
+                      map(this.extractData)
+                    );
+  }
+  /**
+   * mostrar los registros de un id - la petición deberá volver un dnc
+   */
+  @Cacheable()
+  getDncFromAgenda(id: number): Observable<any> {
+    return this.http.get(`${environment.PATH_BASE}/${URLDNC}/${id}`, this.httpOptions)
                     .pipe(
                       map(this.extractData)
                     );

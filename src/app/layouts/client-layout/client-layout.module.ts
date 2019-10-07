@@ -67,6 +67,8 @@ import { RolResolver } from '../../resolver/rol-resolver';
 import { DialogrefviewComponent } from '../../pages/dialogrefview/dialogrefview.component';
 // importar resolver pdf
 import { Filepdfresolver } from '../../resolver/filepdfresolver';
+// importar componente de cuestionario dnc
+import { CuestionariodncseguimientoComponent } from '../../pages/cuestionariodncseguimiento/cuestionariodncseguimiento.component';
 
 // rutas
 const ClientLayoutRoutes: Routes = [
@@ -153,7 +155,8 @@ const ClientLayoutRoutes: Routes = [
     HistoricoComponentComponent,
     EncuestaComponent,
     ChildPaso1CursoComponent,
-    DialogrefviewComponent
+    DialogrefviewComponent,
+    CuestionariodncseguimientoComponent
   ],
   providers: [
     SnackserviceService,

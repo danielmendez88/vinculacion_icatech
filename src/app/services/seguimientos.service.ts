@@ -14,7 +14,7 @@ import { Seguimiento, Archivos } from '../models/seguimiento';
 
 const URL = 'seguimiento';
 const URLSEG = 'seguimientosdetalle';
-const URLFILE = 'getfilesfromseguimiento';
+const URLFILE = 'getfilesSeguimiento';
 const URLFILEPOST = 'seguimientofile';
 const URLFILEPROPUESTA = 'getfilepdfagenda';
 @Injectable({
