@@ -52,6 +52,9 @@ export const clientRoutes: Route[] = [
     icon: 'list',
     route: '/listaagenda',
     title: 'Lista Agenda'
+  },
+  {
+
   }
 ];
 
