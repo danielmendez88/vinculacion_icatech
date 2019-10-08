@@ -6,34 +6,34 @@
           <div fxLayout="column">
             <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
               <mat-form-field fxFlex>
-                <input matInput placeholder="Nombre de la Empresa" disabled >
+                <input matInput placeholder="Nombre de la Empresa" disabled [value]="detalle.institucion" >
               </mat-form-field>
-  
+
               <mat-form-field fxFlex>
-                <input type="tel" matInput placeholder="Teléfono" disabled >
+                <input type="tel" matInput placeholder="Teléfono" disabled [value]="detalle.telfonoInstitucional">
               </mat-form-field>
             </div>
             <!--input row-->
             <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
               <mat-form-field fxFlex>
-                <input matInput placeholder="Correo Electrónico" disabled >
+                <input matInput placeholder="Correo Electrónico" disabled [value]="detalle.correoEnlace">
               </mat-form-field>
               <!--mat form field-->
             </div>
             <!--input row-->
             <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
               <mat-form-field fxFlex>
-                <input matInput placeholder="Responsable de Capacitación" disabled >
+                <input matInput placeholder="Responsable de Capacitación" disabled [value]="detalle.nombreEnlace">
               </mat-form-field>
               <!--mat form field-->
               <mat-form-field fxFlex>
-                <input matInput placeholder="Puesto" disabled>
+                <input matInput placeholder="Puesto" disabled [value]="detalle.cargoEnlace">
               </mat-form-field>
             </div>
             <!--input row-->
             <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
               <mat-form-field fxFlex>
-                <textarea matInput placeholder="Dirección" disabled ></textarea>
+                <textarea matInput placeholder="Dirección" disabled [value]="detalle.direccion"></textarea>
               </mat-form-field>
             </div>
 
@@ -146,34 +146,34 @@
           <div fxLayout="column">
             <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
               <mat-form-field fxFlex>
-                <input matInput placeholder="Nombre de la Empresa" disabled >
+                <input matInput placeholder="Nombre de la Empresa" disabled [value]="detalle.institucion">
               </mat-form-field>
-  
+
               <mat-form-field fxFlex>
-                <input type="tel" matInput placeholder="Teléfono" disabled >
+                <input type="tel" matInput placeholder="Teléfono" disabled [value]="detalle.telfonoInstitucional">
               </mat-form-field>
             </div>
             <!--input row-->
             <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
               <mat-form-field fxFlex>
-                <input matInput placeholder="Correo Electrónico" disabled >
+                <input matInput placeholder="Correo Electrónico" disabled [value]="detalle.correoEnlace">
               </mat-form-field>
               <!--mat form field-->
             </div>
             <!--input row-->
             <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
               <mat-form-field fxFlex>
-                <input matInput placeholder="Responsable de Capacitación" disabled >
+                <input matInput placeholder="Responsable de Capacitación" disabled [value]="detalle.nombreEnlace">
               </mat-form-field>
               <!--mat form field-->
               <mat-form-field fxFlex>
-                <input matInput placeholder="Puesto" disabled >
+                <input matInput placeholder="Puesto" disabled [value]="detalle.cargoEnlace">
               </mat-form-field>
             </div>
             <!--input row-->
             <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
               <mat-form-field fxFlex>
-                <textarea matInput placeholder="Dirección" disabled ></textarea>
+                <textarea matInput placeholder="Dirección" disabled [value]="detalle.direccion"></textarea>
               </mat-form-field>
             </div>
 

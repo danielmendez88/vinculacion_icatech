@@ -69,7 +69,8 @@ import { DialogrefviewComponent } from '../../pages/dialogrefview/dialogrefview.
 import { Filepdfresolver } from '../../resolver/filepdfresolver';
 // importar componente de cuestionario dnc
 import { CuestionariodncseguimientoComponent } from '../../pages/cuestionariodncseguimiento/cuestionariodncseguimiento.component';
-
+// impoertar componente cursos seguimiento
+import { SeguimientoscursosComponent } from '../../pages/seguimientoscursos/seguimientoscursos.component';
 // rutas
 const ClientLayoutRoutes: Routes = [
   {
@@ -98,7 +99,7 @@ const ClientLayoutRoutes: Routes = [
     detalles: DetalleSeguimientoResolver, // segundo resolver
     incidenciaResolve: IncidenciaResolver, // tercer resolver
     archivos: Filesresolver, // cuarto resolver
-    archivosPdf: Filepdfresolver //quinto resolver
+    archivosPdf: Filepdfresolver // quinto resolver
   }},
   { path: 'calendario', component: CalendarioComponent, canActivate: [AuthGuard], data: { roles: ['Vinculador'] },
   resolve: { getAllOwnAgenda: CalendarioService}},
@@ -156,7 +157,8 @@ const ClientLayoutRoutes: Routes = [
     EncuestaComponent,
     ChildPaso1CursoComponent,
     DialogrefviewComponent,
-    CuestionariodncseguimientoComponent
+    CuestionariodncseguimientoComponent,
+    SeguimientoscursosComponent
   ],
   providers: [
     SnackserviceService,

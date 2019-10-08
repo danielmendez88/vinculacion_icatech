@@ -128,6 +128,11 @@
             <mat-tab label="Cuestionario DNC">
               <app-cuestionariodncseguimiento [datosCuestionarioDnc]="this.Agend"></app-cuestionariodncseguimiento>
             </mat-tab>
+            <!--tab cursos-->
+            <mat-tab label="Cursos">
+              <app-seguimientoscursos></app-seguimientoscursos>
+            </mat-tab>
+            <!--tab cursos end-->
             <!--se agregara un mat tab si la validacion lo permite-->
             <ng-template [ngIf]="statusSeguimiento > 1 || statusSeguimiento < 5">
               <mat-tab label="Comentario">

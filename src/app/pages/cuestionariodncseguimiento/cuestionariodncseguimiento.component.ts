@@ -59,7 +59,7 @@ export class CuestionariodncseguimientoComponent implements OnInit {
       (error) => {
         this.snack.showSnackBar(JSON.stringify(error), 'Error');
       }
-    )
+    );
   }
 
 }
