@@ -126,11 +126,11 @@
               <!--end if-->
             </mat-tab>
             <mat-tab label="Cuestionario DNC">
-              <app-cuestionariodncseguimiento [datosCuestionarioDnc]="this.Agend"></app-cuestionariodncseguimiento>
+              <app-cuestionariodncseguimiento [datosCuestionarioDnc]="Agend"></app-cuestionariodncseguimiento>
             </mat-tab>
             <!--tab cursos-->
             <mat-tab label="Cursos">
-              <app-seguimientoscursos></app-seguimientoscursos>
+              <app-seguimientoscursos [cursoFlag]="Agend.iscursoincorporated" [idAgendaCurso]="Agend.id"></app-seguimientoscursos>
             </mat-tab>
             <!--tab cursos end-->
             <!--se agregara un mat tab si la validacion lo permite-->

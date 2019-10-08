@@ -1,3 +1,46 @@
-<p>
-  seguimientoscursos works!
-</p>
+<div fxLayout="row wrap" fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <div fxFlex="10%"></div>
+    <div fxFlex="80%" class="curso_lista">
+      <ng-container *ngIf="flag; else flagFalse">
+        <div class="example-container">
+          <mat-table mat-table [dataSource]="sourceData" matSort>
+              <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+              <!--columna-->
+              <ng-container matColumnDef="curso">
+                <mat-header-cell *matHeaderCellDef> Curso </mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
+              </ng-container>
+  
+              <!-- Name Column -->
+              <ng-container matColumnDef="costo">
+                <mat-header-cell *matHeaderCellDef> Costo </mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="costo">  $ {{row.costo}} </mat-cell>
+              </ng-container>
+  
+              <!-- Columna detalle-->
+              <ng-container matColumnDef="detalle">
+                <mat-header-cell *matHeaderCellDef>Detalles</mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="detalle">
+                  <button mat-icon-button color="primary" (click)="openDialog(row.idCurso)">
+                      <mat-icon class="mat-18">search</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+  
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <!--paginador-->
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+      </ng-container>
+      <ng-template #flagFalse>
+        <mat-grid-list cols="1" rowHeight="3:1">
+          <mat-grid-tile><h1>No hay cursos asociados.</h1></mat-grid-tile>
+        </mat-grid-list>
+      </ng-template>
+      
+    </div>
+    <div fxFlex></div>
+  </div>

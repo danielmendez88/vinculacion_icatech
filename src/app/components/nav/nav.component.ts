@@ -43,11 +43,11 @@ export const clientRoutes: Route[] = [
   //   route: '/index',
   //   title: 'contactos'
   // },
-  {
-    icon: 'calendar_today',
-    route: '/calendario',
-    title: 'Calendario'
-  },
+  // {
+  //   icon: 'calendar_today',
+  //   route: '/calendario',
+  //   title: 'Calendario'
+  // },
   {
     icon: 'list',
     route: '/listaagenda',
