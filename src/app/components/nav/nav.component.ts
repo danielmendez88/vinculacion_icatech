@@ -29,7 +29,7 @@ export const vinculadorRoutes: Route[] = [
 ];
 export const clientRoutes: Route[] = [
   {
-    icon: 'dashboard',
+    icon: 'view_quilt',
     route: '/index',
     title: 'Tablero'
   },
@@ -54,7 +54,9 @@ export const clientRoutes: Route[] = [
     title: 'Lista Agenda'
   },
   {
-
+    icon: 'chrome_reader_mode',
+    route: '/agendahistorico',
+    title: 'Historico'
   }
 ];
 
