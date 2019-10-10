@@ -67,6 +67,8 @@ import { RolResolver } from './resolver/rol-resolver';
 import { DecodeencodeserviceService } from './services/decodeencodeservice.service';
 // importar resolver pdf
 import { Filepdfresolver } from './resolver/filepdfresolver';
+// importar el resolver del id
+import { CountagendaService } from './resolver/countagenda-service';
 
 @NgModule({
   declarations: [
@@ -111,7 +113,8 @@ import { Filepdfresolver } from './resolver/filepdfresolver';
     CuestionarioSharedService,
     RolResolver,
     DecodeencodeserviceService,
-    Filepdfresolver
+    Filepdfresolver,
+    CountagendaService
   ],
   bootstrap: [AppComponent]
 })

@@ -127,6 +127,11 @@ export class AuthService {
      return JSON.parse(localStorage.getItem('currentRol'));
    }
 
+   // get current user id
+   get useridCurrent(): number {
+     return JSON.parse(localStorage.getItem('currentUserId'));
+   }
+
    // tiene roles
    hasRoles(roles: string[]): boolean {
      for ( const oneRole of roles) {

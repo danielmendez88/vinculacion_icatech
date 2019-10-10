@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Agenda, Todo, AgendaShow, UpdateVinculacionData } from '../models/angendas';
 // mapas
 import { Observable, of, throwError } from 'rxjs';
-import { tap, catchError, map } from 'rxjs/operators';
+import { tap, catchError, map, retry } from 'rxjs/operators';
 // importar http
 import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 // enviroment
@@ -88,7 +88,10 @@ export class AgendaService {
   // obtenemos todos los registros de las agendas del usuario
   getAllAgendas(): Observable<any> {
     return this.http.get<AgendaShow>(`${ environment.PATH_BASE}/${URL}`, this.httpOptions)
-                                  .pipe( tap(data => console.log('Mostrar agendas')));
+                    .pipe(
+                      retry(3),
+                      map(result => result),
+                    );
   }
 
   addNewAgenda(agendas: Todo): Observable<any> {

@@ -7,12 +7,12 @@
     <div class="mb-20" fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
         <!--nuevo dashboard-->
           <div fxFlex>
-            <app-shared [bgclass]="'danger'" [icon]="'link'" [contador]="13" [label]="'Vinculaciones Totales'"></app-shared>
+            <app-shared [bgclass]="'danger'" [icon]="'link'" [contador]="resultCount" [label]="'Vinculaciones Totales'"></app-shared>
           </div>
         <!--fin nuevo dashboard-->
         <!--dashboard item-->
         <div fxFlex>
-          <app-shared [bgclass]="'warn'" [icon]="'group_work'" [contador]="12" [label]="'Vinculaciones en Seguimiento'"></app-shared>
+          <app-shared [bgclass]="'warn'" [icon]="'group_work'" [contador]="resultCountSeguimiento" [label]="'Vinculaciones en Seguimiento'"></app-shared>
         </div>
         <!--fin dashboard item-->
         <!--dashboard item-->
@@ -49,13 +49,13 @@
       <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
         <!--div-->
         <div fxFlex>
-          <app-stat [bgC]="'info'" [icons]="'info'" [counts]="123" [labels]="'Total Vinculaciones'"></app-stat>
+          <app-stat [bgC]="'info'" [icons]="'info'" [counts]="resultCount" [labels]="'Total Vinculaciones'"></app-stat>
           <!--div-->
         </div>
         <!--div-->
         <div fxFlex>
           <!--app stat-->
-          <app-stat [bgC]="'success'" [icons]="'done'" [counts]="12" [labels]="'Vinculaciones Terminadas'"></app-stat>
+          <app-stat [bgC]="'success'" [icons]="'done'" [counts]="resultCountSeguimiento" [labels]="'Vinculaciones en Seguimiento'"></app-stat>
           <!--app star-->
         </div>
         <!--div fxFlex-->

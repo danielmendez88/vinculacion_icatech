@@ -71,6 +71,8 @@ import { Filepdfresolver } from '../../resolver/filepdfresolver';
 import { CuestionariodncseguimientoComponent } from '../../pages/cuestionariodncseguimiento/cuestionariodncseguimiento.component';
 // impoertar componente cursos seguimiento
 import { SeguimientoscursosComponent } from '../../pages/seguimientoscursos/seguimientoscursos.component';
+// importar resolver
+import { CountagendaService } from '../../resolver/countagenda-service';
 // rutas
 const ClientLayoutRoutes: Routes = [
   {
@@ -78,7 +80,7 @@ const ClientLayoutRoutes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard],
     data: { roles: ['Directores', 'Vinculador'] },
-    resolve: { roldata: RolResolver}
+    resolve: { roldata: RolResolver, currentid: CountagendaService}
   },
   {
     path: 'agenda',
@@ -90,8 +92,8 @@ const ClientLayoutRoutes: Routes = [
     path: 'listaagenda',
     component: AgendaListaComponent,
     canActivate: [AuthGuard],
-    resolve: { Agendas: Resolver},
-    data: { roles: ['Directores'] }
+    data: { roles: ['Directores'] },
+    resolve: { Agendas: Resolver}
   },
   { path: 'detalle/:idvinculacion', pathMatch: 'full', component: Paso1Component, canActivate: [AuthGuard], data: { roles: ['Vinculador'] },
   resolve: {
