@@ -7,22 +7,17 @@
     <div class="mb-20" fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
         <!--nuevo dashboard-->
           <div fxFlex>
-            <app-shared [bgclass]="'danger'" [icon]="'link'" [contador]="resultCount" [label]="'Vinculaciones Totales'"></app-shared>
+            <app-shared [bgclass]="'info'" [icon]="'link'" [contador]="resultCount" [label]="'Vinculaciones Totales'"></app-shared>
           </div>
         <!--fin nuevo dashboard-->
         <!--dashboard item-->
         <div fxFlex>
-          <app-shared [bgclass]="'warn'" [icon]="'group_work'" [contador]="resultCountSeguimiento" [label]="'Vinculaciones en Seguimiento'"></app-shared>
+          <app-shared [bgclass]="'warn'" [icon]="'device_hub'" [contador]="resultCountSeguimiento" [label]="'Vinculaciones en Seguimiento'"></app-shared>
         </div>
         <!--fin dashboard item-->
         <!--dashboard item-->
         <div fxFlex>
-          <app-shared [bgclass]="'success'" [icon]="'done_all'" [contador]="124" [label]="'Vinculaciones Terminadas'"></app-shared>
-        </div>
-        <!--fin dashboard item-->
-        <!--dashboard item-->
-        <div fxFlex>
-          <app-shared [bgclass]="'info'" [icon]="'contact_support'" [contador]="13" [label]="'New Tickets!'"></app-shared>
+          <app-shared [bgclass]="'success'" [icon]="'done_all'" [contador]="resultCountTerminado" [label]="'Vinculaciones Terminadas'"></app-shared>
         </div>
         <!--fin dashboard item-->
 
@@ -34,13 +29,13 @@
         <!--fin dashboard item-->
         <!--dashboard item-->
         <div fxFlex>
-          <app-shared [bgclass]="'success'" [icon]="'done_all'" [contador]="124" [label]="'Vinculaciones Terminadas'"></app-shared>
+          <app-shared [bgclass]="'info'" [icon]="'perm_identity'" [contador]="124" [label]="'Vinculadores'"></app-shared>
         </div>
         <!--fin dashboard item-->
         <!--dashboard item-->
-        <div fxFlex>
+        <!-- <div fxFlex>
           <app-shared [bgclass]="'info'" [icon]="'contact_support'" [contador]="13" [label]="'New Tickets!'"></app-shared>
-        </div>
+        </div> -->
     </div>
   <!--contenido END-->
   </ng-container>
@@ -55,13 +50,13 @@
         <!--div-->
         <div fxFlex>
           <!--app stat-->
-          <app-stat [bgC]="'success'" [icons]="'done'" [counts]="resultCountSeguimiento" [labels]="'Vinculaciones en Seguimiento'"></app-stat>
+          <app-stat [bgC]="'warn'" [icons]="'device_hub'" [counts]="resultCountSeguimiento" [labels]="'Vinculaciones en Seguimiento'"></app-stat>
           <!--app star-->
         </div>
         <!--div fxFlex-->
         <div fxFlex>
           <!--app stat-->
-          <app-stat [bgC]="'danger'" [icons]="'chrome_reader_mode'" [counts]="12" [labels]="'No atendidas'"></app-stat>
+          <app-stat [bgC]="'success'" [icons]="'done'" [counts]="resultCountTerminado" [labels]="'Vinculaciones Terminadas'"></app-stat>
           <!--app star end-->
         </div>
         <!--div fxFlex-->

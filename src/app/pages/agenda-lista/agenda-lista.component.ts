@@ -5,6 +5,8 @@ import { AgendaService } from '../../services/agenda.service';
 import { Agenda } from '../../models/angendas';
 // ruta activa
 import { ActivatedRoute } from '@angular/router';
+// importar titulo
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -13,11 +15,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./agenda-lista.component.scss']
 })
 export class AgendaListaComponent implements OnInit {
-  isLoading = true;
+  private isloading: boolean;
   mode = 'indeterminate';
   Agenda;
 
-  displayedColumns: string[] = ['fecha', 'institucion', 'titular', 'tipo', 'detalle'];
+  displayedColumns: string[] = ['fecha', 'institucion', 'tipo', 'vinculador', 'detalle'];
   // asignar la data a la fuente de datos para la tabla a reenderizar
   datasource = new MatTableDataSource<Agenda>();
   //
@@ -25,9 +27,13 @@ export class AgendaListaComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   // modificamos la agenda
 
-  constructor(private agendaList: AgendaService, private ruta: ActivatedRoute) { }
+  constructor(private agendaList: AgendaService, private ruta: ActivatedRoute, private Titulo: Title) { }
 
   ngOnInit() {
+    // set titulos
+    this.Titulo.setTitle('Sivic / Agendas');
+    // cargar el loagin
+    this.isloading = false;
     this.Agenda = this.ruta.snapshot.data.Agendas;
     // this.getAgendas();
     this.datasource.data = this.Agenda;
@@ -54,5 +60,20 @@ export class AgendaListaComponent implements OnInit {
     if (this.datasource.paginator) {
       this.datasource.paginator.firstPage();
     }
+  }
+
+  updateAgenda() {
+    console.log('No está funcionando');
+    this.isloading = true;
+    this.agendaList.getAllAgendas().subscribe(
+      (response) => {
+        this.isloading = false;
+        this.datasource.data = response;
+      },
+      (error) => {
+        console.error(error);
+        this.isloading = false
+      }
+    )
   }
 }

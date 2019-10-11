@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public userId$: number;
   public resultCount: number | null;
   public resultCountSeguimiento: number | null;
+  public resultCountTerminado: number | null;
 
   constructor(
     private ruta: ActivatedRoute,
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.userId$ = this.ruta.snapshot.data.currentid;
     this.countData(this.userRole$, this.userId$);
     this.countDataSeguimiento(this.userRole$, this.userId$);
+    this.countDataTerminado(this.userRole$, this.userId$);
   }
 
   ngOnDestroy(): void {
@@ -54,6 +56,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.agendaCount.getagendasseguimiento(rol$, currentId$).then(
       (res) => {
         this.resultCountSeguimiento = res;
+      }
+    )
+  }
+
+  countDataTerminado(rol$: string, currentId$: number) {
+    this.agendaCount.getagendasterminadas(rol$, currentId$).then(
+      (response) => {
+        this.resultCountTerminado = response;
       }
     )
   }

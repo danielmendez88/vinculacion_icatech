@@ -4,6 +4,12 @@
 <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="10%" fxLayoutAlign="center center">
 <!--card-->
   <mat-card class="carta-lista">
+    <!--seccion spinner-->
+    <div class="spinner-wrapper" *ngIf="isloading">
+        <mat-progress-spinner color="primary" mode="indeterminate" [diameter]="50"></mat-progress-spinner>
+        &nbsp; Cargando ...
+    </div>
+    <!--fin seccion spinner-->
     <mat-card-header>
       <mat-card-title>
         Lista de Seguimiento
@@ -14,57 +20,61 @@
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
       </mat-form-field>
-      <!--seccion spinner-->
-           <!-- <section class="ct-section">
-              <mat-spinner [diameter]="50" strokeWidth="3" class="tp-margin">
-              </mat-spinner>
-            </section> -->
-      <!--fin seccion spinner-->
       <!--pestañas-->
-      <div class="example-container mat-elevation-z8">
+      <div class="example-container">
 
-            <mat-table [dataSource]="datasource" matSort matSortStart="desc" matSortDirection="asc">
+          <mat-table [dataSource]="datasource" matSort matSortStart="desc" matSortDirection="asc">
 
-              <!-- ID Column -->
-              <ng-container matColumnDef="fecha">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
-                <mat-cell *matCellDef="let row" data-label="fecha"> {{row.fecha}} </mat-cell>
-              </ng-container>
+            <!-- ID Column -->
+            <ng-container matColumnDef="fecha">
+              <mat-header-cell *matHeaderCellDef > Fecha </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="fecha"> {{row.fecha | date: 'dd/MM/yyyy' }} </mat-cell>
+            </ng-container>
 
-              <!-- Progress Column -->
-              <ng-container matColumnDef="institucion">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> institución </mat-header-cell>
-                <mat-cell *matCellDef="let row" data-label="institucion"> {{row.institucion}}</mat-cell>
-              </ng-container>
+            <!-- Progress Column -->
+            <ng-container matColumnDef="institucion">
+              <mat-header-cell *matHeaderCellDef > institución </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="institucion"> {{row.institucion}}</mat-cell>
+            </ng-container>
 
-              <!-- Name Column -->
-              <ng-container matColumnDef="titular">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Titular </mat-header-cell>
-                <mat-cell *matCellDef="let row" data-label="titular"> {{row.nombreTitular}} </mat-cell>
-              </ng-container>
+            <!-- Name Column -->
+            <!--<ng-container matColumnDef="titular">
+              <mat-header-cell *matHeaderCellDef > Titular </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="titular"> {{row.nombreTitular}} </mat-cell>
+            </ng-container>-->
 
 
-              <ng-container matColumnDef="tipo">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Acercamiento </mat-header-cell>
-                <mat-cell *matCellDef="let row" [style.color]="yellow" data-label="tipo"> {{row.tipoVista}} </mat-cell>
-              </ng-container>
+            <ng-container matColumnDef="tipo">
+              <mat-header-cell *matHeaderCellDef > Acercamiento </mat-header-cell>
+              <mat-cell *matCellDef="let row" [style.color]="yellow" data-label="tipo"> {{row.tipoVista}} </mat-cell>
+            </ng-container>
 
-              <!--detalle-->
-              <ng-container matColumnDef="detalle">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Detalle</mat-header-cell>
-                <mat-cell *matCellDef="let row" data-label="detalle">
-                  <button mat-icon-button color="primary" [routerLink]="['/seguimiento', row.id]">
-                      <mat-icon>more_horiz</mat-icon>
-                  </button>
-                </mat-cell>
-              </ng-container>
+            <ng-container matColumnDef="vinculador">
+              <mat-header-cell *matHeaderCellDef >Vinculador</mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="vinculador">{{ row.nombre_vinculador }}</mat-cell>
+            </ng-container>
+            
 
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns;">
-              </mat-row>
-            </mat-table>
+            <!--detalle-->
+            <ng-container matColumnDef="detalle">
+              <mat-header-cell *matHeaderCellDef > Detalle</mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="detalle">
+                <button mat-icon-button color="primary" [routerLink]="['/seguimiento', row.id]">
+                    <mat-icon>more_horiz</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;">
+            </mat-row>
+          </mat-table>
 
             <mat-paginator [pageSizeOptions]="[6]"></mat-paginator>
+
+            <button class="mine" mat-fab color="primary" (click)="updateAgenda()">
+              <mat-icon>autorenew</mat-icon>
+            </button>
       </div>
       <!--end pestañas-->
     </mat-card-content>
