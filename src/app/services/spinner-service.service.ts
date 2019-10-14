@@ -1,16 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpinnerServiceService {
   // comportamiento
-  visibility: BehaviorSubject<boolean>;
-
-  constructor() {
-    this.visibility = new BehaviorSubject(false);
-  }
+  visibility = new Subject<boolean>();
 
   show() {
     this.visibility.next(true);

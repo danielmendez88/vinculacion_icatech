@@ -69,6 +69,8 @@ import { DecodeencodeserviceService } from './services/decodeencodeservice.servi
 import { Filepdfresolver } from './resolver/filepdfresolver';
 // importar el resolver del id
 import { CountagendaService } from './resolver/countagenda-service';
+// import spinner service
+import { SpinnerServiceService } from './services/spinner-service.service';
 
 @NgModule({
   declarations: [
@@ -114,7 +116,8 @@ import { CountagendaService } from './resolver/countagenda-service';
     RolResolver,
     DecodeencodeserviceService,
     Filepdfresolver,
-    CountagendaService
+    CountagendaService,
+    SpinnerServiceService
   ],
   bootstrap: [AppComponent]
 })
