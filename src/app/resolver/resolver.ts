@@ -7,14 +7,20 @@ import { AgendaService } from '../services/agenda.service';
 // importar modelo agenda
 import { AgendaShow } from '../models/angendas';
 import { take, map, catchError } from 'rxjs/operators';
+// importamos service auth
+import { AuthService } from '../services/auth.service';
 
 
 @Injectable()
 export class Resolver implements Resolve<AgendaShow> {
-  constructor(private agendaService: AgendaService) {}
+  constructor(private agendaService: AgendaService,
+    private auth: AuthService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AgendaShow> {
-    return this.agendaService.getAllAgendas().pipe(
+    // convertir entero en string
+    let id: string;
+    id = this.auth.useridCurrent.toString();
+    return this.agendaService.getAllAgendas(id).pipe(
       take(2),
       map((detalle: AgendaShow) => detalle),
       catchError((error) => {

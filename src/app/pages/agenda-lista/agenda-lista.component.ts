@@ -7,6 +7,10 @@ import { Agenda } from '../../models/angendas';
 import { ActivatedRoute } from '@angular/router';
 // importar titulo
 import { Title } from '@angular/platform-browser';
+// importar auth service
+import { AuthService } from '../../services/auth.service';
+// importar cryptojs
+import * as CryptoJS from 'crypto-js';
 
 
 @Component({
@@ -18,6 +22,13 @@ export class AgendaListaComponent implements OnInit {
   public estacargando: boolean;
   mode = 'indeterminate';
   Agenda;
+  public idString: string;
+
+  key = 'dmLunXNnggR4lAMECfl3SZjhMSktmM716ZARmxndOPc=';
+  encrypted = "125";
+  encrypted_json: any;
+  decrypted: any | null;
+
 
   displayedColumns: string[] = ['fecha', 'institucion', 'tipo', 'vinculador', 'detalle'];
   // asignar la data a la fuente de datos para la tabla a reenderizar
@@ -27,12 +38,24 @@ export class AgendaListaComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   // modificamos la agenda
 
-  constructor(private agendaList: AgendaService, private ruta: ActivatedRoute, private Titulo: Title) { }
+  constructor(
+    private agendaList: AgendaService,
+    private ruta: ActivatedRoute,
+    private Titulo: Title,
+    private auth: AuthService) { }
 
   ngOnInit() {
     // set titulos
     this.Titulo.setTitle('Sivic / Agendas');
     this.estacargando = false;
+    // this.encrypted_json = JSON.parse(atob(this.encrypted));
+    this.decrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(this.encrypted.toString()), CryptoJS.enc.Base64.parse(this.key), {
+      keySize: 256,
+      iv:CryptoJS.enc.Base64.parse(this.key),
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    });
+    console.log(this.decrypted.toString());
     // cargar el loagin
     this.Agenda = this.ruta.snapshot.data.Agendas;
     // this.getAgendas();
@@ -42,7 +65,8 @@ export class AgendaListaComponent implements OnInit {
   }
   // agendas
   getAgendas() {
-    this.agendaList.getAllAgendas()
+    this.idString = this.auth.useridCurrent.toString();
+    this.agendaList.getAllAgendas(this.idString)
                    .subscribe(res => {
                      //this.estacargando = false;
                      this.datasource.data = res as Agenda[];

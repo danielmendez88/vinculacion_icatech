@@ -22,6 +22,7 @@ const URLSEGUIMIENTOUPDATE = 'updateseguimiento';
 const URLUPDATE = 'updatevinculacion';
 const URLHISTORY = 'gethistorico';
 const URLUPDATEAGENDABYCURSO = 'updateagendabycurso';
+const URLGETASIGNADOPOR = 'agendaasignadopor';
 
 @Injectable({
   providedIn: 'root'
@@ -86,8 +87,8 @@ export class AgendaService {
 
   @Cacheable()
   // obtenemos todos los registros de las agendas del usuario
-  getAllAgendas(): Observable<any> {
-    return this.http.get<AgendaShow[]>(`${ environment.PATH_BASE}/${URL}`, this.httpOptions)
+  getAllAgendas(id: string): Observable<any> {
+    return this.http.get<AgendaShow[]>(`${ environment.PATH_BASE}/${URLGETASIGNADOPOR}/${id}`, this.httpOptions)
                     .pipe(
                       retry(3),
                       map(result => result),
