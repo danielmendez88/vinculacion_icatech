@@ -4,13 +4,13 @@ import { AgendaService } from '../../services/agenda.service';
 // modelo de la agenda
 import { Agenda } from '../../models/angendas';
 // ruta activa
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 // importar titulo
 import { Title } from '@angular/platform-browser';
 // importar auth service
 import { AuthService } from '../../services/auth.service';
-// importar cryptojs
-import * as CryptoJS from 'crypto-js';
+// importar el servicio de cifrado AES
+import { CryptServiceService } from '../../services/crypt-service.service';
 
 
 @Component({
@@ -23,11 +23,6 @@ export class AgendaListaComponent implements OnInit {
   mode = 'indeterminate';
   Agenda;
   public idString: string;
-
-  key = 'dmLunXNnggR4lAMECfl3SZjhMSktmM716ZARmxndOPc=';
-  encrypted = "125";
-  encrypted_json: any;
-  decrypted: any | null;
 
 
   displayedColumns: string[] = ['fecha', 'institucion', 'tipo', 'vinculador', 'detalle'];
@@ -42,20 +37,15 @@ export class AgendaListaComponent implements OnInit {
     private agendaList: AgendaService,
     private ruta: ActivatedRoute,
     private Titulo: Title,
-    private auth: AuthService) { }
+    private auth: AuthService,
+    private crypt: CryptServiceService,
+    private route: Router
+  ) { }
 
   ngOnInit() {
     // set titulos
     this.Titulo.setTitle('Sivic / Agendas');
     this.estacargando = false;
-    // this.encrypted_json = JSON.parse(atob(this.encrypted));
-    this.decrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(this.encrypted.toString()), CryptoJS.enc.Base64.parse(this.key), {
-      keySize: 256,
-      iv:CryptoJS.enc.Base64.parse(this.key),
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7
-    });
-    console.log(this.decrypted.toString());
     // cargar el loagin
     this.Agenda = this.ruta.snapshot.data.Agendas;
     // this.getAgendas();
@@ -68,11 +58,10 @@ export class AgendaListaComponent implements OnInit {
     this.idString = this.auth.useridCurrent.toString();
     this.agendaList.getAllAgendas(this.idString)
                    .subscribe(res => {
-                     //this.estacargando = false;
+                     // this.estacargando = false;
                      this.datasource.data = res as Agenda[];
                      this.estacargando = true;
                      this.estacargando = false;
-                     console.log(res);
                      console.log(this.estacargando);
                    },
                    (error) => {
@@ -99,5 +88,12 @@ export class AgendaListaComponent implements OnInit {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  cargarDatos(id: number) {
+    const strId = id.toString();
+    const str = this.crypt.encryptUsingAES256(strId);
+    this.route.navigate(['/seguimiento', str]);
+    // [routerLink]="['/seguimiento', cargarDatos(row.id)]"
   }
 }

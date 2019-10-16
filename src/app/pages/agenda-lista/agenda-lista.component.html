@@ -10,7 +10,7 @@
   <!--fin seccion spinner-->
 <!--card-->
   <mat-card class="carta-lista">
-    
+
     <mat-card-header>
       <mat-card-title>
         Lista de Seguimiento
@@ -54,13 +54,13 @@
               <mat-header-cell *matHeaderCellDef >Vinculador</mat-header-cell>
               <mat-cell *matCellDef="let row" data-label="vinculador">{{ row.nombre_vinculador }}</mat-cell>
             </ng-container>
-            
+
 
             <!--detalle-->
             <ng-container matColumnDef="detalle">
               <mat-header-cell *matHeaderCellDef > Detalle</mat-header-cell>
               <mat-cell *matCellDef="let row" data-label="detalle">
-                <button mat-icon-button color="primary" [routerLink]="['/seguimiento', row.id]">
+                <button mat-icon-button color="primary" (click)="cargarDatos(row.id)">
                     <mat-icon>more_horiz</mat-icon>
                 </button>
               </mat-cell>

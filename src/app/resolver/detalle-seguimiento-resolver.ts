@@ -6,6 +6,8 @@ import { DetalleSeguimiento } from '../models/seguimiento';
 // servicio
 import { SeguimientosService } from '../services/seguimientos.service';
 import { catchError, take, map } from 'rxjs/operators';
+// importar crypt service
+import { CryptServiceService } from '../services/crypt-service.service';
 
 /**
  * detalle del seguimiento en el resolve de los detalles del seguimiento
@@ -15,12 +17,13 @@ import { catchError, take, map } from 'rxjs/operators';
 
 @Injectable()
 export class DetalleSeguimientoResolver implements Resolve<DetalleSeguimiento> {
-  constructor(private seg: SeguimientosService) {}
+  constructor(private seg: SeguimientosService, private crypt: CryptServiceService) {}
 
   // resolve
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DetalleSeguimiento> {
     const id = route.paramMap.get('idvinculacion');
-    const idseguimiento = +id;
+    const strId = this.crypt.decryptUsingAES256(id);
+    const idseguimiento = +strId;
     return this.seg.getSeguimientobyId(idseguimiento).pipe(
       take(1),
       map((detalle: DetalleSeguimiento) => detalle),

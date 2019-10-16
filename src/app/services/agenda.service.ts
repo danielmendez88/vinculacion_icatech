@@ -132,7 +132,6 @@ export class AgendaService {
   }
 
   /**
-   * 
    * update flag in service
    */
   async updateIsCurso(id: string): Promise<any> {
