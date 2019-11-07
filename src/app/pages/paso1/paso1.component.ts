@@ -307,14 +307,14 @@ export class Paso1Component implements OnInit {
       });
       // file saver
       FileSaver.saveAs(self.base64ToBlob( evt.data.base64, 'application/pdf'), evt.data.fileName);
-    }
+    };
     // tslint:disable-next-line:only-arrow-functions
     this.workerSocialNoData.onerror = function(e) {
       $ngzone.run(() => {
         self.snackservice.showSnackBar(JSON.stringify(e), 'Error');
         self.errorpdfSocialNoData = false;
       });
-    }
+    };
     // enviar el detalle
     // this.getDetail(AgendaId);
     // mostrar nuevo detalle
@@ -574,7 +574,6 @@ export class Paso1Component implements OnInit {
   receiveMessage($event): void {
     try {
       this.cargandoPdfSocial = true;
-      console.log($event);
       // imprimir
       this.pdfWorkerSocial.postMessage(JSON.stringify($event));
     } catch (error) {

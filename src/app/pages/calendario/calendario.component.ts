@@ -13,6 +13,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 // titulo
 import { Title } from '@angular/platform-browser';
+// importar el servicio de cifrado AES
+import { CryptServiceService } from '../../services/crypt-service.service';
 
 export interface DialogData {
   eventId: string;
@@ -124,7 +126,8 @@ export class DialogOverView {
   constructor(
     public dialogRef: MatDialogRef<DialogOverView>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private route: Router
+    private route: Router,
+    private crypt: CryptServiceService
   ) {}
 
   onNoClick(): void {
@@ -133,7 +136,9 @@ export class DialogOverView {
 
   closedialog(idEvent): void {
     if (idEvent) {
-      this.route.navigate(['/detalle', idEvent]);
+      const idStr = idEvent.toString();
+      const str = this.crypt.encryptUsingAES256(idStr);
+      this.route.navigate(['/detalle', str]);
     }
     this.dialogRef.close();
   }

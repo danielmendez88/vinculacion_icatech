@@ -6,6 +6,8 @@ import { AgendaService } from '../services/agenda.service';
 import { Agenda } from '../models/angendas';
 import { Observable, empty } from 'rxjs';
 import { catchError, take, map } from 'rxjs/operators';
+// importar crypt service
+import { CryptServiceService } from '../services/crypt-service.service';
 // importar modelo DetalleSeguimiento
 /**
  * llamamos a este resolver para cargar los datos de los detalles del seguimiento antes
@@ -16,12 +18,13 @@ import { catchError, take, map } from 'rxjs/operators';
 @Injectable()
 export class SeguimientoService implements Resolve<Agenda> {
 
-  constructor(private agendas: AgendaService) { }
+  constructor(private agendas: AgendaService, private crypt: CryptServiceService) { }
 
   // propiedad del resolve
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Agenda> {
     const id = route.paramMap.get('idvinculacion');
-    const ids = +id;
+    const strId = this.crypt.decryptUsingAES256(id);
+    const ids = +strId;
     return this.agendas.getAgenda(ids).pipe(
       take(1),
       map((agenda: Agenda) => agenda),
