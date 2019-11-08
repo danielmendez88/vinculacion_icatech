@@ -71,12 +71,14 @@ import { Filepdfresolver } from './resolver/filepdfresolver';
 import { CountagendaService } from './resolver/countagenda-service';
 // import spinner service
 import { SpinnerServiceService } from './services/spinner-service.service';
+import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthLayoutComponent,
     ClientLayoutComponent,
+    NotificacionesComponent,
   ],
   imports: [
     BrowserAnimationsModule,
