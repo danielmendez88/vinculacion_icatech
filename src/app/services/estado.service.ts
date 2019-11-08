@@ -10,7 +10,7 @@ import { tap } from 'rxjs/operators';
 // importar interface
 import { Estados } from '../models/estado';
 // auth service
-import { AuthService } from '../services/auth.service';
+import { AuthService } from './auth.service';
 
 const URL = 'estados';
 

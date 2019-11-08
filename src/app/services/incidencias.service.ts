@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 // cabeceras
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 // servicio de auth
-import { AuthService } from '../services/auth.service';
+import { AuthService } from './auth.service';
 import { Observable, throwError } from 'rxjs';
 import { map, retry, catchError } from 'rxjs/operators';
 // importar Cacheable

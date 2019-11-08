@@ -19,12 +19,9 @@ export class DetallesServiceService implements Resolve<Observable<string>> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const id = route.paramMap.get('idvinculacion');
-    console.log(id);
     // convertir ese string en un id
     const strId = this.crypt.decryptUsingAES256(id);
-    console.log(strId);
     const idseguimiento = +strId;
-    console.log(idseguimiento);
     return this.agendaS.getAgenda(idseguimiento).pipe(
       catchError((error) => {
         console.log(error);

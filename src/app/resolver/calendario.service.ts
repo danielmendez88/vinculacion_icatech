@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from 'node_modules/@angular/router';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 // importar el servicio
 import { AgendaService } from '../services/agenda.service';
 // modelo agenda
 import { AllAgenda } from '../models/angendas';
-import { Observable } from 'node_modules/rxjs';
+import { Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 
 @Injectable()

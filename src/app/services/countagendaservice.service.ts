@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 // importar auth service
-import { AuthService } from '../services/auth.service';
+import { AuthService } from './auth.service';
 // importar entorno
 import { environment } from '../../environments/environment';
 // importar cabeceras
@@ -31,8 +31,8 @@ export class CountagendaserviceService {
    * modificación de algún método para la ejecución en el servicio
    */
   async getallagendas(roles$: string, currentId$: number): Promise<number> {
-    const response = <number> await this.https.get<any>(`${environment.PATH_BASE}/${URLCOUNTAGENDA}/${roles$}/${currentId$}`, this.httpOptions)
-                    .toPromise();
+    const response = await this.https.get<any>(`${environment.PATH_BASE}/${URLCOUNTAGENDA}/${roles$}/${currentId$}`, this.httpOptions)
+                    .toPromise() as number;
     return response;
   }
 
@@ -40,16 +40,17 @@ export class CountagendaserviceService {
    * modificacion de algún método para la ejecución en el servicio, aquí traemos las agendas que ya han sido atendidas
    */
   async getagendasseguimiento(rol$: string, Id$: number): Promise<number> {
-    const response = <number> await this.https.get<any>(`${environment.PATH_BASE}/${URLCOUNTAGENDASEGUIMIENTO}/${rol$}/${Id$}`, this.httpOptions)
-                    .toPromise();
+    const response = await this.https.get<any>(`${environment.PATH_BASE}/${URLCOUNTAGENDASEGUIMIENTO}/${rol$}/${Id$}`, this.httpOptions)
+                    .toPromise() as number;
     return response;
   }
   /**
    * modificacion de algún método para la ejecución en el servicio
    */
   async getagendasterminadas(rol$: string, currentId$: number): Promise<number> {
-    const response = <number> await this.https.get<any>(`${environment.PATH_BASE}/${URLCOUNTAGENDATERMINADO}/${rol$}/${currentId$}`, this.httpOptions)
-                    .toPromise();
+    // tslint:disable-next-line:max-line-length
+    const response = await this.https.get<any>(`${environment.PATH_BASE}/${URLCOUNTAGENDATERMINADO}/${rol$}/${currentId$}`, this.httpOptions)
+                    .toPromise() as number;
     return response;
   }
 }

@@ -73,6 +73,8 @@ import { CuestionariodncseguimientoComponent } from '../../pages/cuestionariodnc
 import { SeguimientoscursosComponent } from '../../pages/seguimientoscursos/seguimientoscursos.component';
 // importar resolver
 import { CountagendaService } from '../../resolver/countagenda-service';
+// importar resolver lista agenda
+import { Listaagendaresolver } from '../../resolver/listaagendaresolver';
 // rutas
 const ClientLayoutRoutes: Routes = [
   {
@@ -93,7 +95,7 @@ const ClientLayoutRoutes: Routes = [
     component: AgendaListaComponent,
     canActivate: [AuthGuard],
     data: { roles: ['Directores'] },
-    resolve: { Agendas: Resolver}
+    resolve: { AgendaLista: Listaagendaresolver}
   },
   { path: 'detalle/:idvinculacion', pathMatch: 'full', component: Paso1Component, canActivate: [AuthGuard], data: { roles: ['Vinculador'] },
   resolve: {

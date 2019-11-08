@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 // import operadores
 import { tap, catchError } from 'rxjs/operators';
 // auth service
-import { AuthService } from '../services/auth.service';
+import { AuthService } from './auth.service';
 // modelos seguimientos
 import { Seguimiento, Archivos } from '../models/seguimiento';
 

@@ -9,7 +9,7 @@ import { SnackserviceService } from '../../services/snackservice.service';
 // importar los dialogos de material
 import {MatDialog} from '@angular/material/dialog';
 // importar el componente
-import { DialogrefviewComponent } from '../../pages/dialogrefview/dialogrefview.component';
+import { DialogrefviewComponent } from '../dialogrefview/dialogrefview.component';
 // modelos
 import { CursosArreglo } from '../../models/custom';
 // servicio decode

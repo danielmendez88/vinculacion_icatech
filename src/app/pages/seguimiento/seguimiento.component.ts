@@ -58,7 +58,7 @@ export class SeguimientoComponent implements OnInit {
   };
 
   ngOnInit() {
-    const isLoad = this.route.snapshot.paramMap.get('loader');
+    const isLoad = this.route.snapshot.queryParamMap.get('loader');
     const AgendaId = this.route.snapshot.params.id;
     this.route.data.subscribe(data => console.log('Data :', data));
     this.contador = this.route.snapshot.data.archivosResolver.length;

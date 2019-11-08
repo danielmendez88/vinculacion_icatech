@@ -1,22 +1,17 @@
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable, of, empty } from 'rxjs';
-// importar el injectable
-import { Injectable } from '@angular/core';
-// servicio agenda
-import { AgendaService } from '../services/agenda.service';
-// importar modelo agenda
 import { AgendaShow } from '../models/angendas';
-import { take, map, catchError } from 'rxjs/operators';
-// importamos service auth
+import { Observable, empty } from 'node_modules/rxjs';
+import { AgendaService } from '../services/agenda.service';
 import { AuthService } from '../services/auth.service';
-
+import { take, map, catchError } from 'node_modules/rxjs/operators';
+import { Injectable } from '../../../node_modules/@angular/core';
 
 @Injectable()
-export class Resolver implements Resolve<AgendaShow> {
+export class Listaagendaresolver implements Resolve<AgendaShow> {
+
   constructor(private agendaService: AgendaService, private auth: AuthService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AgendaShow> {
-    // convertir entero en string
     let id: string;
     id = this.auth.useridCurrent.toString();
     return this.agendaService.getAllAgendas(id).pipe(

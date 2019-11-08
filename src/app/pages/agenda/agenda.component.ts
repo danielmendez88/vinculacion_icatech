@@ -29,6 +29,8 @@ import { VinculadorService } from '../../services/vinculador.service';
 import { AuthService } from '../../services/auth.service';
 // importar titulo
 import { Title } from '@angular/platform-browser';
+// importar crypto
+import { CryptServiceService } from '../../services/crypt-service.service';
 
 @Component({
   selector: 'app-agenda',
@@ -84,7 +86,8 @@ export class AgendaComponent implements OnInit {
     private cliente: ClientesService,
     private vinservice: VinculadorService,
     private auth: AuthService,
-    private titulo: Title
+    private titulo: Title,
+    private crypto: CryptServiceService
   ) {
     // optener los datos desde el inicio
     this.getEstados();
@@ -176,7 +179,13 @@ export class AgendaComponent implements OnInit {
       this.isLoad = true;
       this.resetForm(this.agendaFormGroup); // reseteamos el formulario
       // navegando + result.data.id
-      this.router.navigate(['seguimiento/' + result.id, {loader: this.isLoad}]);
+      /**
+       * vamos a cifrar el id para enviarlo  a seguimiento
+       */
+      console.log(result.id);
+      const idStr = result.id.toString();
+      const str = this.crypto.encryptUsingAES256(idStr);
+      this.router.navigate(['/seguimiento/' + str], {queryParams: {loader: this.isLoad}});
     }, (err) => {
       this.openErrorSnackBar();
       console.error(err);

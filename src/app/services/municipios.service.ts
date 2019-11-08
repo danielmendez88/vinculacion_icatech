@@ -12,7 +12,7 @@ import { environment } from '../../environments/environment';
 // importar operadores
 import { tap } from 'rxjs/operators';
 // auth service
-import { AuthService } from '../services/auth.service';
+import { AuthService } from './auth.service';
 
 const URL = 'municipios';
 

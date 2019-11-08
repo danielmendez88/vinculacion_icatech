@@ -3,7 +3,7 @@
 <!--div-->
 <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="10%" fxLayoutAlign="center center">
   <!--seccion spinner-->
-  <div class="spinner-wrapper" *ngIf="estacargando">
+  <div class="spinner-wrapper" *ngIf="isUpdated">
       <mat-progress-spinner color="primary" mode="indeterminate" [diameter]="50"></mat-progress-spinner>
       &nbsp; Cargando ...
   </div>

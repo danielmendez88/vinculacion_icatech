@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 // interface
 import { Cursos } from '../models/cursos';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from 'node_modules/@angular/router';
-import { Observable } from '../../../node_modules/rxjs';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
 // servicio
 import { CursosService } from '../services/cursos.service';
 

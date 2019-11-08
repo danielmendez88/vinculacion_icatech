@@ -72,6 +72,8 @@ import { CountagendaService } from './resolver/countagenda-service';
 // import spinner service
 import { SpinnerServiceService } from './services/spinner-service.service';
 import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
+// importar agenda lista resolver
+import { Listaagendaresolver } from './resolver/listaagendaresolver';
 
 @NgModule({
   declarations: [
@@ -119,7 +121,8 @@ import { NotificacionesComponent } from './pages/notificaciones/notificaciones.c
     DecodeencodeserviceService,
     Filepdfresolver,
     CountagendaService,
-    SpinnerServiceService
+    SpinnerServiceService,
+    Listaagendaresolver
   ],
   bootstrap: [AppComponent]
 })

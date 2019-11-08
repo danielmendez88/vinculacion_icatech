@@ -19,15 +19,15 @@ import { CryptServiceService } from '../../services/crypt-service.service';
   styleUrls: ['./agenda-lista.component.scss']
 })
 export class AgendaListaComponent implements OnInit {
-  public estacargando: boolean;
   mode = 'indeterminate';
   Agenda;
   public idString: string;
+  isUpdated  =  false;
 
 
   displayedColumns: string[] = ['fecha', 'institucion', 'tipo', 'vinculador', 'detalle'];
   // asignar la data a la fuente de datos para la tabla a reenderizar
-  datasource = new MatTableDataSource<Agenda>();
+  datasource = new MatTableDataSource<Agenda>([]);
   //
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -45,9 +45,8 @@ export class AgendaListaComponent implements OnInit {
   ngOnInit() {
     // set titulos
     this.Titulo.setTitle('Sivic / Agendas');
-    this.estacargando = false;
     // cargar el loagin
-    this.Agenda = this.ruta.snapshot.data.Agendas;
+    this.Agenda = this.ruta.snapshot.data.AgendaLista;
     // this.getAgendas();
     this.datasource.data = this.Agenda;
     this.datasource.sort = this.sort;
@@ -60,13 +59,9 @@ export class AgendaListaComponent implements OnInit {
                    .subscribe(res => {
                      // this.estacargando = false;
                      this.datasource.data = res as Agenda[];
-                     this.estacargando = true;
-                     this.estacargando = false;
-                     console.log(this.estacargando);
                    },
                    (error) => {
                      console.error(error);
-                     this.estacargando = false;
                    });
   }
 
@@ -80,14 +75,17 @@ export class AgendaListaComponent implements OnInit {
     }
   }
 
-  updateAgendas() {
-    try {
-      // this.estacargando = true;
-      // console.log(this.estacargando);
-      this.getAgendas();
-    } catch (error) {
-      console.error(error);
-    }
+  updateAgendas(): void {
+    this.isUpdated = true;
+    this.idString = this.auth.useridCurrent.toString();
+    this.agendaList.getAllAgendas(this.idString)
+    .subscribe((response: Agenda[]) => {
+      this.isUpdated = false;
+      this.datasource.data = response;
+      console.log('done');
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   cargarDatos(id: number) {

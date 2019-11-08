@@ -1,4 +1,4 @@
-import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler } from 'node_modules/@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 // importar service spinner

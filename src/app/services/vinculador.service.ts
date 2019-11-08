@@ -12,7 +12,7 @@ import { catchError } from 'rxjs/operators';
 // throwError
 import { throwError } from 'rxjs';
 // auth service
-import { AuthService } from '../services/auth.service';
+import { AuthService } from './auth.service';
 
 const URLVINCULADOR = 'vinculador';
 

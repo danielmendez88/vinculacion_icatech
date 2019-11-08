@@ -7,7 +7,7 @@ import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 // enviroment
 import { environment } from '../../environments/environment';
 // servicio auth
-import { AuthService } from '../services/auth.service';
+import { AuthService } from './auth.service';
 // interface
 import { CategoriaCursos, Cursos, CursosbyId } from '../models/cursos';
 // cachable
