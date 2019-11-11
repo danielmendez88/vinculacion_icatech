@@ -11,6 +11,8 @@ import { Title } from '@angular/platform-browser';
 import { AuthService } from '../../services/auth.service';
 // importar el servicio de cifrado AES
 import { CryptServiceService } from '../../services/crypt-service.service';
+// locacion
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -21,7 +23,7 @@ import { CryptServiceService } from '../../services/crypt-service.service';
 export class AgendaListaComponent implements OnInit {
   mode = 'indeterminate';
   Agenda;
-  public idString: string;
+  public idString: number;
   isUpdated  =  false;
 
 
@@ -39,7 +41,8 @@ export class AgendaListaComponent implements OnInit {
     private Titulo: Title,
     private auth: AuthService,
     private crypt: CryptServiceService,
-    private route: Router
+    private route: Router,
+    private $location: Location
   ) { }
 
   ngOnInit() {
@@ -54,7 +57,7 @@ export class AgendaListaComponent implements OnInit {
   }
   // agendas
   getAgendas() {
-    this.idString = this.auth.useridCurrent.toString();
+    this.idString = this.auth.useridCurrent;
     this.agendaList.getAllAgendas(this.idString)
                    .subscribe(res => {
                      // this.estacargando = false;
@@ -75,17 +78,20 @@ export class AgendaListaComponent implements OnInit {
     }
   }
 
-  updateAgendas(): void {
+  onRenewSubmit(): void {
     this.isUpdated = true;
-    this.idString = this.auth.useridCurrent.toString();
-    this.agendaList.getAllAgendas(this.idString)
-    .subscribe((response: Agenda[]) => {
-      this.isUpdated = false;
-      this.datasource.data = response;
-      console.log('done');
-    }, (error) => {
-      console.log(error);
-    });
+    this.idString = this.auth.useridCurrent;
+    if (this.isUpdated === true) {
+      this.agendaList.getAllAgendas(this.idString)
+      .subscribe(response => {
+        this.datasource.data = response as Agenda[];
+        this.datasource.sort = this.sort;
+        this.datasource.paginator = this.paginator;
+        this.isUpdated = false;
+      }, error => {
+        console.log(error);
+      });
+    }
   }
 
   cargarDatos(id: number) {
@@ -93,5 +99,9 @@ export class AgendaListaComponent implements OnInit {
     const str = this.crypt.encryptUsingAES256(strId);
     this.route.navigate(['/seguimiento', str]);
     // [routerLink]="['/seguimiento', cargarDatos(row.id)]"
+  }
+
+  backClicked() {
+    this.$location.back();
   }
 }

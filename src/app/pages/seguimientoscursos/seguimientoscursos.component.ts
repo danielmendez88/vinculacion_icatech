@@ -15,7 +15,7 @@ import { Cursos } from '../../models/cursos';
 })
 export class SeguimientoscursosComponent implements OnInit {
   @Input() cursoFlag;
-  private flag: boolean;
+  public flag: boolean;
   @Input() idAgendaCurso;
   // datasource
   sourceData = new MatTableDataSource<Cursos>();

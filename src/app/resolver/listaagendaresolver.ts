@@ -12,8 +12,8 @@ export class Listaagendaresolver implements Resolve<AgendaShow> {
   constructor(private agendaService: AgendaService, private auth: AuthService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AgendaShow> {
-    let id: string;
-    id = this.auth.useridCurrent.toString();
+    let id: number;
+    id = this.auth.useridCurrent;
     return this.agendaService.getAllAgendas(id).pipe(
       take(2),
       map((detalle: AgendaShow) => detalle),

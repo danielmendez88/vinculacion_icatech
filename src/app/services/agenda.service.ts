@@ -87,7 +87,7 @@ export class AgendaService {
 
   @Cacheable()
   // obtenemos todos los registros de las agendas del usuario
-  getAllAgendas(id: string): Observable<any> {
+  getAllAgendas(id: number): Observable<any> {
     return this.http.get<AgendaShow[]>(`${ environment.PATH_BASE}/${URLGETASIGNADOPOR}/${id}`, this.httpOptions)
                     .pipe(
                       retry(3),

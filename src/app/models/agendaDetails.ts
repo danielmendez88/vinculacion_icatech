@@ -25,4 +25,5 @@ export interface AgendaDetails {
   nombreEnlace?: string;
   cargoEnlace?: string;
   telefonoEnlace?: string;
+  iscursoincorporated?: boolean;
 }

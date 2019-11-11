@@ -55,6 +55,7 @@ export class SeguimientoComponent implements OnInit {
     nombreEntidad: '',
     seguimento: false,
     hora: null,
+    iscursoincorporated: false
   };
 
   ngOnInit() {

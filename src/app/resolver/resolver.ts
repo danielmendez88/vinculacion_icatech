@@ -17,8 +17,8 @@ export class Resolver implements Resolve<AgendaShow> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AgendaShow> {
     // convertir entero en string
-    let id: string;
-    id = this.auth.useridCurrent.toString();
+    let id: number;
+    id = this.auth.useridCurrent;
     return this.agendaService.getAllAgendas(id).pipe(
       take(2),
       map((detalle: AgendaShow) => detalle),

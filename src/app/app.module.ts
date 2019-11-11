@@ -74,6 +74,7 @@ import { SpinnerServiceService } from './services/spinner-service.service';
 import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
 // importar agenda lista resolver
 import { Listaagendaresolver } from './resolver/listaagendaresolver';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { Listaagendaresolver } from './resolver/listaagendaresolver';
     AuthLayoutComponent,
     ClientLayoutComponent,
     NotificacionesComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserAnimationsModule,
