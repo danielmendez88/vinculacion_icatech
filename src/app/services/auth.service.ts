@@ -39,7 +39,7 @@ export class AuthService {
       // tslint:disable-next-line:object-literal-key-quotes
       'Accept': 'application/json',
       // tslint:disable-next-line:object-literal-key-quotes
-      'Authorization': 'Bearer ' + this.getToken()
+      // 'Authorization': 'Bearer ' + this.getToken()
     })
   };
 
@@ -70,7 +70,7 @@ export class AuthService {
 
   // login del usuario
   login(numeroEnlace: string, passcode: string): Observable<boolean> {
-    return this.httpclient.post<any>(`${ environment.PATH_BASE }/${ URL }`, {numeroEnlace, passcode})
+    return this.httpclient.post<any>(`${ environment.PATH_BASE }/${ URL }`, {numeroEnlace, passcode}, this.httpOptions)
     .pipe(map(datos => {
       if (datos && datos.success.token) {
         this.authToken = datos.success.token;
