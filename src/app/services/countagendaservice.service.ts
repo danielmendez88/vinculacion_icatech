@@ -20,6 +20,7 @@ export class CountagendaserviceService {
   // permisos a opciones a https
   private httpOptions = {
     headers: new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
       // tslint:disable-next-line:object-literal-key-quotes
       'Accept': 'application/json',
       // tslint:disable-next-line:object-literal-key-quotes

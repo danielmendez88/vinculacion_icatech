@@ -26,6 +26,7 @@ export class MunicipiosService {
    // damos permisos a las opciones http
    public httpOptions = {
     headers: new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
       // tslint:disable-next-line:object-literal-key-quotes
       'Accept': 'application/json',
       // tslint:disable-next-line:object-literal-key-quotes

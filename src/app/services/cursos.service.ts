@@ -36,6 +36,7 @@ export class CursosService {
   private httpOptions = {
     headers: new HttpHeaders({
       Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
       Authorization: 'Bearer ' + this.auth.getToken()
     })
   };

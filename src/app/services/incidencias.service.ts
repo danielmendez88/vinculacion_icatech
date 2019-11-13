@@ -23,6 +23,7 @@ export class IncidenciasService {
   // permisos con opciones http
   private httpOptions = {
     headers: new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
       // tslint:disable-next-line:object-literal-key-quotes
       'Accept': 'application/json',
       // tslint:disable-next-line:object-literal-key-quotes

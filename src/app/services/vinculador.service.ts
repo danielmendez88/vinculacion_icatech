@@ -25,6 +25,7 @@ export class VinculadorService {
   // permiso a https
   private HttpOptions = {
     headers: new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
       // tslint:disable-next-line:object-literal-key-quotes
       'Accept': 'application/json',
       // tslint:disable-next-line:object-literal-key-quotes
