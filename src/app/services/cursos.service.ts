@@ -36,7 +36,7 @@ export class CursosService {
   private httpOptions = {
     headers: new HttpHeaders({
       Accept: 'application/json',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': 'http://www.apisivic.icatech.gob.mx/',
       Authorization: 'Bearer ' + this.auth.getToken()
     })
   };

@@ -20,7 +20,7 @@ export class CountagendaserviceService {
   // permisos a opciones a https
   private httpOptions = {
     headers: new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': 'http://www.apisivic.icatech.gob.mx/',
       // tslint:disable-next-line:object-literal-key-quotes
       'Accept': 'application/json',
       // tslint:disable-next-line:object-literal-key-quotes
