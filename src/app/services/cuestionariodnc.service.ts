@@ -29,7 +29,7 @@ export class CuestionariodncService {
   private httpOptions = {
     headers: new HttpHeaders({
       Accept: 'application/json',
-      'Access-Control-Allow-Origin': 'http://www.apisivic.icatech.gob.mx/',
+      'Access-Control-Allow-Origin': '*',
       Authorization: 'Bearer ' + this.authserv.getToken()
     })
   };

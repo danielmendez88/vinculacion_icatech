@@ -37,7 +37,7 @@ export class AgendaService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         // tslint:disable-next-line:object-literal-key-quotes
-        'Access-Control-Allow-Origin': 'http://www.apisivic.icatech.gob.mx/',
+        'Access-Control-Allow-Origin': '*',
         // tslint:disable-next-line:object-literal-key-quotes
         'Authorization': 'Bearer ' + this.authserv.getToken()
       })

@@ -35,7 +35,7 @@ export class AuthService {
   // damos permisos a las opciones http
   private httpOptions = {
     headers: new HttpHeaders({
-      'Access-Control-Allow-Origin': 'http://www.apisivic.icatech.gob.mx/',
+      'Access-Control-Allow-Origin': '*',
       // tslint:disable-next-line:object-literal-key-quotes
       'Accept': 'application/json',
       // tslint:disable-next-line:object-literal-key-quotes
@@ -70,7 +70,7 @@ export class AuthService {
 
   // login del usuario
   login(numeroEnlace: string, passcode: string): Observable<boolean> {
-    return this.httpclient.post<any>(`${ environment.PATH_BASE }/${ URL }`, {numeroEnlace, passcode}, this.httpOptions)
+    return this.httpclient.post<any>(`${ environment.PATH_BASE }/${ URL }`, {numeroEnlace, passcode})
     .pipe(map(datos => {
       if (datos && datos.success.token) {
         this.authToken = datos.success.token;

@@ -29,7 +29,7 @@ export class SeguimientosService {
     headers: new HttpHeaders({
       // tslint:disable-next-line:object-literal-key-quotes
       'Accept': 'application/json',
-      'Access-Control-Allow-Origin': 'http://www.apisivic.icatech.gob.mx/',
+      'Access-Control-Allow-Origin': '*',
       // tslint:disable-next-line:object-literal-key-quotes
       'Authorization': 'Bearer ' + this.auth.getToken()
     })

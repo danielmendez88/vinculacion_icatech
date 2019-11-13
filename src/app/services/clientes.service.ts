@@ -23,7 +23,7 @@ export class ClientesService {
   // permisos a opciones http
   private httpOptions = {
     headers: new HttpHeaders({
-      'Access-Control-Allow-Origin': 'http://www.apisivic.icatech.gob.mx/',
+      'Access-Control-Allow-Origin': '*',
       // tslint:disable-next-line:object-literal-key-quotes
       'Accept': 'application/json',
       // tslint:disable-next-line:object-literal-key-quotes
