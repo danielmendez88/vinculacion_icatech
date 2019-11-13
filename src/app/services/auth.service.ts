@@ -70,7 +70,7 @@ export class AuthService {
 
   // login del usuario
   login(numeroEnlace: string, passcode: string): Observable<boolean> {
-    return this.httpclient.post<any>(`${ environment.PATH_BASE }/${ URL }`, {numeroEnlace, passcode}, this.httpOptions)
+    return this.httpclient.post<any>(`${ environment.PATH_BASE }/${ URL }`, {numeroEnlace, passcode})
     .pipe(map(datos => {
       if (datos && datos.success.token) {
         this.authToken = datos.success.token;
