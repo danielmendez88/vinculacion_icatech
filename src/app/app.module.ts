@@ -75,6 +75,7 @@ import { NotificacionesComponent } from './pages/notificaciones/notificaciones.c
 // importar agenda lista resolver
 import { Listaagendaresolver } from './resolver/listaagendaresolver';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     ClientLayoutComponent,
     NotificacionesComponent,
     ProfileComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     BrowserAnimationsModule,

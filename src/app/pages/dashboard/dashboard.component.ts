@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       (res) => {
         this.resultCountSeguimiento = res;
       }
-    )
+    );
   }
 
   countDataTerminado(rol$: string, currentId$: number) {
@@ -65,6 +65,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       (response) => {
         this.resultCountTerminado = response;
       }
-    )
+    );
   }
 }
