@@ -20,6 +20,8 @@ import {MatInputModule} from '@angular/material';
 import { ErrorInterceptor } from '../../helpers/error-interceptor';
 // jwtinterceptor
 import { JwtInterceptor } from '../../helpers/jwt-interceptor';
+// importar directiva only number
+import { NumbersOnlyDirective } from '../../directives/numbers-only.directive';
 
 // rutas
 const LoginLayoutRoutes: Routes = [
@@ -28,7 +30,8 @@ const LoginLayoutRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    NumbersOnlyDirective
   ],
   imports: [
     CommonModule,

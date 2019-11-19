@@ -1,7 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-image: url("../src/assets/img/background.jpg");
+  background-repeat: no-repeat;
+  /*
+  * la imagen es centrada verticalmente y horizontalmente a la vez
+  */
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #ffffff;
+}
 
 // you must include each plugins' css
 // paths prefixed with ~ signify node_modules
