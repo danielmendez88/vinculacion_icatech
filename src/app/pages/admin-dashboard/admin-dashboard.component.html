@@ -1,3 +1,83 @@
-<p>
-  admin-dashboard works!
-</p>
+
+  <div fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
+      <div fxFlex="50%" class="curso_lista">
+          <mat-card class="cards">
+              <mat-card-header>
+                  <mat-card-title>Cursos Exitosos</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                  <canvas baseChart
+                    [data]="pieChartData"
+                    [labels]="pieChartLabels"
+                    [chartType]="pieChartType"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [legend]="pieChartLegend">
+                  </canvas>
+              </mat-card-content>
+          </mat-card>
+      </div>
+      <!--fxFlex-->
+      <div fxFlex="45%" class="curso_lista">
+          <mat-card class="cards">
+              <mat-card-header>
+                  <mat-card-title>Vinculaciones Exitosas</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                  <div style="display: block;">
+                    <canvas baseChart
+                      [datasets]="barChartData"
+                      [labels]="barChartLabels"
+                      [options]="barChartOptions"
+                      [plugins]="barChartPlugins"
+                      [legend]="barChartLegend"
+                      [chartType]="barChartType">
+                    </canvas>
+                  </div>
+              </mat-card-content>
+          </mat-card>
+      </div>
+  </div>
+  <!--tabla de modificación-->
+  <div class="mb-20" fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
+      <!--modificacion de campos de busquedas-->
+      <div fxFlex class="curso_lista">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Busqueda">
+        </mat-form-field>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="Unidades">
+                <th mat-header-cell *matHeaderCellDef> Unidades </th>
+                <td mat-cell *matCellDef="let element"> {{element.Unidades}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Enseguimiento">
+                <th mat-header-cell *matHeaderCellDef> Enseguimiento </th>
+                <td mat-cell *matCellDef="let element"> {{element.Enseguimiento}} </td>
+            </ng-container>
+            <ng-container matColumnDef="terminadas">
+                <th mat-header-cell *matHeaderCellDef> terminadas </th>
+                <td mat-cell *matCellDef="let element"> {{element.terminadas}} </td>
+            </ng-container>
+            <ng-container matColumnDef="exitosas">
+                <th mat-header-cell *matHeaderCellDef> exitosas </th>
+                <td mat-cell *matCellDef="let element"> {{element.exitosas}} </td>
+            </ng-container>
+            <ng-container matColumnDef="cursosexitosos">
+                <th mat-header-cell *matHeaderCellDef> cursosexitosos </th>
+                <td mat-cell *matCellDef="let element"> {{element.cursosexitosos}} </td>
+            </ng-container>
+            <ng-container matColumnDef="detalle">
+              <th mat-header-cell *matHeaderCellDef> Detalle </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="loadDashBoard(element.id)">
+                    <mat-icon>show_chart</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+  </div>

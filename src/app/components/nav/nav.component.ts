@@ -76,6 +76,14 @@ export const clientHistorical: Route[] = [
   }
 ];
 
+export const clientAdministrador: Route[] = [
+  {
+    icon: 'view_quilt',
+    route: '/index',
+    title: 'tablero'
+  }
+];
+
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -91,6 +99,7 @@ export class NavComponent implements OnInit {
   public vinculadorItems: any[];
   public isCollapse: boolean;
   Role$: string; // observable
+  public menuItemsAdmin: any[];
 
   constructor(private router: Router, public navser: NavserviceService, private as: AuthService) {
     this.navser.nav = this.appDrawer;
@@ -99,6 +108,7 @@ export class NavComponent implements OnInit {
   ngOnInit() {
     this.Role$ = this.as.UserRoleCurrent;
     this.menuItems = clientRoutes.filter(items => items);
+    this.menuItemsAdmin = clientAdministrador.filter(itemss => itemss);
     this.clientItems = clientGeneral.filter(item => item);
     this.historicalItems = clientHistorical.filter(item => item);
     this.vinculadorItems = vinculadorRoutes.filter(res => res);

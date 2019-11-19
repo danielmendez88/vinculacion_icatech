@@ -75,6 +75,12 @@ import { SeguimientoscursosComponent } from '../../pages/seguimientoscursos/segu
 import { CountagendaService } from '../../resolver/countagenda-service';
 // importar resolver lista agenda
 import { Listaagendaresolver } from '../../resolver/listaagendaresolver';
+// importar dashboard admin
+import { AdminDashboardComponent } from '../../pages/admin-dashboard/admin-dashboard.component';
+// charts
+import { ChartsModule } from 'ng2-charts';
+// importcar componente dashboard admin details
+import { AdmindashboardetailsComponent } from '../../pages/admindashboardetails/admindashboardetails.component';
 // rutas
 const ClientLayoutRoutes: Routes = [
   {
@@ -120,7 +126,15 @@ const ClientLayoutRoutes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['Directores'] },
     resolve: { historico: Historicodirectores}
-  }
+  },
+  {
+    path: 'admindashboard-detalle/:idunidad',
+    pathMatch: 'full',
+    component: AdmindashboardetailsComponent,
+    canActivate: [AuthGuard],
+    // data: { roles: ['Super-usuario'] }
+    data: { roles: ['Vinculador'] }
+  },
 ];
 
 @NgModule({
@@ -143,6 +157,7 @@ const ClientLayoutRoutes: Routes = [
     MatExpansionModule,
     MatCheckboxModule, // checkbox
     NgxMaterialTimepickerModule,
+    ChartsModule // charts
   ],
   declarations: [
     AgendaComponent,
@@ -162,14 +177,17 @@ const ClientLayoutRoutes: Routes = [
     ChildPaso1CursoComponent,
     DialogrefviewComponent,
     CuestionariodncseguimientoComponent,
-    SeguimientoscursosComponent
+    SeguimientoscursosComponent,
+    AdminDashboardComponent,
+    AdmindashboardetailsComponent
   ],
   providers: [
     SnackserviceService,
     AuthGuard,
   ],
   exports: [
-    RouterModule
+    RouterModule,
+    ChartsModule
   ], // exportar
   entryComponents: [BottomSheet, DialogOverView, DialogSeguimiento, DialogrefviewComponent]
 })

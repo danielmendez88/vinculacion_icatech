@@ -1,0 +1,74 @@
+$crm-command-bar-height-desktop: 3px !default;
+// $crm-command-bar-height-mobile: 48px !default;
+$crm-command-bar-height-mobile: 0 !default;
+
+$crm-view-bar-height-desktop: 96px !default;
+$crm-view-bar-height-mobile: 84px !default;
+
+//
+
+$crm-component-title-margin: 16px !default;
+$mat-xsmall: 'max-width: 599px';
+$mat-small: 'max-width: 959px';
+
+// https://github.com/angular/material2/blob/master/src/lib/toolbar/toolbar.scss
+
+$mat-toolbar-height-desktop: 64px !default;
+$mat-toolbar-height-mobile: 3px !default;
+$mat-toolbar-row-padding: 16px !default;
+
+.component-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: $crm-view-bar-height-desktop;
+  min-height: $crm-view-bar-height-desktop;
+
+  margin-top: 1em;
+
+  @media ($mat-xsmall) {
+    height: $crm-view-bar-height-mobile;
+    min-height: $crm-view-bar-height-mobile;
+
+    margin-top: $mat-toolbar-height-mobile + $crm-command-bar-height-mobile;
+  }
+}
+
+
+.content {
+  position: relative;
+  border-radius: 3px;
+  overflow: hidden;
+  width: 97%;
+  margin: 2.5% auto;
+  padding: 0.5%;
+  background: transparent;
+}
+
+.mat-table {
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+      0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+table {
+  width: 100%;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mat-card {
+  text-align: center;
+  img {
+      border-radius: 5px;
+      margin-top: -25px;
+  }
+}
+
+.mat-form-field {
+  font-size: 18px;
+  width: 100%;
+}

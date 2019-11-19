@@ -48,10 +48,21 @@
             </a>
           </div>
         </div>
+        <div *ngSwitchCase="'Super_usuario'">
+          <div *ngFor="let supitems of menuItemsAdmin">
+            <a mat-list-item
+            (click)="navser.closeNav()"
+            [routerLink]="[supitems.route]"
+            routerLinkActive="list-item-active">
+              <mat-icon matListIcon class="app-nav-list-icon">{{ supitems.icon }}</mat-icon>
+              {{supitems.title}}
+            </a>
+          </div>
+        </div>
         <div *ngSwitchDefault>output2</div>
       </div>
       <!--datos-->
-      <!--divider-->      
+      <!--divider-->
 
       <mat-divider></mat-divider>
 
