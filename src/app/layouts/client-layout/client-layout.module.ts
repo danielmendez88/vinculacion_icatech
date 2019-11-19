@@ -87,7 +87,7 @@ const ClientLayoutRoutes: Routes = [
     path: 'index',
     component: DashboardComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['Directores', 'Vinculador'] },
+    data: { roles: ['Directores', 'Vinculador', 'Super_usuario'] },
     resolve: { roldata: RolResolver, currentid: CountagendaService}
   },
   {
@@ -133,7 +133,7 @@ const ClientLayoutRoutes: Routes = [
     component: AdmindashboardetailsComponent,
     canActivate: [AuthGuard],
     // data: { roles: ['Super-usuario'] }
-    data: { roles: ['Vinculador'] }
+    data: { roles: ['Super_usuario'] }
   },
 ];
 
