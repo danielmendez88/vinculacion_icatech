@@ -78,7 +78,7 @@ import { Listaagendaresolver } from '../../resolver/listaagendaresolver';
 // importar dashboard admin
 import { AdminDashboardComponent } from '../../pages/admin-dashboard/admin-dashboard.component';
 // charts
-import { ChartsModule } from 'ng2-charts';
+import { ChartsModule } from 'node_modules/ng2-charts';
 // importcar componente dashboard admin details
 import { AdmindashboardetailsComponent } from '../../pages/admindashboardetails/admindashboardetails.component';
 // rutas

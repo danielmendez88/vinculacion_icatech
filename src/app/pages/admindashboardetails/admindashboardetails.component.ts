@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from 'node_modules/@angular/material';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
+import { ChartOptions, ChartType, ChartDataSets } from 'node_modules/@types/chart.js';
+import { Label } from 'node_modules/ng2-charts';
 // importar el servicio de cifrado AES
 import { CryptServiceService } from '../../services/crypt-service.service';
 // angular router

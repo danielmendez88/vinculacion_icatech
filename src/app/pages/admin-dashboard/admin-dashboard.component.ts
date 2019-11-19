@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
-import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
+import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'node_modules/ng2-charts';
+import { ChartType, ChartOptions, ChartDataSets } from 'node_modules/@types/chart.js';
 // importar el servicio de cifrado AES
 import { CryptServiceService } from '../../services/crypt-service.service';
 import { Router } from 'node_modules/@angular/router';
