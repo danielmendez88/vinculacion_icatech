@@ -13,7 +13,8 @@ export class Filesresolver implements Resolve<any> {
   constructor(private fileser: SeguimientosService, private crypt: CryptServiceService) {}
   // resolver
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const id = route.paramMap.get('idvinculacion');
+    const id = route.queryParamMap.get('agenda');
+    // route.paramMap.get('idvinculacion');
     const strId = this.crypt.decryptUsingAES256(id);
     const idseg = +strId;
     return this.fileser.getFilesFromSeguimientoById(idseg).pipe(

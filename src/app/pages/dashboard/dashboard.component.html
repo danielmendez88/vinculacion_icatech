@@ -7,24 +7,24 @@
     <div class="mb-20" fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
         <!--nuevo dashboard-->
           <div fxFlex>
-            <app-shared [bgclass]="'info'" [icon]="'link'" [contador]="resultCount" [label]="'Vinculaciones Totales'"></app-shared>
+            <app-shared [bgclass]="'info'" [icon]="'link'" [contador]="resultCount" [label]="'Agendado'"></app-shared>
           </div>
         <!--fin nuevo dashboard-->
         <!--dashboard item-->
         <div fxFlex>
-          <app-shared [bgclass]="'warn'" [icon]="'device_hub'" [contador]="resultCountSeguimiento" [label]="'Vinculaciones en Seguimiento'"></app-shared>
+          <app-shared [bgclass]="'warn'" [icon]="'device_hub'" [contador]="resultCountSeguimiento" [label]="'Atendidos'"></app-shared>
         </div>
         <!--fin dashboard item-->
         <!--dashboard item-->
         <div fxFlex>
-          <app-shared [bgclass]="'success'" [icon]="'done_all'" [contador]="resultCountTerminado" [label]="'Vinculaciones Terminadas'"></app-shared>
+          <app-shared [bgclass]="'success'" [icon]="'done_all'" [contador]="resultCountTerminado" [label]="'Vinculaciones Exitosas'"></app-shared>
         </div>
         <!--fin dashboard item-->
 
     </div>
     <div fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
         <div fxFlex>
-          <app-shared [bgclass]="'warn'" [icon]="'library_books'" [contador]="552" [label]="'Cursos'"></app-shared>
+          <app-shared [bgclass]="'warn'" [icon]="'library_books'" [contador]="552" [label]="'Cursos Disponibles'"></app-shared>
         </div>
         <!--fin dashboard item-->
         <!--dashboard item-->
@@ -41,39 +41,45 @@
   </ng-container>
   <!--plantilla-->
   <ng-container *ngSwitchCase="'Vinculador'">
-      <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
+      <div class="mb-20" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
         <!--div-->
         <div fxFlex>
-          <app-stat [bgC]="'info'" [icons]="'info'" [counts]="resultCount" [labels]="'Total Vinculaciones'"></app-stat>
+          <app-stat [bgC]="'info'" [icons]="'info'" [counts]="resultCount" [labels]="'Agendado'"></app-stat>
           <!--div-->
         </div>
         <!--div-->
         <div fxFlex>
           <!--app stat-->
-          <app-stat [bgC]="'warn'" [icons]="'device_hub'" [counts]="resultCountSeguimiento" [labels]="'Vinculaciones en Seguimiento'"></app-stat>
+          <app-stat [bgC]="'warn'" [icons]="'device_hub'" [counts]="resultCountSeguimiento" [labels]="'Atendidos'"></app-stat>
           <!--app star-->
         </div>
         <!--div fxFlex-->
         <div fxFlex>
           <!--app stat-->
-          <app-stat [bgC]="'success'" [icons]="'done'" [counts]="resultCountTerminado" [labels]="'Vinculaciones Terminadas'"></app-stat>
+          <app-stat [bgC]="'success'" [icons]="'done'" [counts]="resultCountTerminado" [labels]="'Exitosas'"></app-stat>
           <!--app star end-->
         </div>
         <!--div fxFlex-->
         <!--div-->
+      </div>
+      <div fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
+        <div fxFlex>
+          <!--app stat-->
+          <app-stat [bgC]="'success'" [icons]="'done'" [counts]="0" [labels]="'Cursos Vendidos'"></app-stat>
+          <!--app star end-->
+        </div>
+
         <div fxFlex>
           <mat-card class="cards">
-              <img mat-card-image src="../../../assets/img/vinculacion.jpg">
+              <img mat-card-image src="../../../assets/img/vinculacion.png">
               <mat-card-header style="justify-content: center">
-                  <mat-card-title>
-                      <h3 class="m-0">Office Studio</h3>
-                  </mat-card-title>
               </mat-card-header>
               <mat-card-actions>
-                  <button mat-button>Hola Nuevamente</button>
+                  <button mat-button>Ver Agendas</button>
               </mat-card-actions>
           </mat-card>
         </div>
+
       </div>
   </ng-container>
   <!--plantilla administrador-->

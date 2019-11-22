@@ -81,6 +81,12 @@ import { AdminDashboardComponent } from '../../pages/admin-dashboard/admin-dashb
 import { ChartsModule } from 'node_modules/ng2-charts';
 // importcar componente dashboard admin details
 import { AdmindashboardetailsComponent } from '../../pages/admindashboardetails/admindashboardetails.component';
+// importar resolver
+import { VinculadoragendaResolver } from '../../resolver/vinculadoragenda-resolver';
+// importar componente
+import { AgendasasignadasComponent } from '../../pages/agendasasignadas/agendasasignadas.component';
+// importar resolver
+import { AgendasasignadasResolverService } from '../../resolver/agendasasignadas-resolver.service';
 // rutas
 const ClientLayoutRoutes: Routes = [
   {
@@ -101,9 +107,9 @@ const ClientLayoutRoutes: Routes = [
     component: AgendaListaComponent,
     canActivate: [AuthGuard],
     data: { roles: ['Directores'] },
-    resolve: { AgendaLista: Listaagendaresolver}
+    resolve: { AgendaLista: VinculadoragendaResolver}
   },
-  { path: 'detalle/:idvinculacion', pathMatch: 'full', component: Paso1Component, canActivate: [AuthGuard], data: { roles: ['Vinculador'] },
+  { path: 'detalle', pathMatch: 'full', component: Paso1Component, canActivate: [AuthGuard], data: { roles: ['Vinculador'] },
   resolve: {
     getAgenda: SeguimientoService, // primer resolver
     detalles: DetalleSeguimientoResolver, // segundo resolver
@@ -113,7 +119,7 @@ const ClientLayoutRoutes: Routes = [
   }},
   { path: 'calendario', component: CalendarioComponent, canActivate: [AuthGuard], data: { roles: ['Vinculador'] },
   resolve: { getAllOwnAgenda: CalendarioService}},
-  { path: 'seguimiento/:idvinculacion', pathMatch: 'full', component: SeguimientoComponent, canActivate: [AuthGuard],
+  { path: 'seguimiento', pathMatch: 'full', component: SeguimientoComponent, canActivate: [AuthGuard],
   resolve: {
     seguimientos: DetallesServiceService, // primer resolve
     detalleSegimiento: DetalleSeguimientoResolver, // segundo resolve
@@ -135,6 +141,14 @@ const ClientLayoutRoutes: Routes = [
     // data: { roles: ['Super-usuario'] }
     data: { roles: ['Super_usuario'] }
   },
+  {
+    path: 'agendasasignadas/:idUsuario',
+    pathMatch: 'full',
+    component: AgendasasignadasComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['Directores'] },
+    resolve: { asignados: AgendasasignadasResolverService}
+  }
 ];
 
 @NgModule({
@@ -179,7 +193,8 @@ const ClientLayoutRoutes: Routes = [
     CuestionariodncseguimientoComponent,
     SeguimientoscursosComponent,
     AdminDashboardComponent,
-    AdmindashboardetailsComponent
+    AdmindashboardetailsComponent,
+    AgendasasignadasComponent
   ],
   providers: [
     SnackserviceService,

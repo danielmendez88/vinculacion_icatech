@@ -12,7 +12,8 @@ export class Filepdfresolver implements Resolve<any> {
     constructor(private sg: SeguimientosService, private crypt: CryptServiceService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-      const id = route.paramMap.get('idvinculacion');
+      const id = route.queryParamMap.get('agenda');
+      // route.paramMap.get('idvinculacion');
       const strId = this.crypt.decryptUsingAES256(id);
       const idseg = +strId;
       return this.sg.getfilespropuestaFromSeguimientoBy(idseg).pipe(

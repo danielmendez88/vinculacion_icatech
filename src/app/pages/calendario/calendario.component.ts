@@ -138,7 +138,7 @@ export class DialogOverView {
     if (idEvent) {
       const idStr = idEvent.toString();
       const str = this.crypt.encryptUsingAES256(idStr);
-      this.route.navigate(['/detalle', str]);
+      this.route.navigate(['/detalle'], {queryParams: {agenda: str}});
     }
     this.dialogRef.close();
   }

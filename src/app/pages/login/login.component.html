@@ -24,8 +24,10 @@
 
               <mat-form-field class="example-full-width">
                 <mat-label>Contraseña</mat-label>
-                <input matInput type="password" formControlName="passcode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.passcode.errors }">
-                <mat-icon matSuffix>lock</mat-icon>
+                <input matInput formControlName="passcode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.passcode.errors }" [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
               </mat-form-field>
               <div *ngIf="submitted && f.passcode.errors" class="invalid-feedback">
                 <div *ngIf="f.passcode.errors.required">Contraseña Requerida</div>

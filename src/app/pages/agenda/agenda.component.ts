@@ -185,7 +185,7 @@ export class AgendaComponent implements OnInit {
       console.log(result.id);
       const idStr = result.id.toString();
       const str = this.crypto.encryptUsingAES256(idStr);
-      this.router.navigate(['/seguimiento/' + str], {queryParams: {loader: this.isLoad}});
+      this.router.navigate(['/seguimiento'], {queryParams: {agenda: str, loader: this.isLoad}});
     }, (err) => {
       this.openErrorSnackBar();
       console.error(err);

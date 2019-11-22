@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   authToken: any;
   error = '';
+  hide = true;
 
   constructor(
     private formBuilder: FormBuilder,

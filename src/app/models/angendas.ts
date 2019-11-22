@@ -58,3 +58,8 @@ export interface AllAgenda {
   telfonoInstitucional?: string;
   nombreEnlace?: string;
 }
+
+export interface GetUserwithAgenda {
+  id?: number;
+  nombre?: string;
+}

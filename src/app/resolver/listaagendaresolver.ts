@@ -4,7 +4,7 @@ import { Observable, empty } from 'node_modules/rxjs';
 import { AgendaService } from '../services/agenda.service';
 import { AuthService } from '../services/auth.service';
 import { take, map, catchError } from 'node_modules/rxjs/operators';
-import { Injectable } from '../../../node_modules/@angular/core';
+import { Injectable } from 'node_modules/@angular/core';
 
 @Injectable()
 export class Listaagendaresolver implements Resolve<AgendaShow> {

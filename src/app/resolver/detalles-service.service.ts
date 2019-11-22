@@ -18,7 +18,8 @@ export class DetallesServiceService implements Resolve<Observable<string>> {
   constructor(private agendaS: AgendaService, private seg: SeguimientosService, private crypt: CryptServiceService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const id = route.paramMap.get('idvinculacion');
+    const id = route.queryParamMap.get('agenda');
+    // route.paramMap.get('idvinculacion');
     // convertir ese string en un id
     const strId = this.crypt.decryptUsingAES256(id);
     const idseguimiento = +strId;

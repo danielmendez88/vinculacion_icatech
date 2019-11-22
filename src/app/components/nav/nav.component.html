@@ -66,17 +66,6 @@
 
       <mat-divider></mat-divider>
 
-      <h2 matSubheader>Historico</h2>
-      <!--datos-->
-      <a *ngFor="let historical of historicalItems" mat-list-item (click)="navser.closeNav()"
-      [routerLink]="[historical.route]"
-      routerLinkActive="list-item-active">
-        <mat-icon matListIcon class="app-nav-list-icon">{{ historical.icon }}</mat-icon>
-        {{ historical.title }}
-      </a>
-
-      <mat-divider></mat-divider>
-
       <h2 matSubheader>General</h2>
       <!--datos generales-->
       <a *ngFor="let generalItems of clientItems" mat-list-item (click)="navser.closeNav()"

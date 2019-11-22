@@ -21,7 +21,8 @@ export class DetalleSeguimientoResolver implements Resolve<DetalleSeguimiento> {
 
   // resolve
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DetalleSeguimiento> {
-    const id = route.paramMap.get('idvinculacion');
+    const id = route.queryParamMap.get('agenda');
+    // route.paramMap.get('idvinculacion');
     const strId = this.crypt.decryptUsingAES256(id);
     const idseguimiento = +strId;
     return this.seg.getSeguimientobyId(idseguimiento).pipe(

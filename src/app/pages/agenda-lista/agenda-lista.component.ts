@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import { AgendaService } from '../../services/agenda.service';
 // modelo de la agenda
-import { Agenda } from '../../models/angendas';
+import { GetUserwithAgenda } from '../../models/angendas';
 // ruta activa
 import { ActivatedRoute, Router } from '@angular/router';
 // importar titulo
@@ -24,12 +24,12 @@ export class AgendaListaComponent implements OnInit {
   mode = 'indeterminate';
   Agenda;
   public idString: number;
-  isUpdated  =  false;
+  isUpdated =  false;
 
 
-  displayedColumns: string[] = ['fecha', 'institucion', 'tipo', 'vinculador', 'detalle'];
+  displayedColumns: string[] = ['nombre', 'detalle'];
   // asignar la data a la fuente de datos para la tabla a reenderizar
-  datasource = new MatTableDataSource<Agenda>([]);
+  datasource = new MatTableDataSource<GetUserwithAgenda>([]);
   //
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -55,18 +55,6 @@ export class AgendaListaComponent implements OnInit {
     this.datasource.sort = this.sort;
     this.datasource.paginator = this.paginator;
   }
-  // agendas
-  getAgendas() {
-    this.idString = this.auth.useridCurrent;
-    this.agendaList.getAllAgendas(this.idString)
-                   .subscribe(res => {
-                     // this.estacargando = false;
-                     this.datasource.data = res as Agenda[];
-                   },
-                   (error) => {
-                     console.error(error);
-                   });
-  }
 
   /**
    * aplicar filtros
@@ -82,9 +70,9 @@ export class AgendaListaComponent implements OnInit {
     this.isUpdated = true;
     this.idString = this.auth.useridCurrent;
     if (this.isUpdated === true) {
-      this.agendaList.getAllAgendas(this.idString)
+      this.agendaList.getVinculadorAgenda(this.idString)
       .subscribe(response => {
-        this.datasource.data = response as Agenda[];
+        this.datasource.data = response as GetUserwithAgenda[];
         this.datasource.sort = this.sort;
         this.datasource.paginator = this.paginator;
         this.isUpdated = false;
@@ -96,8 +84,8 @@ export class AgendaListaComponent implements OnInit {
 
   cargarDatos(id: number) {
     const strId = id.toString();
-    const str = this.crypt.encryptUsingAES256(strId);
-    this.route.navigate(['/seguimiento', str]);
+    const str = btoa(strId);
+    this.route.navigate(['/agendasasignadas', str]);
     // [routerLink]="['/seguimiento', cargarDatos(row.id)]"
   }
 

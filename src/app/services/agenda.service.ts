@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 // interfaces
-import { Agenda, Todo, AgendaShow, UpdateVinculacionData } from '../models/angendas';
+import { Agenda, Todo, AgendaShow, UpdateVinculacionData, GetUserwithAgenda } from '../models/angendas';
 // mapas
 import { Observable, of, throwError } from 'rxjs';
 import { tap, catchError, map, retry } from 'rxjs/operators';
@@ -23,6 +23,8 @@ const URLUPDATE = 'updatevinculacion';
 const URLHISTORY = 'gethistorico';
 const URLUPDATEAGENDABYCURSO = 'updateagendabycurso';
 const URLGETASIGNADOPOR = 'agendaasignadopor';
+const URLVINCULADORAGENDAS = 'usuarioporagenda';
+const URLAGENDASPORVINCULADOR = 'agendasporvinculador';
 
 @Injectable({
   providedIn: 'root'
@@ -138,6 +140,20 @@ export class AgendaService {
     const respuesta = await this.http.get(`${environment.PATH_BASE}/${URLUPDATEAGENDABYCURSO}/${id}`, this.httpOptions)
                       .toPromise();
     return respuesta;
+  }
+
+  /**
+   * get users data from row called asignadoPor
+   */
+  getVinculadorAgenda(id: number): Observable<GetUserwithAgenda> {
+    const response = this.http.get(`${environment.PATH_BASE}/${URLVINCULADORAGENDAS}/${id}`, this.httpOptions);
+    return response;
+  }
+
+  @Cacheable()
+  getAgendasporVinculador(id: number): Observable<any> {
+    const res = this.http.get(`${environment.PATH_BASE}/${URLAGENDASPORVINCULADOR}/${id}`, this.httpOptions);
+    return res;
   }
 
 }

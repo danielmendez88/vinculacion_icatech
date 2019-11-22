@@ -3,7 +3,7 @@
       <div fxFlex="50%" class="curso_lista">
           <mat-card class="cards">
               <mat-card-header>
-                  <mat-card-title>Cursos Exitosos</mat-card-title>
+                  <mat-card-title>Cursos Vendidos</mat-card-title>
               </mat-card-header>
               <mat-card-content>
                   <canvas baseChart
@@ -51,11 +51,11 @@
                 <td mat-cell *matCellDef="let element"> {{element.Unidades}} </td>
             </ng-container>
             <ng-container matColumnDef="Enseguimiento">
-                <th mat-header-cell *matHeaderCellDef> Enseguimiento </th>
+                <th mat-header-cell *matHeaderCellDef> Agendado </th>
                 <td mat-cell *matCellDef="let element"> {{element.Enseguimiento}} </td>
             </ng-container>
             <ng-container matColumnDef="terminadas">
-                <th mat-header-cell *matHeaderCellDef> terminadas </th>
+                <th mat-header-cell *matHeaderCellDef> Atendido </th>
                 <td mat-cell *matCellDef="let element"> {{element.terminadas}} </td>
             </ng-container>
             <ng-container matColumnDef="exitosas">
@@ -63,7 +63,7 @@
                 <td mat-cell *matCellDef="let element"> {{element.exitosas}} </td>
             </ng-container>
             <ng-container matColumnDef="cursosexitosos">
-                <th mat-header-cell *matHeaderCellDef> cursosexitosos </th>
+                <th mat-header-cell *matHeaderCellDef> Cursos Vendidos </th>
                 <td mat-cell *matCellDef="let element"> {{element.cursosexitosos}} </td>
             </ng-container>
             <ng-container matColumnDef="detalle">

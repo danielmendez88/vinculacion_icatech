@@ -75,6 +75,9 @@ import { NotificacionesComponent } from './pages/notificaciones/notificaciones.c
 // importar agenda lista resolver
 import { Listaagendaresolver } from './resolver/listaagendaresolver';
 import { ProfileComponent } from './pages/profile/profile.component';
+// importar resolver
+import { VinculadoragendaResolver } from './resolver/vinculadoragenda-resolver';
+import { AgendasasignadasResolverService } from './resolver/agendasasignadas-resolver.service';
 
 @NgModule({
   declarations: [
@@ -124,7 +127,9 @@ import { ProfileComponent } from './pages/profile/profile.component';
     Filepdfresolver,
     CountagendaService,
     SpinnerServiceService,
-    Listaagendaresolver
+    Listaagendaresolver,
+    VinculadoragendaResolver,
+    AgendasasignadasResolverService
   ],
   bootstrap: [AppComponent]
 })
