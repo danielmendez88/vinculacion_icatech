@@ -3,7 +3,6 @@
 <!--div-->
 <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="10%" fxLayoutAlign="center center">
   <!--seccion spinner-->
-
   <!--fin seccion spinner-->
 <!--card-->
   <mat-card class="carta-lista">
@@ -50,7 +49,7 @@
             <ng-container matColumnDef="detalle">
               <mat-header-cell *matHeaderCellDef > Detalle</mat-header-cell>
               <mat-cell *matCellDef="let row" data-label="detalle">
-                <button mat-icon-button color="primary" >
+                <button mat-icon-button color="primary" (click)="cargarDatos(row.id)">
                     <mat-icon>more_horiz</mat-icon>
                 </button>
               </mat-cell>
@@ -67,6 +66,7 @@
                 <mat-icon>autorenew</mat-icon>
               </button>
             </form>
+
       </div>
       <!--end pestañas-->
     </mat-card-content>
