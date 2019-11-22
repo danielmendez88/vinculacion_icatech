@@ -3,10 +3,7 @@
 <!--div-->
 <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="10%" fxLayoutAlign="center center">
   <!--seccion spinner-->
-  <div class="spinner-wrapper" *ngIf="isUpdated">
-      <mat-progress-spinner color="primary" mode="indeterminate" [diameter]="70"></mat-progress-spinner>
-      &nbsp; <h2>Cargando ...</h2>
-  </div>
+
   <!--fin seccion spinner-->
 <!--card-->
   <mat-card class="carta-lista">
@@ -53,7 +50,7 @@
             <ng-container matColumnDef="detalle">
               <mat-header-cell *matHeaderCellDef > Detalle</mat-header-cell>
               <mat-cell *matCellDef="let row" data-label="detalle">
-                <button mat-icon-button color="primary" (click)="cargarDatos(row.id)">
+                <button mat-icon-button color="primary" >
                     <mat-icon>more_horiz</mat-icon>
                 </button>
               </mat-cell>
