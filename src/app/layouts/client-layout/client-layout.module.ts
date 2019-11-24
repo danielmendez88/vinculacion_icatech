@@ -87,6 +87,8 @@ import { VinculadoragendaResolver } from '../../resolver/vinculadoragenda-resolv
 import { AgendasasignadasComponent } from '../../pages/agendasasignadas/agendasasignadas.component';
 // importar resolver
 import { AgendasasignadasResolverService } from '../../resolver/agendasasignadas-resolver.service';
+// importar componente perfil
+import { ProfileComponent } from '../../pages/profile/profile.component';
 // rutas
 const ClientLayoutRoutes: Routes = [
   {
@@ -148,6 +150,12 @@ const ClientLayoutRoutes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['Directores'] },
     resolve: { asignados: AgendasasignadasResolverService}
+  },
+  {
+    path: 'profile',
+    pathMatch: 'full',
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -194,7 +202,8 @@ const ClientLayoutRoutes: Routes = [
     SeguimientoscursosComponent,
     AdminDashboardComponent,
     AdmindashboardetailsComponent,
-    AgendasasignadasComponent
+    AgendasasignadasComponent,
+    ProfileComponent
   ],
   providers: [
     SnackserviceService,

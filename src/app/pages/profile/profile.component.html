@@ -1,3 +1,60 @@
-<p>
-  profile works!
-</p>
+<div class="component-title-container">
+</div>
+
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="10%" fxLayoutAlign="center center">
+
+      <mat-card class="carta-lista">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Pefil del Usuario</mat-card-title>
+            <mat-card-subtitle>Correo electrónico: {{ email }}</mat-card-subtitle>
+          </mat-card-header>
+          <form [formGroup]="formgroup" (ngSubmit)="updateProfile(formgroup.value)">
+            <mat-card-content>
+              <div class="container">
+                <mat-form-field class="form-element">
+                  <input matInput placeholder="N° Enlace" formControlName="numeroenlace">
+                  <mat-error *ngIf="!formgroup.controls['numeroenlace'].valid && formgroup.controls['numeroenlace'].touched">
+                    No hay Número de enlace
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-element">
+                  <input matInput placeholder="Nombre" formControlName="nombre">
+                  <mat-error *ngIf="!formgroup.controls['nombre'].valid && formgroup.controls['nombre'].touched">
+                    No hay nombre
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-element">
+                  <input matInput placeholder="Puesto" formControlName="puesto">
+                  <mat-error *ngIf="!formgroup.controls['puesto'].valid && formgroup.controls['puesto'].touched">
+                    No hay puesto
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-element">
+                  <input matInput placeholder="Categoría" formControlName="categoria">
+                  <mat-error *ngIf="!formgroup.controls['categoria'].valid && formgroup.controls['categoria'].touched">
+                    No hay categoría
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-element">
+                  <input matInput type="password" placeholder="Contraseña" formControlName="contrasena">
+                  <mat-error *ngIf="!formgroup.controls['contrasena'].valid && formgroup.controls['contrasena'].touched">
+                    Por favor, ingresa tu nueva contraseña
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-element">
+                  <input matInput type="password" placeholder="Confirmar Contraseña" formControlName="conrfirmarcontrasena" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="formgroup.hasError('notSame')">
+                    Las contraseñas no coinciden.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </mat-card-content>
+            <mat-card-actions>
+              <input type="hidden" formControlName="iduser">
+              <button type="submit" [disabled]="!formgroup.valid" mat-button>Actualizar</button>
+            </mat-card-actions>
+          </form>
+      </mat-card>
+
+</div>

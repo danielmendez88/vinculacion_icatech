@@ -74,7 +74,6 @@ import { SpinnerServiceService } from './services/spinner-service.service';
 import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
 // importar agenda lista resolver
 import { Listaagendaresolver } from './resolver/listaagendaresolver';
-import { ProfileComponent } from './pages/profile/profile.component';
 // importar resolver
 import { VinculadoragendaResolver } from './resolver/vinculadoragenda-resolver';
 import { AgendasasignadasResolverService } from './resolver/agendasasignadas-resolver.service';
@@ -85,7 +84,6 @@ import { AgendasasignadasResolverService } from './resolver/agendasasignadas-res
     AuthLayoutComponent,
     ClientLayoutComponent,
     NotificacionesComponent,
-    ProfileComponent,
   ],
   imports: [
     BrowserAnimationsModule,

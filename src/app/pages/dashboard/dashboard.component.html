@@ -23,6 +23,13 @@
 
     </div>
     <div fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
+
+        <div fxFlex>
+          <!--app stat-->
+          <app-shared [bgclass]="'success'" [icon]="'done'" [contador]="0" [label]="'Cursos Vendidos'"></app-shared>
+          <!--app star end-->
+        </div>
+
         <div fxFlex>
           <app-shared [bgclass]="'warn'" [icon]="'library_books'" [contador]="552" [label]="'Cursos Disponibles'"></app-shared>
         </div>
