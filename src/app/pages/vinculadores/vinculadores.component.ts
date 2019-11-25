@@ -13,6 +13,7 @@ import { Vinculador } from '../../models/clientes';
 })
 export class VinculadoresComponent implements OnInit {
   vinculadoresx: any;
+  isUpdated = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
