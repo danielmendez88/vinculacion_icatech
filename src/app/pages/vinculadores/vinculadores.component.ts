@@ -39,4 +39,8 @@ export class VinculadoresComponent implements OnInit {
     this.datasource.paginator = this.paginator;
   }
 
+  applyFilter(filterValue: string) {
+    this.datasource.filter = filterValue.trim().toLowerCase();
+  }
+
 }
