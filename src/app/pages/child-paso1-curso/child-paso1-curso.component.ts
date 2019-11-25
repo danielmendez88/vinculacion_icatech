@@ -18,6 +18,8 @@ import { DecodeencodeserviceService } from '../../services/decodeencodeservice.s
 import * as FileSaver from 'file-saver';
 // importar agenda service
 import { AgendaService } from '../../services/agenda.service';
+// importar auth service
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -83,7 +85,8 @@ export class ChildPaso1CursoComponent implements OnInit {
     private dialog: MatDialog,
     private encodeAndDecode: DecodeencodeserviceService,
     private ngz: NgZone,
-    private agendas: AgendaService
+    private agendas: AgendaService,
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -250,11 +253,13 @@ export class ChildPaso1CursoComponent implements OnInit {
     try {
       // obtenemos el usuario que tiene la sesión iniciada
       const usuarioActual = localStorage.getItem('currentUserName');
+      const usuarioEmail = this.auth.useremailCurrent;
       const titular = this.titulartag;
       const datosImprimir = {
         lista: this.listaImprimir,
         usuario: usuarioActual,
-        titular_agenda: titular
+        titular_agenda: titular,
+        usuario_email: usuarioEmail
       };
       this.pdfworker.postMessage(JSON.stringify(datosImprimir));
     } catch (error) {

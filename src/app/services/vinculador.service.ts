@@ -15,6 +15,7 @@ import { throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 
 const URLVINCULADOR = 'vinculador';
+const URLVINCULADORJEFE = 'getvinculadores';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,13 @@ export class VinculadorService {
             .pipe(
               catchError(this.handleError)
             );
+  }
+
+  getVinculadorJefe(administrative: number, id: number): Observable<any> {
+    return this.https.get<any>(`${environment.PATH_BASE}/${URLVINCULADORJEFE}/${id}/${administrative}`, this.HttpOptions)
+           .pipe(
+             catchError(this.handleError)
+           );
   }
 
   // manejo de errores

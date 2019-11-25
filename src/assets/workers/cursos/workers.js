@@ -41,7 +41,7 @@ importScripts('../logos.js');
                 text: 'Oficio No. ICATECH/001/'
               },
               {
-                text: 'Tuxtla Gutiérrez, Chis., 11 de Junio de 2019.'
+                text: 'Tuxtla Gutiérrez, Chis., ' + formatDate(new Date())
               }
             ],
             style: 'loationanddate',
@@ -63,14 +63,14 @@ importScripts('../logos.js');
           },
           {
             text: [
-              'Sirva la presenta para envíarle un afectuoso saludo y éxito en sus actividades encomendadas, y al mismo',
-              'tiempo me dirijo a usted de la manera más respetuosa de '+ data.usuario +' trabajador del ',
-              'ICATECH (instituto de capacitación y vinculación tecnológica del estado de chiapas), esto con la finalidad ',
-              'de darle a conocer las diferentes capacitaciones que otorga dicha institución, con el objetivo de ',
-              'descubrir los cursos y beneficios que otorga ICATECH a los alumnos del instituto. Así mismo que ',
-              'nuestras constancias cuentan con valor oficial avaladas por la SEP y la STPS.\n\n',
+              'Sirva la presente para envíarle un afectuoso saludo y éxito en sus actividades encomendadas.',
+              'Me dirijo a usted con la finalidad de darle a conocer los diferentes cursos y capacitaciones que otorga',
+              'el instituto de Capacitación y Vinculación Tecnología del Estado de Chiapas, ',
+              'con el objetivo de ',
+              'con el objetivo que conozca los beneficios que brinda el ICATECH, al finalizar ',
+              'el curso se otorga una constancia con valor oficial, avaladas por la SEP y la STPS.\n\n\n',
               'No dudando de su amabilidad le reitero las gracias.\n\n',
-              'Sin otro particular reciba un cordial saludo.\n'
+              'Sin otro particular, reciba un cordial saludo.\n\n\n'
             ],
             style: 'contentText'
           },
@@ -83,8 +83,10 @@ importScripts('../logos.js');
           },
           {
             stack: [
-              {text: data.usuario + '\n'},
-              {text: 'Vinculadores de Icatech'}
+              {text: data.usuario + '\n\n'},
+              {text: 'Vinculador del Icatech\n\n'},
+              {text: 'Trabajador Activo del Instituto de Capacitación y Vinculación Tecnología del Estado de Chiapas.\n\n'},
+              {text: (data.usuario_email == 'null') ? 'Correo Electrónico: No hay email' : 'Correo Electrónico: ' + data.usuario_email}
             ],
             margin: [0, 25, 0, 15], // left, top, right, bottom
           },
@@ -197,5 +199,20 @@ importScripts('../logos.js');
       console.error(e);
       throw {error: e};
     }
+  }
+
+  function formatDate(date) {
+    var monthNames = [
+      "Enero", "Febrero", "Marzo",
+      "Abril", "Mayo", "Junio", "Julio",
+      "Agosto", "Septiembre", "Octubre",
+      "Noviembre", "Diciembre"
+    ];
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
   }
 })();

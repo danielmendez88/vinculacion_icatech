@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public resultCount: number | null;
   public resultCountSeguimiento: number | null;
   public resultCountTerminado: number | null;
+  public resultCountVinculadores: number | null;
+  public administrative$: number;
 
   constructor(
     private ruta: ActivatedRoute,
@@ -34,9 +36,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.titulo.setTitle('Sivic / Tablero de Inicio');
     this.userRole$ = this.ruta.snapshot.data.roldata;
     this.userId$ = this.ruta.snapshot.data.currentid;
+    this.administrative$ = +this.uath.getadministrative;
     this.countData(this.userRole$, this.userId$);
     this.countDataSeguimiento(this.userRole$, this.userId$);
     this.countDataTerminado(this.userRole$, this.userId$);
+    this.countDataVinculadores(this.userRole$, this.userId$, this.administrative$);
   }
 
   ngOnDestroy(): void {
@@ -64,6 +68,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.agendaCount.getagendasterminadas(rol$, currentId$).then(
       (response) => {
         this.resultCountTerminado = response;
+      }
+    );
+  }
+
+  countDataVinculadores(rol$: string, currentId$: number, administrative$: number) {
+    this.agendaCount.getvinculadores(rol$, currentId$, administrative$).then(
+      (res) => {
+        this.resultCountVinculadores = res;
       }
     );
   }

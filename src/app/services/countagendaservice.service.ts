@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 const URLCOUNTAGENDA = 'getcountdata';
 const URLCOUNTAGENDASEGUIMIENTO = 'getcountdataseguimiento';
 const URLCOUNTAGENDATERMINADO = 'getcountdataterminado';
+const URLCOUNTVINCULADORES = 'getcountvinculadores';
 
 @Injectable({
   providedIn: 'root'
@@ -53,5 +54,16 @@ export class CountagendaserviceService {
     const response = await this.https.get<any>(`${environment.PATH_BASE}/${URLCOUNTAGENDATERMINADO}/${rol$}/${currentId$}`, this.httpOptions)
                     .toPromise() as number;
     return response;
+  }
+
+  /**
+   * modificacion de algún método para la ejecución en el servicio
+   */
+  async getvinculadores(rol$: string, currentId$: number, administrative$: number): Promise<number> {
+    // tslint:disable-next-line:max-line-length
+    const res = await this.https.get<any>(`${environment.PATH_BASE}/${URLCOUNTVINCULADORES}/${rol$}/${currentId$}/${administrative$}`, this.httpOptions)
+                .toPromise() as number;
+
+    return res;
   }
 }

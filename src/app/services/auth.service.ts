@@ -28,6 +28,7 @@ export class AuthService {
   private adminBody: string;
   private adscription: string;
   private currentId: string;
+  private email: string;
   private roles: any;
   private currentUserRole: BehaviorSubject<string>;
   authToken: any;
@@ -79,6 +80,7 @@ export class AuthService {
         this.adminBody = datos.usuario.administrative_id;
         this.adscription = datos.usuario.adscription_id;
         this.currentId = datos.usuario.id;
+        this.email = datos.usuario.email;
         localStorage.setItem('auth_token', this.authToken);
         localStorage.setItem('currentUser', JSON.stringify(datos));
         // mandamos también el valor del administrative_id adscription_id
@@ -87,6 +89,7 @@ export class AuthService {
         localStorage.setItem('currentUserId', this.currentId);
         localStorage.setItem('currentRol', JSON.stringify(this.roles));
         localStorage.setItem('currentUserName', this.loggedUser);
+        localStorage.setItem('currentUserEmail', this.email);
         this.currentUserSubject.next(datos);
         this.currentUserRole.next(localStorage.getItem('currentRol'));
       }
@@ -104,6 +107,7 @@ export class AuthService {
     localStorage.removeItem('currentUserId');
     localStorage.removeItem('currentUserName');
     localStorage.removeItem('currentRol');
+    localStorage.removeItem('currentUserEmail');
     this.currentUserSubject.next(null);
     this.route.navigate(['/']);
   }
@@ -112,8 +116,8 @@ export class AuthService {
     return localStorage.getItem('auth_token');
   }
 
-  getadministrative(): string {
-    return localStorage.getItem('currentcuerpoAdministrativo');
+  get getadministrative(): string {
+    return JSON.parse(localStorage.getItem('currentcuerpoAdministrativo'));
   }
    // get adscription
    getadscription(): string {
@@ -131,6 +135,10 @@ export class AuthService {
    // get current user id
    get useridCurrent(): number {
      return JSON.parse(localStorage.getItem('currentUserId'));
+   }
+   // get current email
+   get useremailCurrent(): string {
+     return JSON.parse(localStorage.getItem('currentUserEmail'));
    }
 
    // tiene roles

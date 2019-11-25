@@ -89,6 +89,9 @@ import { AgendasasignadasComponent } from '../../pages/agendasasignadas/agendasa
 import { AgendasasignadasResolverService } from '../../resolver/agendasasignadas-resolver.service';
 // importar componente perfil
 import { ProfileComponent } from '../../pages/profile/profile.component';
+import { VinculadoresComponent } from '../../pages/vinculadores/vinculadores.component';
+// resolve
+import { Vinculadorjefe } from '../../resolver/vinculadorjefe';
 // rutas
 const ClientLayoutRoutes: Routes = [
   {
@@ -156,6 +159,14 @@ const ClientLayoutRoutes: Routes = [
     pathMatch: 'full',
     component: ProfileComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'vinculadores',
+    pathMatch: 'full',
+    component: VinculadoresComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['Directores'] },
+    resolve: { getvinculadores: Vinculadorjefe}
   }
 ];
 
@@ -203,7 +214,8 @@ const ClientLayoutRoutes: Routes = [
     AdminDashboardComponent,
     AdmindashboardetailsComponent,
     AgendasasignadasComponent,
-    ProfileComponent
+    ProfileComponent,
+    VinculadoresComponent
   ],
   providers: [
     SnackserviceService,

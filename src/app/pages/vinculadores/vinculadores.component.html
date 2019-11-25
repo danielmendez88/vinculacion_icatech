@@ -1,0 +1,59 @@
+<div class="component-title-container">
+</div>
+
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="10%" fxLayoutAlign="center center">
+  <!--seccion spinner-->
+  <div class="spinner-wrapper" *ngIf="isUpdated">
+      <mat-progress-spinner color="primary" mode="indeterminate" [diameter]="70"></mat-progress-spinner>
+      &nbsp; <h2>Cargando ...</h2>
+  </div>
+  <!--fin seccion spinner-->
+<!--card-->
+  <mat-card class="carta-lista">
+
+    <mat-card-header>
+      <mat-card-title>
+        Lista de Vinculadores
+      </mat-card-title>
+    </mat-card-header>
+    <!--contenido-->
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+      </mat-form-field>
+      <!--pestañas-->
+      <div class="example-container">
+
+          <mat-table [dataSource]="datasource" matSort matSortStart="desc" matSortDirection="asc">
+
+            <!-- ID Column -->
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="nombre">
+              <mat-header-cell *matHeaderCellDef > Nombre </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="nombre"> {{row.nombre}}</mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="numeroenlace">
+              <mat-header-cell *matHeaderCellDef > Número de Enlace </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="n° enlace"> {{row.numeroEnlace}} </mat-cell>
+            </ng-container>
+
+
+            <!--detalle-->
+
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;">
+            </mat-row>
+          </mat-table>
+
+            <mat-paginator [pageSizeOptions]="[10,20,50,100]"></mat-paginator>
+      </div>
+      <!--end pestañas-->
+    </mat-card-content>
+    <!--end contenido-->
+  </mat-card>
+<!--end card-->
+</div>

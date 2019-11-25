@@ -77,6 +77,7 @@ import { Listaagendaresolver } from './resolver/listaagendaresolver';
 // importar resolver
 import { VinculadoragendaResolver } from './resolver/vinculadoragenda-resolver';
 import { AgendasasignadasResolverService } from './resolver/agendasasignadas-resolver.service';
+import { Vinculadorjefe } from './resolver/vinculadorjefe';
 
 @NgModule({
   declarations: [
@@ -127,7 +128,8 @@ import { AgendasasignadasResolverService } from './resolver/agendasasignadas-res
     SpinnerServiceService,
     Listaagendaresolver,
     VinculadoragendaResolver,
-    AgendasasignadasResolverService
+    AgendasasignadasResolverService,
+    Vinculadorjefe
   ],
   bootstrap: [AppComponent]
 })
