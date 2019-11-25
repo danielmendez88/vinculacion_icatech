@@ -67,7 +67,7 @@ importScripts('../logos.js');
               'Me dirijo a usted con la finalidad de darle a conocer los diferentes cursos y capacitaciones que otorga',
               'el instituto de Capacitación y Vinculación Tecnología del Estado de Chiapas, ',
               'con el objetivo de ',
-              'con el objetivo que conozca los beneficios que brinda el ICATECH, al finalizar ',
+              'que conozca los beneficios que brinda el ICATECH, al finalizar ',
               'el curso se otorga una constancia con valor oficial, avaladas por la SEP y la STPS.\n\n\n',
               'No dudando de su amabilidad le reitero las gracias.\n\n',
               'Sin otro particular, reciba un cordial saludo.\n\n\n'

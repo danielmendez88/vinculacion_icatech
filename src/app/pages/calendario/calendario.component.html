@@ -5,20 +5,36 @@
 <div #contentContainer class="content-container">
   <!--div flex layout-->
   <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
-    <mat-card class="carta-lista">
-      <mat-card-header>
-      </mat-card-header>
-      <mat-card-content>
-        <full-calendar *ngIf="options"
-            #calendario
-            [buttonText]="options.buttonText"
-            [events] = "calendarEvents"
-            [height]="options.height"
-            [locale]="options.locale"
-            defaultView="dayGridMonth"
-            [plugins]="calendarPlugins"
-            (eventClick)="eventClick($event)"></full-calendar>
-      </mat-card-content>
-    </mat-card>
+    <div fxFlex="25%" class="carta-lista">
+        <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>Estados de la agenda</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-chip-list aria-label="Fish selection">
+                <mat-chip>One fish</mat-chip>
+                <mat-chip color="primary" selected>Primary fish</mat-chip>
+                <mat-chip color="accent" selected>Accent fish</mat-chip>
+              </mat-chip-list>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex="75%">
+        <mat-card class="carta-lista">
+            <mat-card-header>
+            </mat-card-header>
+            <mat-card-content>
+              <full-calendar *ngIf="options"
+                  #calendario
+                  [buttonText]="options.buttonText"
+                  [events] = "calendarEvents"
+                  [height]="options.height"
+                  [locale]="options.locale"
+                  defaultView="dayGridMonth"
+                  [plugins]="calendarPlugins"
+                  (eventClick)="eventClick($event)"></full-calendar>
+            </mat-card-content>
+        </mat-card>
+    </div>
   </div>
 </div>

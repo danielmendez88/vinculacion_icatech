@@ -124,7 +124,7 @@ const ClientLayoutRoutes: Routes = [
   }},
   { path: 'calendario', component: CalendarioComponent, canActivate: [AuthGuard], data: { roles: ['Vinculador'] },
   resolve: { getAllOwnAgenda: CalendarioService}},
-  { path: 'seguimiento', pathMatch: 'full', component: SeguimientoComponent, canActivate: [AuthGuard],
+  { path: 'seguimiento', pathMatch: 'full', component: SeguimientoComponent, canActivate: [AuthGuard], data: { roles: ['Directores'] },
   resolve: {
     seguimientos: DetallesServiceService, // primer resolve
     detalleSegimiento: DetalleSeguimientoResolver, // segundo resolve
