@@ -78,6 +78,8 @@ import { Listaagendaresolver } from './resolver/listaagendaresolver';
 import { VinculadoragendaResolver } from './resolver/vinculadoragenda-resolver';
 import { AgendasasignadasResolverService } from './resolver/agendasasignadas-resolver.service';
 import { Vinculadorjefe } from './resolver/vinculadorjefe';
+// importar resolver historico detalle
+import { Historicaldetailresolver } from './resolver/historicaldetailresolver';
 
 @NgModule({
   declarations: [
@@ -129,7 +131,8 @@ import { Vinculadorjefe } from './resolver/vinculadorjefe';
     Listaagendaresolver,
     VinculadoragendaResolver,
     AgendasasignadasResolverService,
-    Vinculadorjefe
+    Vinculadorjefe,
+    Historicaldetailresolver
   ],
   bootstrap: [AppComponent]
 })

@@ -63,3 +63,9 @@ export interface GetUserwithAgenda {
   id?: number;
   nombre?: string;
 }
+
+export interface GetUserHistorical {
+  id?: number;
+  nombre?: string;
+  contador?: number;
+}

@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 // modelo de la agenda
-import { Agenda } from '../../models/angendas';
+import { GetUserHistorical } from '../../models/angendas';
 // ruta activa
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+// importar titulo
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-historico-component',
@@ -13,19 +15,23 @@ import { ActivatedRoute } from '@angular/router';
 export class HistoricoComponentComponent implements OnInit {
   AgendaDone;
 
-  displayedColumns: string[] = ['vista', 'institucion', 'fecha', 'tipoAgenda'];
+  displayedColumns: string[] = ['nombre', 'agendas', 'detalle'];
   // asignar la data a la fuente de datos para la tabla a reenderizar
-  datasource = new MatTableDataSource<Agenda>();
+  datasource = new MatTableDataSource<GetUserHistorical>([]);
 
   // ViewChild
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private rutas: ActivatedRoute // rutas
+    private rutas: ActivatedRoute, // rutas
+    private titulo: Title,
+    private route: Router,
   ) { }
 
   ngOnInit() {
+    // set titulos
+    this.titulo.setTitle('Sivic / Historico');
     this.AgendaDone = this.rutas.snapshot.data.historico;
     // this.getAgendas();
     this.datasource.data = this.AgendaDone;
@@ -39,6 +45,12 @@ export class HistoricoComponentComponent implements OnInit {
     if (this.datasource.paginator) {
       this.datasource.paginator.firstPage();
     }
+  }
+
+  cargarDatos(id: number) {
+    const idStr = id.toString();
+    const str = btoa(idStr);
+    this.route.navigate(['/historicodetalle'], {queryParams: {vinculador: str}});
   }
 
 }

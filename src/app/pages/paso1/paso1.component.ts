@@ -31,7 +31,6 @@ import { Title } from '@angular/platform-browser';
 })
 export class Paso1Component implements OnInit {
   // variable de la imagen
-  imgUrl = 'http://placehold.it/350x200';
   fileToUpload: File = null;
   fileUpload: File = null;
   imageUrl: string;
@@ -106,6 +105,10 @@ export class Paso1Component implements OnInit {
   private workerSocialNoData: Worker;
   cargandopdfsocialNoData = false;
   errorpdfSocialNoData = false;
+  // worker cursos propuesta
+  private cursoPropuestaWorker: Worker;
+  cargandoCursoPdf = false;
+  errorCursoPdf = false;
   constructor(
     private snackservice: SnackserviceService,
     private As: AgendaService,
@@ -193,6 +196,7 @@ export class Paso1Component implements OnInit {
     this.pdfWorkerSocial = new Worker('/assets/workers/dnc/workerdncSocial.js'); // !importante
     this.pdfWorkerGobData = new Worker('/assets/workers/dnc/workerdncgubernamentaldata.js'); // !importante
     this.workerSocialNoData = new Worker('/assets/workers/dnc/workerdncSocialNotData.js'); // !importante
+    this.cursoPropuestaWorker = new Worker('/assets/workers/cursos/workers.js'); // !importante
     const isLoad = this.route.snapshot.paramMap.get('loader');
     const AgendaId = this.route.snapshot.data.getAgenda.id;
     this.idAgend = this.route.snapshot.data.getAgenda.id;
@@ -313,6 +317,23 @@ export class Paso1Component implements OnInit {
       $ngzone.run(() => {
         self.snackservice.showSnackBar(JSON.stringify(e), 'Error');
         self.errorpdfSocialNoData = false;
+      });
+    };
+
+    // tslint:disable-next-line:only-arrow-functions
+    this.cursoPropuestaWorker.onmessage = function(ex) {
+      $ngzone.run(() => {
+        self.cargandoCursoPdf = false;
+      });
+      FileSaver.saveAs(self.base64ToBlob( ex.data.base64, 'application/pdf'), ex.data.fileName);
+    };
+    /**
+     * pdf curso propuesta error
+     */
+    // tslint:disable-next-line:only-arrow-functions
+    this.cursoPropuestaWorker.onerror = function(e) {
+      $ngzone.run(() => {
+        self.errorCursoPdf = false;
       });
     };
     // enviar el detalle
@@ -614,6 +635,18 @@ export class Paso1Component implements OnInit {
       this.workerSocialNoData.postMessage(JSON.stringify(''));
     } catch (error) {
       this.cargandopdfsocialNoData = false;
+      console.log(error);
+    }
+  }
+
+  // imprimir el documento de la propuesta de curso
+  printPropuesta($evt): void {
+    try {
+      this.cargandoCursoPdf = true;
+      this.cursoPropuestaWorker.postMessage(JSON.stringify($evt));
+      console.log($evt);
+    } catch (error) {
+      this.cargandoCursoPdf = false;
       console.log(error);
     }
   }

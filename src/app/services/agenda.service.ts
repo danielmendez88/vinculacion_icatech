@@ -20,11 +20,12 @@ const URL = 'agendasapi';
 const URLOWN = 'ownagenda';
 const URLSEGUIMIENTOUPDATE = 'updateseguimiento';
 const URLUPDATE = 'updatevinculacion';
-const URLHISTORY = 'gethistorico';
+const URLHISTORY = 'getvinculadorhistorico';
 const URLUPDATEAGENDABYCURSO = 'updateagendabycurso';
 const URLGETASIGNADOPOR = 'agendaasignadopor';
 const URLVINCULADORAGENDAS = 'usuarioporagenda';
 const URLAGENDASPORVINCULADOR = 'agendasporvinculador';
+const URLAGENDASPORVINCULADORDONE = 'agendasvinculadordone';
 
 @Injectable({
   providedIn: 'root'
@@ -154,6 +155,12 @@ export class AgendaService {
   getAgendasporVinculador(id: number): Observable<any> {
     const res = this.http.get(`${environment.PATH_BASE}/${URLAGENDASPORVINCULADOR}/${id}`, this.httpOptions);
     return res;
+  }
+
+  getAgendaVinculadorDone(id: number): Observable<any> {
+    // tslint:disable-next-line:max-line-length
+    const response = this.http.get(`${environment.PATH_BASE}/${URLAGENDASPORVINCULADORDONE}/${id}/${this.authserv.getCurrentUser()}`, this.httpOptions);
+    return response;
   }
 
 }

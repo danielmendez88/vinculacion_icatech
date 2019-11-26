@@ -54,8 +54,8 @@ export const clientRoutes: Route[] = [
     title: 'Lista Agenda'
   },
   {
-    icon: 'chrome_reader_mode',
-    route: '/agendahistorico',
+    icon: 'history',
+    route: '/historico',
     title: 'Historico'
   }
 ];
@@ -65,14 +65,6 @@ export const clientGeneral: Route[] = [
     icon: 'description',
     route: '/cursos',
     title: 'Cursos'
-  }
-];
-
-export const clientHistorical: Route[] = [
-  {
-    icon: 'history',
-    route: '/historico',
-    title: 'Historico'
   }
 ];
 
@@ -110,7 +102,6 @@ export class NavComponent implements OnInit {
     this.menuItems = clientRoutes.filter(items => items);
     this.menuItemsAdmin = clientAdministrador.filter(itemss => itemss);
     this.clientItems = clientGeneral.filter(item => item);
-    this.historicalItems = clientHistorical.filter(item => item);
     this.vinculadorItems = vinculadorRoutes.filter(res => res);
     this.router.events.subscribe((event) => {
       this.isCollapse = true;

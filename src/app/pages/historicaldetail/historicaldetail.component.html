@@ -1,14 +1,15 @@
-<!--creamos el dashboard-->
 <div class="component-title-container">
-</div>
-
-<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="10%" fxLayoutAlign="center center">
+  </div>
+  <!--div-->
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="10%" fxLayoutAlign="center center">
+    <!--seccion spinner-->
+    <!--fin seccion spinner-->
   <!--card-->
-  <mat-card class="carta-lista">
+    <mat-card class="carta-lista">
 
       <mat-card-header>
         <mat-card-title>
-          Lista de Historicos - Usuarios con Agendas Atendidas.
+          Lista de Historicos
         </mat-card-title>
       </mat-card-header>
       <!--contenido-->
@@ -22,17 +23,25 @@
             <mat-table [dataSource]="datasource" matSort matSortStart="desc" matSortDirection="asc">
 
               <!-- ID Column -->
-
-              <!-- Progress Column -->
-              <ng-container matColumnDef="nombre">
-                <mat-header-cell *matHeaderCellDef > Nombre </mat-header-cell>
-                <mat-cell *matCellDef="let row" data-label="nombre"> {{row.nombre}}</mat-cell>
+              <ng-container matColumnDef="fecha">
+                <mat-header-cell *matHeaderCellDef > Fecha </mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="fecha"> {{row.fecha | date: 'dd/MM/yyyy' }} </mat-cell>
               </ng-container>
 
-              <!-- Name Column -->
-              <ng-container matColumnDef="agendas">
-                <mat-header-cell *matHeaderCellDef > N° Agendas </mat-header-cell>
-                <mat-cell *matCellDef="let row" data-label="N° Agendas"> {{row.contador}} </mat-cell>
+              <!-- Progress Column -->
+              <ng-container matColumnDef="institucion">
+                <mat-header-cell *matHeaderCellDef > institución </mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="institucion"> {{row.institucion}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="tipo">
+                <mat-header-cell *matHeaderCellDef > Acercamiento </mat-header-cell>
+                <mat-cell *matCellDef="let row" [style.color]="yellow" data-label="tipo"> {{row.tipoVista}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="titular">
+                <mat-header-cell *matHeaderCellDef >Titular</mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="titular">{{ row.nombreTitular }}</mat-cell>
               </ng-container>
 
 
@@ -41,7 +50,7 @@
                 <mat-header-cell *matHeaderCellDef > Detalle</mat-header-cell>
                 <mat-cell *matCellDef="let row" data-label="detalle">
                   <button mat-icon-button color="primary" (click)="cargarDatos(row.id)">
-                      <mat-icon>post_add</mat-icon>
+                      <mat-icon>more_horiz</mat-icon>
                   </button>
                 </mat-cell>
               </ng-container>
@@ -52,7 +61,7 @@
             </mat-table>
 
               <mat-paginator [pageSizeOptions]="[6]"></mat-paginator>
-              <form (ngSubmit)="onRenewSubmit()">
+              <form>
                 <button type="submit" class="mine" mat-fab color="primary">
                   <mat-icon>autorenew</mat-icon>
                 </button>
@@ -64,4 +73,5 @@
       <!--end contenido-->
     </mat-card>
   <!--end card-->
-</div>
+  </div>
+  <!--end div-->

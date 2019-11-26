@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject, NgZone, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, NgZone, Input, Output, EventEmitter } from '@angular/core';
 // cursos
 import { CursosService } from '../../services/cursos.service';
 // modelo
@@ -62,11 +62,6 @@ export class ChildPaso1CursoComponent implements OnInit {
   isLoadingResults = false;
   // panel Open state
   panelOpenState = false;
-  // worker
-  private pdfworker: Worker;
-  // error y carga de pdf
-  cargandoPdf = false;
-  errorPdf = false;
   // es el elemento vacio
   isNotEmptyArray = false;
   // input
@@ -78,6 +73,11 @@ export class ChildPaso1CursoComponent implements OnInit {
   @Input() titulartag;
   // donde se guardará todos los datos
   listaImprimir: any = [];
+  // output curso
+  @Output() cursoPropuesta = new EventEmitter();
+  // usuario
+  usuarioActual: any;
+  usuarioEmail: any;
 
   constructor(
     private serviceCourse: CursosService,
@@ -93,26 +93,8 @@ export class ChildPaso1CursoComponent implements OnInit {
     // cargamos las categorias
     this.getCategories();
 
-    const $ngZone = this.ngz;
-    const self = this;
     // funcion del worker inicializando el objecto para generar los reportes del worker
-    this.pdfworker = new Worker('/assets/workers/cursos/workers.js');
-    // tslint:disable-next-line:only-arrow-functions
-    this.pdfworker.onmessage = function(evt) {
-      $ngZone.run(() => {
-        self.cargandoPdf = false;
-      });
-      FileSaver.saveAs( self.base64ToBlob(evt.data.base64, 'application/pdf'), evt.data.fileName );
-    };
-    /**
-     * pdf error
-     */
-    // tslint:disable-next-line:only-arrow-functions
-    this.pdfworker.onerror = function(e) {
-      $ngZone.run(() => {
-        self.errorPdf = false;
-      });
-    };
+
     /**
      * es diferente el arreglo a una longitud mayor a cero
      */
@@ -231,40 +213,23 @@ export class ChildPaso1CursoComponent implements OnInit {
     }
   }
 
-  /**
-   * base 64 to blob
-   */
-  base64ToBlob(base64, type) {
-    // tslint:disable-next-line:one-variable-per-declaration
-    const bytes = atob(base64); const len = bytes.length;
-    const buffer = new ArrayBuffer( len ); const view = new Uint8Array( buffer );
-    for (let i = 0; i < len; i++) {
-      // tslint:disable-next-line:no-bitwise
-      view[i] = bytes.charCodeAt(i) & 0xff;
-    }
-    return new Blob( [ buffer ], { type } );
-  }
   // imprimir documento pdf
   /**
    * esta parte del código nos permitirá imprimir un documento pdf con
    * los datos seleccionados de los cursos se imprimiran en este documento.
    */
-  imprimirActa() {
-    try {
+  imprimirActa( evt ) {
       // obtenemos el usuario que tiene la sesión iniciada
-      const usuarioActual = localStorage.getItem('currentUserName');
-      const usuarioEmail = this.auth.useremailCurrent;
-      const titular = this.titulartag;
+      this.usuarioActual = localStorage.getItem('currentUserName');
+      this.usuarioEmail = this.auth.useremailCurrent;
       const datosImprimir = {
         lista: this.listaImprimir,
-        usuario: usuarioActual,
-        titular_agenda: titular,
-        usuario_email: usuarioEmail
+        usuario: this.usuarioActual,
+        titular_agenda: this.titulartag,
+        usuario_email: this.usuarioEmail
       };
-      this.pdfworker.postMessage(JSON.stringify(datosImprimir));
-    } catch (error) {
-      this.cargandoPdf = false;
-    }
+      this.cursoPropuesta.emit(datosImprimir);
+     //  this.pdfworker.postMessage(JSON.stringify(datosImprimir));
   }
   /**
    * enviar data
