@@ -57,7 +57,7 @@ importScripts('../logos.js');
           },
           {
             stack: [
-              { text: data.titular_agenda }
+              { text: data.titular }
             ],
             style: 'vinculadores'
           },
@@ -86,7 +86,7 @@ importScripts('../logos.js');
               {text: data.usuario + '\n\n'},
               {text: 'Vinculador del Icatech\n\n'},
               {text: 'Trabajador Activo del Instituto de Capacitación y Vinculación Tecnología del Estado de Chiapas.\n\n'},
-              {text: (data.usuario_email == 'null') ? 'Correo Electrónico: No hay email' : 'Correo Electrónico: ' + data.usuario_email}
+              {text: (data.email == null) ? 'Correo Electrónico: No hay email' : 'Correo Electrónico: ' + data.email}
             ],
             margin: [0, 25, 0, 15], // left, top, right, bottom
           },

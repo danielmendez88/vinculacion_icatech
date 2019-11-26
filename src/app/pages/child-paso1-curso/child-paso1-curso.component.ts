@@ -225,8 +225,8 @@ export class ChildPaso1CursoComponent implements OnInit {
       const datosImprimir = {
         lista: this.listaImprimir,
         usuario: this.usuarioActual,
-        titular_agenda: this.titulartag,
-        usuario_email: this.usuarioEmail
+        titular: this.titulartag,
+        email: this.usuarioEmail
       };
       this.cursoPropuesta.emit(datosImprimir);
      //  this.pdfworker.postMessage(JSON.stringify(datosImprimir));
