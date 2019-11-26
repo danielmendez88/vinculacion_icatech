@@ -221,7 +221,7 @@ export class ChildPaso1CursoComponent implements OnInit {
   imprimirActa( evt ) {
       // obtenemos el usuario que tiene la sesión iniciada
       this.usuarioActual = localStorage.getItem('currentUserName');
-      this.usuarioEmail = this.auth.useremailCurrent;
+      this.usuarioEmail = localStorage.getItem('currentUserEmail');
       const datosImprimir = {
         lista: this.listaImprimir,
         usuario: this.usuarioActual,
