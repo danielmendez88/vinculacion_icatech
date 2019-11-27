@@ -23,7 +23,7 @@ export const vinculadorRoutes: Route[] = [
   },
   {
     icon: 'library_books',
-    route: '/historic',
+    route: '/historicovinculador',
     title: 'Historico'
   }
 ];

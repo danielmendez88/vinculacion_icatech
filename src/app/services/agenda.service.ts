@@ -26,6 +26,7 @@ const URLGETASIGNADOPOR = 'agendaasignadopor';
 const URLVINCULADORAGENDAS = 'usuarioporagenda';
 const URLAGENDASPORVINCULADOR = 'agendasporvinculador';
 const URLAGENDASPORVINCULADORDONE = 'agendasvinculadordone';
+const URLHISTORICOVINCULADOR = 'agendahistoricovinculador';
 
 @Injectable({
   providedIn: 'root'
@@ -157,10 +158,17 @@ export class AgendaService {
     return res;
   }
 
+  @Cacheable()
   getAgendaVinculadorDone(id: number): Observable<any> {
     // tslint:disable-next-line:max-line-length
     const response = this.http.get(`${environment.PATH_BASE}/${URLAGENDASPORVINCULADORDONE}/${id}/${this.authserv.getCurrentUser()}`, this.httpOptions);
     return response;
+  }
+
+  @Cacheable()
+  getHistoricalVinculador(id: number): Observable<any> {
+    const res = this.http.get(`${environment.PATH_BASE}/${URLHISTORICOVINCULADOR}/${id}`, this.httpOptions);
+    return res;
   }
 
 }

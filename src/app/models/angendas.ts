@@ -62,6 +62,7 @@ export interface AllAgenda {
 export interface GetUserwithAgenda {
   id?: number;
   nombre?: string;
+  contador?: number;
 }
 
 export interface GetUserHistorical {

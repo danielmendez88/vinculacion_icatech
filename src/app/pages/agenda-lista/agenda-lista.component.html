@@ -34,11 +34,10 @@
               <mat-cell *matCellDef="let row" data-label="nombre"> {{row.nombre}}</mat-cell>
             </ng-container>
 
-            <!-- Name Column -->
-            <!--<ng-container matColumnDef="titular">
-              <mat-header-cell *matHeaderCellDef > Titular </mat-header-cell>
-              <mat-cell *matCellDef="let row" data-label="titular"> {{row.nombreTitular}} </mat-cell>
-            </ng-container>-->
+            <ng-container matColumnDef="agendas">
+              <mat-header-cell *matHeaderCellDef > N° Agendas </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="N° Agendas"> {{row.contador}} </mat-cell>
+            </ng-container>
 
 
             <!--detalle-->

@@ -96,6 +96,9 @@ import { Vinculadorjefe } from '../../resolver/vinculadorjefe';
 import { Historicaldetailresolver } from '../../resolver/historicaldetailresolver';
 // agregar componente historico detalle
 import { HistoricaldetailComponent } from '../../pages/historicaldetail/historicaldetail.component';
+// importar componente historico vinculador
+import { HistoricovinculacionComponent } from '../../pages/historicovinculacion/historicovinculacion.component';
+import { HistoricoVinculadorResolver } from '../../resolver/historico-vinculador-resolver';
 // rutas
 const ClientLayoutRoutes: Routes = [
   {
@@ -179,6 +182,14 @@ const ClientLayoutRoutes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['Directores'] },
     resolve: { getdetallehistorico: Historicaldetailresolver}
+  },
+  {
+    path: 'historicovinculador',
+    pathMatch: 'full',
+    component: HistoricovinculacionComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['Vinculador'] },
+    resolve: { getdetallevinculador: HistoricoVinculadorResolver }
   }
 ];
 
@@ -228,7 +239,8 @@ const ClientLayoutRoutes: Routes = [
     AgendasasignadasComponent,
     ProfileComponent,
     VinculadoresComponent,
-    HistoricaldetailComponent
+    HistoricaldetailComponent,
+    HistoricovinculacionComponent
   ],
   providers: [
     SnackserviceService,

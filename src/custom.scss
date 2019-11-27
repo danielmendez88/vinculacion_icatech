@@ -150,7 +150,7 @@ $my-orange-palette: (
   600 : #fdff5e,
   700 : #fcff53,
   800 : #fcff49,
-  900 : #fcff38,
+  900 : #FF8C00,
   A100 : #ffffff,
   A200 : #ffffff,
   A400 : #feffe1,
@@ -196,8 +196,8 @@ $my-custom-theme: mat-light-theme($my-custom-primary, $my-custom-accent, $my-cus
 // temas alternativos
 .alternate-themes {
   $alternate-primary: mat-palette($my-custom-blue-palette, 600);
-  $alternate-accent: mat-palette($my-orange-palette, 800);
-  $alternate-warn: mat-palette($mat-red);
+  $alternate-accent: mat-palette($my-orange-palette, 900);
+  $alternate-warn: mat-palette($my-orange-palette, 800);
   $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent, $alternate-warn);
 
   @include angular-material-theme($alternate-theme);

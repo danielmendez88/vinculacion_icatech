@@ -27,7 +27,7 @@ export class AgendaListaComponent implements OnInit {
   isUpdated =  false;
 
 
-  displayedColumns: string[] = ['nombre', 'detalle'];
+  displayedColumns: string[] = ['nombre', 'agendas', 'detalle'];
   // asignar la data a la fuente de datos para la tabla a reenderizar
   datasource = new MatTableDataSource<GetUserwithAgenda>([]);
   //

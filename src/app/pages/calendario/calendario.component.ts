@@ -104,7 +104,7 @@ export class CalendarioComponent implements OnInit {
         // tslint:disable-next-line:no-string-literal
         { id: jsonData[i]['id'], title: jsonData[i]['institucion'], start: jsonData[i]['fecha'],
         // tslint:disable-next-line:no-string-literal
-        backgroundColor: (jsonData[i]['statusAgenda'] === 1 ? 'red' : (jsonData[i]['statusAgenda'] === 2 ? 'yellow' : 'blue')),
+        backgroundColor: (jsonData[i]['statusAgenda'] === 1 ? 'DarkOrange' : (jsonData[i]['statusAgenda'] === 2 ? 'yellow' : 'blue')),
         // tslint:disable-next-line:no-string-literal
         textColor: (jsonData[i]['statusAgenda'] === 2 ? 'black' : 'white'), borderColor: 'black'}
       );
