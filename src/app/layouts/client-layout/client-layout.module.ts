@@ -102,7 +102,7 @@ import { HistoricoVinculadorResolver } from '../../resolver/historico-vinculador
 // importar componente
 import { SeguimientoReporteComponent } from '../../pages/seguimiento-reporte/seguimiento-reporte.component';
 // importar el control del archivo
-import { FileControlModule } from '../../../../node_modules/ng-validator/index';
+import { FileControlModule } from '../../../../node_modules/ng-validator';
 // importar imgfileresolver
 import { FileImgresolver } from '../../resolver/file-imgresolver';
 // rutas

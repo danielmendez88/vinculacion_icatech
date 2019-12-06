@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SeguimientosService } from '../../services/seguimientos.service';
 import { SnackserviceService } from '../../services/snackservice.service';
 // importar validators
-import { FileValidators } from '../../../../node_modules/ng-validator/index';
+import { FileValidators } from '../../../../node_modules/ng-validator';
 
 @Component({
   selector: 'app-seguimiento-reporte',
