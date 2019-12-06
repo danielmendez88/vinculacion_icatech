@@ -81,13 +81,15 @@ import { Vinculadorjefe } from './resolver/vinculadorjefe';
 // importar resolver historico detalle
 import { Historicaldetailresolver } from './resolver/historicaldetailresolver';
 import { HistoricoVinculadorResolver } from './resolver/historico-vinculador-resolver';
+// importar resolver
+import { FileImgresolver } from './resolver/file-imgresolver';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthLayoutComponent,
     ClientLayoutComponent,
-    NotificacionesComponent,
+    NotificacionesComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -134,7 +136,8 @@ import { HistoricoVinculadorResolver } from './resolver/historico-vinculador-res
     AgendasasignadasResolverService,
     Vinculadorjefe,
     Historicaldetailresolver,
-    HistoricoVinculadorResolver
+    HistoricoVinculadorResolver,
+    FileImgresolver
   ],
   bootstrap: [AppComponent]
 })

@@ -17,6 +17,8 @@ const URLSEG = 'seguimientosdetalle';
 const URLFILE = 'getfilesSeguimiento';
 const URLFILEPOST = 'seguimientofile';
 const URLFILEPROPUESTA = 'getfilepdfagenda';
+const URLIMAGEFILEPOST = 'seguimientoimagefile';
+const URLFILESFROMSEG = 'getfilesfromseguimiento';
 @Injectable({
   providedIn: 'root'
 })
@@ -52,9 +54,17 @@ export class SeguimientosService {
     return this.https.get<Archivos>(`${environment.PATH_BASE}/${URLFILE}/${id}`, this.httpOptions);
   }
 
+  getFilesSeguimientoById(id: number): Observable<Archivos> {
+    return this.https.get<Archivos>(`${environment.PATH_BASE}/${URLFILESFROMSEG}/${id}`, this.httpOptions);
+  }
   // enviar archivo al seguimiento denominado
   createfileseguimiento(id: number, formulario): Observable<any> {
     return this.https.post<any>(`${environment.PATH_BASE}/${URLFILEPOST}/${id}`, formulario, this.httpOptions)
+           .pipe(catchError(this.handleError));
+  }
+  // enviar archivo de imagen al seguimiento
+  createImagenSeguimiento(id: number, formularioImagen): Observable<any> {
+    return this.https.post<any>(`${environment.PATH_BASE}/${URLIMAGEFILEPOST}/${id}`, formularioImagen, this.httpOptions)
            .pipe(catchError(this.handleError));
   }
   // Obtener los archivos de los seguimientos (sólo pdf)

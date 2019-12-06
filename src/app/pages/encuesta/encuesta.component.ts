@@ -75,6 +75,7 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
     this.tipoSector = this.datosEncuesta.tipo;
     this.isdnc = this.datosEncuesta.isdnc;
     this.idAgendas = this.datosEncuesta.id;
+    console.log(this.idAgendas);
     if (this.tipoSector === 1 || this.tipoSector === 2) {
       this.sector = 1;
       this.dncForm = this.formularioDnc(this.fbuilder);
@@ -209,7 +210,7 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
     // tslint:disable-next-line:no-string-literal
     this.dncForm.controls['idAgenda'].setValue(this.idAgendas);
     this.dncCuestionario.addDnc(this.dncForm.value).subscribe((result) => {
-      this.snack.showSnackBar(JSON.stringify(result[1]), 'Listo');
+      this.snack.showSnackBar(JSON.stringify(result.success), 'Listo');
       this.submitted = false;
       // enviar al formulario
       // this.dncActive.emit(this.dncactivity);
@@ -223,8 +224,8 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
        */
       this.getFromApi(this.idAgendas);
     }, (error) => {
-      this.snack.showSnackBar(JSON.stringify(error), 'Error');
-      console.error(error);
+      this.snack.showSnackBar(JSON.stringify(error.error), 'Error');
+      console.error(error.error);
     });
   }
 

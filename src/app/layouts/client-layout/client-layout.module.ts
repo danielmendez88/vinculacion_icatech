@@ -99,6 +99,12 @@ import { HistoricaldetailComponent } from '../../pages/historicaldetail/historic
 // importar componente historico vinculador
 import { HistoricovinculacionComponent } from '../../pages/historicovinculacion/historicovinculacion.component';
 import { HistoricoVinculadorResolver } from '../../resolver/historico-vinculador-resolver';
+// importar componente
+import { SeguimientoReporteComponent } from '../../pages/seguimiento-reporte/seguimiento-reporte.component';
+// importar el control del archivo
+import { FileControlModule } from 'ng-validator';
+// importar imgfileresolver
+import { FileImgresolver } from '../../resolver/file-imgresolver';
 // rutas
 const ClientLayoutRoutes: Routes = [
   {
@@ -126,7 +132,7 @@ const ClientLayoutRoutes: Routes = [
     getAgenda: SeguimientoService, // primer resolver
     detalles: DetalleSeguimientoResolver, // segundo resolver
     incidenciaResolve: IncidenciaResolver, // tercer resolver
-    archivos: Filesresolver, // cuarto resolver
+    archivos: FileImgresolver, // cuarto resolver
     archivosPdf: Filepdfresolver // quinto resolver
   }},
   { path: 'calendario', component: CalendarioComponent, canActivate: [AuthGuard], data: { roles: ['Vinculador'] },
@@ -213,7 +219,8 @@ const ClientLayoutRoutes: Routes = [
     MatExpansionModule,
     MatCheckboxModule, // checkbox
     NgxMaterialTimepickerModule,
-    ChartsModule // charts
+    ChartsModule, // charts
+    FileControlModule // filecontrol
   ],
   declarations: [
     AgendaComponent,
@@ -240,7 +247,8 @@ const ClientLayoutRoutes: Routes = [
     ProfileComponent,
     VinculadoresComponent,
     HistoricaldetailComponent,
-    HistoricovinculacionComponent
+    HistoricovinculacionComponent,
+    SeguimientoReporteComponent
   ],
   providers: [
     SnackserviceService,

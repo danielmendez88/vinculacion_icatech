@@ -42,8 +42,6 @@ export class Paso1Component implements OnInit {
   editable: boolean;
   // detalles de la agenda
   detallesAgenda = [];
-  // seguimiento propuesta
-  seguimientoPropuesta = [];
   // habilitado - declaracion de variable
   habilitado: boolean;
   // inicializamos el formGroup
@@ -60,14 +58,9 @@ export class Paso1Component implements OnInit {
   archivosArray: any = [];
   // incidencia
   incidencias = [];
-  // status de la agenda
-  status: number;
-  nombreDeLaIncidencia: string | null;
   // hacemos uso de viewchild para accesar al input de la plantilla
   @ViewChild('Document') myDocumento: ElementRef;
   @ViewChild('tipoincidencia') incidenciaType: ElementRef;
-  // es incidencia
-  esIncidencia: boolean;
   // evento dncActivo
   ActivoDNC: number;
   // declaramos la entrada del componente hijo dialog
@@ -91,8 +84,6 @@ export class Paso1Component implements OnInit {
   formArchivo: FormGroup;
   // variable booleana para submiteo
   submitted = false;
-  // propuestacursoincorporated
-  propuestacurso: boolean;
   archivospropuestaArray: any = [];
   contadorpropuestaArchivo: number;
   // cargar incidencia
@@ -109,6 +100,8 @@ export class Paso1Component implements OnInit {
   private cursoPropuestaWorker: Worker;
   cargandoCursoPdf = false;
   errorCursoPdf = false;
+  // agregar seguimientos para cargar el resultado del resolver
+  seguimientos: any;
   constructor(
     private snackservice: SnackserviceService,
     private As: AgendaService,
@@ -121,10 +114,7 @@ export class Paso1Component implements OnInit {
     private dialog: MatDialog,
     private $location: Location, // agregado recientemente
     private Titulo: Title,
-  ) {
-    this.createForm();
-    this.createFileForm();
-  }
+  ) { }
   // tiempo de duración
   durationInSeconds = 5000;
   Message = '¡Exito! Comision Registrada';
@@ -212,23 +202,17 @@ export class Paso1Component implements OnInit {
      */
     this.contadorArchivos = this.route.snapshot.data.archivos.length;
     /**
-     * contador de archivos en pdf
-     */
-    this.contadorpropuestaArchivo = this.route.snapshot.data.archivosPdf.length;
-    /**
      * verificamos que el contador sea mayor a cero
      */
     if (this.contadorArchivos > 0) {
-      this.archivosArray = this.route.snapshot.data.archivos;
+      this.archivosArray = this.route.snapshot.data.archivos; // enviar vía input
     }
     /**
-     * verificamos que el contador sea mayor a cero
+     * se carga y muestra sus propiedades en la variable asignada
      */
-    if (this.contadorpropuestaArchivo > 0) {
-      this.archivospropuestaArray = this.route.snapshot.data.archivosPdf;
-    }
+    this.archivospropuestaArray = this.route.snapshot.data.archivosPdf; // va como input
     // cargamos la incidencia
-    this.incidencias = this.route.snapshot.data.incidenciaResolve;
+    this.incidencias = this.route.snapshot.data.incidenciaResolve; // va como input
     // agenda
     this.Agend = this.route.snapshot.data.getAgenda;
     // titular de la agenda
@@ -238,16 +222,12 @@ export class Paso1Component implements OnInit {
     } else {
       this.formatoHora = null;
     }
-    this.seguimientoPropuesta = this.route.snapshot.data.detalles[0].propuesta;
-    this.esIncidencia = this.route.snapshot.data.detalles[0].esincidencia;
-    this.status = this.route.snapshot.data.detalles[0].statusAgenda;
-    this.nombreDeLaIncidencia = this.route.snapshot.data.detalles[0].nombreIncidencia;
-    // propuestacursoincorporated
-    this.propuestacurso = this.route.snapshot.data.detalles[0].propuestacursoincorporated;
+    // cargar la variable de seguimientos
+    this.seguimientos = this.route.snapshot.data.detalles;
     // le pasamos el valor del id
-    this.form.controls.agenda_id.setValue(AgendaId);
+    // this.form.controls.agenda_id.setValue(AgendaId);
     // le pasamos el valor del id al control
-    this.formArchivo.controls.agendas_id.setValue(AgendaId);
+    // this.formArchivo.controls.agendas_id.setValue(AgendaId);
     // es dnc
     this.ActivoDNC = 0;
     const $ngzone = this.ngz;
@@ -371,158 +351,6 @@ export class Paso1Component implements OnInit {
       this.fileUpload = event.target.files[0];
       // this.form.controls.nombreArchivo.setValue(file);
     }
-  }
-
-  // formularios
-  createForm() {
-    this.form = this.fb.group({
-      isincidence: new FormControl(false),
-      propuesta: new FormControl(null, Validators.required),
-      imagen: new FormControl(null, Validators.required),
-      agenda_id: new FormControl(null),
-      incidenciaTipo: new FormControl({value: '', disabled: true})
-    });
-  }
-
-  /**
-   * crear formulario para subir archivo
-   */
-  createFileForm() {
-    this.formArchivo = this.fb.group({
-      nombreArchivo: new FormControl(null, Validators.required),
-      agendas_id: new FormControl(null)
-    });
-  }
-
-  /**
-   * conveniencia para un fácil acceso a los campos de formulario
-   */
-  get f() { return this.formArchivo.controls; }
-
-  // onchange
-  onChange(e) {
-    const evento = e;
-    // tslint:disable-next-line:triple-equals
-    if (evento.checked == true) {
-      // si es verdadero
-      this.form.controls.incidenciaTipo.enable();
-      // deshabilitar archivo
-      this.formArchivo.controls.nombreArchivo.disable(); // true
-      this.myDocumento.nativeElement.value = '';
-      // resetear el formulario completo
-      this.resetForm(this.formArchivo);
-      // this.myDocumento.nativeElement.value = ''; // vuelve el valor del documento cargado a cero
-      this.tipoincidenciaDisabled = false;
-    } else {
-      const reset = {};
-      // tslint:disable-next-line:no-string-literal
-      reset['incidenciaTipo'] = '';
-      this.form.controls.incidenciaTipo.disable();
-      this.form.controls.incidenciaTipo.patchValue(reset);
-      this.incidenciaType.nativeElement = undefined;
-      // habilitar archivo
-      this.formArchivo.controls.nombreArchivo.enable(); // false
-      this.tipoincidenciaDisabled = true;
-    }
-  }
-
-  // submit form
-  onFormSubmit() {
-    const formData = new FormData();
-    // obtenemos el valor de la incidencia si es que está activa
-    const esIncidencia = this.form.controls.isincidence.value;
-    const id = this.form.controls.agenda_id.value;
-    if (esIncidencia === true) {
-      // si es verdadero se carga la siguiente forma el formData
-      formData.append('imagen', this.fileToUpload, this.fileToUpload.name);
-      formData.append('propuesta', this.form.controls.propuesta.value);
-      formData.append('agenda_id', this.form.controls.agenda_id.value);
-      formData.append('isincidence', this.form.controls.isincidence.value);
-      formData.append('incidenciatipo', this.form.controls.incidenciaTipo.value);
-      this.loadIncidencia = 3;
-      this.tiposincidencias = this.form.controls.incidenciaTipo.value;
-    } else if (esIncidencia === null || esIncidencia === false) {
-      formData.append('imagen', this.fileToUpload, this.fileToUpload.name);
-      formData.append('propuesta', this.form.controls.propuesta.value);
-      formData.append('agenda_id', this.form.controls.agenda_id.value);
-      formData.append('isincidence', this.form.controls.isincidence.value);
-      this.loadIncidencia = 2;
-      this.tiposincidencias = '';
-    }
-    // enviar datos a la api y esperar respuesta
-    this.isLoadingResults = true;
-    this.sg.createSeguimiento(id, formData)
-         .subscribe(res => {
-           this.isLoadingResults = false;
-           this.resetForm(this.form); // reseteamos el formulario
-           /**
-            * redireccionar al componente mismo para ver si podemos actualizar
-            */
-           this.sg.getFilesFromSeguimientoById(id).subscribe(response => {
-              this.contadorArchivos = 1;
-              if (this.contadorArchivos > 0) {
-               this.archivosArray = response;
-              }
-           }, (err) => {
-            this.snackservice.showSnackBar(JSON.stringify(err), 'Error!');
-           });
-           // cargar el nombre de la incidencia nombreDeLaIncidencia
-           this.sg.getSeguimientobyId(id).subscribe((respuesta) => {
-             this.seguimientoPropuesta = respuesta[0].propuesta;
-           }, (error) => {
-             this.snackservice.showSnackBar(JSON.stringify(error), 'Error!');
-           });
-           // cargar el status según convenga
-           this.status = this.loadIncidencia;
-           this.esIncidencia = esIncidencia;
-           this.nombreDeLaIncidencia = this.tiposincidencias; // nombre de la incidencia
-           // mostrar resultado
-           this.snackservice.showSnackBar(JSON.stringify(res.success), 'Listo');
-         }, err => {
-          console.error(err);
-          this.isLoadingResults = false;
-         });
-  }
-
-  /**
-   * submitformFile
-   */
-  onFormFileSubmit() {
-    this.submitted = true;
-    this.isLoadingResults = true;
-    const id = this.formArchivo.controls.agendas_id.value;
-    // nos detenemos si el formulario es invalido
-    if (this.formArchivo.invalid) {
-      return;
-    }
-
-    /**
-     * formFileData
-     */
-    const formFileData = new FormData();
-    formFileData.append('nombreArchivo', this.fileUpload, this.fileUpload.name);
-    formFileData.append('agendas_id', this.formArchivo.controls.agendas_id.value);
-    formFileData.append('isincidence', 'false'); // !importante hay que modificar esta linea de código
-    // de lo contrario enviamos la informacion al servicio de carga de archivos
-    this.sg.createfileseguimiento(id, formFileData)
-           .subscribe( result => {
-            this.isLoadingResults = false;
-            this.resetForm(this.formArchivo); // reseteamos el formulario
-            this.snackservice.showSnackBar(JSON.stringify(result.success), 'Listo!');
-            // cargamos los archivos del seguimiento sólo el archivo que contenga el pdf para que muestre en el frontend
-            this.sg.getfilespropuestaFromSeguimientoBy(id).subscribe(response => {
-              this.propuestacurso = true;
-              if (this.propuestacurso) {
-                this.archivospropuestaArray = response;
-              }
-            }, error => {
-              this.isLoadingResults = false;
-              this.snackservice.showSnackBar(JSON.stringify('Error al cargar el archivo, intntelo más tarde'), 'Error!');
-            });
-           }, error => {
-             this.isLoadingResults = false;
-             this.snackservice.showSnackBar(JSON.stringify(error[1]), 'Error!');
-           });
   }
 
   // función para resetear el formulario

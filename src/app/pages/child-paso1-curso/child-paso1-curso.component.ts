@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject, NgZone, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, NgZone, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 // cursos
 import { CursosService } from '../../services/cursos.service';
 // modelo
@@ -27,7 +27,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './child-paso1-curso.component.html',
   styleUrls: ['./child-paso1-curso.component.scss']
 })
-export class ChildPaso1CursoComponent implements OnInit {
+export class ChildPaso1CursoComponent implements OnInit, AfterViewInit {
   // checamos la variable
   catCurso: CategoriaCursos[];
   cursos: Cursos[];
@@ -102,31 +102,6 @@ export class ChildPaso1CursoComponent implements OnInit {
       this.isNotEmptyArray = false;
     } else {
       this.isNotEmptyArray = true;
-    }
-    /**
-     * cargamos todos los cursos que tenemos en la base de datos
-     */
-    if (this.cursoFlag === false) {
-      /**
-       * si es falso generas la subscripción
-       */
-      this.serviceCourse.getAllCursos().subscribe(
-        response => {
-        // llemamos la tabla
-        this.datasource.data = response;
-        this.datasource.sort = this.sort;
-        this.datasource.paginator = this.paginator;
-      }, error => {
-        // mandamos un mensaje de error
-        this.snack.showSnackBar(error, 'Error!');
-      });
-    } else {
-      /**
-       * si es verdadero llamamos a otra servicio y nos subscribimos
-       */
-      const agendastr = this.encodeAndDecode.b64EncodeUnicode(this.idAgenda.toString());
-      this.loadCursoByAgenda(agendastr);
-      this.loadCursosByPrint(this.idAgenda);
     }
   }
 
@@ -278,5 +253,35 @@ export class ChildPaso1CursoComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  ngAfterViewInit(): void {
+    // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    // Add 'implements AfterViewInit' to the class.
+    /**
+     * cargamos todos los cursos que tenemos en la base de datos
+     */
+    if (this.cursoFlag === false) {
+      /**
+       * si es falso generas la subscripción
+       */
+      this.serviceCourse.getAllCursos().subscribe(
+        response => {
+        // llemamos la tabla
+        this.datasource.data = response;
+        this.datasource.sort = this.sort;
+        this.datasource.paginator = this.paginator;
+      }, error => {
+        // mandamos un mensaje de error
+        this.snack.showSnackBar(error, 'Error!');
+      });
+    } else {
+      /**
+       * si es verdadero llamamos a otra servicio y nos subscribimos
+       */
+      const agendastr = this.encodeAndDecode.b64EncodeUnicode(this.idAgenda.toString());
+      this.loadCursoByAgenda(agendastr);
+      this.loadCursosByPrint(this.idAgenda);
+    }
   }
  }
