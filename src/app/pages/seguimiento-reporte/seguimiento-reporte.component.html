@@ -1,0 +1,194 @@
+
+<div class="spinner-wrapper" *ngIf="isLoadingResults">
+  <mat-progress-spinner color="primary" mode="indeterminate" [diameter]="70"></mat-progress-spinner>
+  <h2>Procesando ...</h2>
+</div>
+<!---->
+<div class="mb-20" fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.2%" fxLayoutAlign="center">
+  <!--nuevo dashboard-->
+  <div fxFlex class="curso_lista">
+    <ng-container *ngIf="seguimientoId === null; else AgendaSeguimiento">
+      <mat-card class="carta-detalle">
+          <!--contenido-->
+          <mat-card-content>
+            <form [formGroup]="form" (ngSubmit)="onFormSubmit(form.value)">
+              <div class="example-container">
+                  <mat-slide-toggle #Incidencia formControlName="isincidence" (change)="onChange($event)">Incidencias</mat-slide-toggle>
+
+                  <mat-form-field>
+                    <mat-label>Tipo incidencia</mat-label>
+                    <mat-select #tipoincidencia formControlName="incidenciaTipo">
+                      <mat-option value="">Tipo incidencia</mat-option>
+                      <mat-option *ngFor="let inc of incidencia" [value]="inc.id">{{ inc.nombreIncidencia }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field class="full-width">
+                    <textarea formControlName="propuesta" matInput placeholder="Reporte"></textarea>
+                  </mat-form-field>
+
+                  <button mat-raised-button type="submit" color="primary" [disabled]="!form.valid">
+                    Enviar
+                    <mat-icon>send</mat-icon>
+                  </button>
+              </div>
+              <input #identificador type="hidden" formControlName="agenda_id"/>
+            </form>
+            <!--incidencias fin-->
+          </mat-card-content>
+          <!--contenido end-->
+      </mat-card>
+    </ng-container>
+    <ng-template #AgendaSeguimiento>
+        <mat-card class="carta-detalle">
+          <mat-card-content>
+            <mat-chip-list>
+                <div [ngSwitch]="status">
+                  <mat-chip class="item success" *ngSwitchCase="1">Iniciado</mat-chip>
+                  <mat-chip class="item success" *ngSwitchCase="2">En revisión</mat-chip>
+                  <mat-chip class="item warn" *ngSwitchCase="3">Incidencia</mat-chip>
+                  <mat-chip class="item info" *ngSwitchCase="4">Modificación</mat-chip>
+                </div>
+            </mat-chip-list>
+            <!--incidencias-->
+            <ng-template [ngIf]="esIncidencia === true">
+                <h4>Motivo de la Incidencia:</h4>
+                <div class="incidencia-descripcion">
+                  <p>
+                    {{ nombreDeLaIncidencia }}
+                  </p>
+                </div>
+            </ng-template>
+            <h1>Reporte:</h1>
+            <p class="reportes">
+              {{ propuestas }}
+            </p>
+          </mat-card-content>
+        </mat-card>
+    </ng-template>
+  </div>
+  <!--fin dashboard item-->
+</div>
+<!---->
+<!---->
+<div fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.2%" fxLayoutAlign="center">
+  <!--checar si ya hay un seguimiento que enlace los documentos a la agenda-->
+  <ng-container *ngIf="seguimientoId !== null">
+     <!--componente flex-->
+    <ng-container *ngIf="isloadPhotoEvidence === false; else showFiles">
+        <div fxFlex class="curso_lista">
+            <mat-card class="carta-detalle">
+              <form [formGroup]="formArchivo" (ngSubmit)="onFormFileSubmit(formArchivo.value)">
+                <mat-card-content>
+                  <div class="file-drop-area">
+                    <span class="fake-btn-img">Elegir Imagen</span>
+                    <span class="file-msg">Extensiones permitidas .jpg .png </span>
+                    <input class="file-input" formControlName="imagen"  matTooltip="extensiones .jpg .png" type="file" accept="image/jpeg, image/png" (change)="handleFileInput($event)">
+                  </div>
+                  <div *ngIf="f.imagen.errors" class="invalid-feedback">
+                    <br>
+                    <div *ngIf="f.imagen.errors.allowExtensions">Tipo de archivo no es permitido</div>
+                    <div *ngIf="f.imagen.errors.maxSize">Tamaño del archivo permitido 2MB</div>
+                  </div>
+                </mat-card-content>
+                <mat-card-actions>
+                  <div class="example-container">
+                    <button mat-flat-button color="primary" type="submit" [disabled]="!formArchivo.valid || isLoadingResults">
+                      Subir Imagen
+                      <mat-icon>cloud_upload</mat-icon>
+                    </button>
+                  </div>
+                </mat-card-actions>
+                <input #identificador type="hidden" formControlName="agendas_id"/>
+              </form>
+            </mat-card>
+        </div>
+    </ng-container>
+    <ng-template #showFiles>
+      <div fxFlex class="curso_lista" *ngFor="let agendaDetail of archivosArray">
+        <mat-card class="cards">
+          <mat-card-header>
+            <mat-card-title>Nombre Archivo</mat-card-title>
+            <mat-card-subtitle>{{ agendaDetail.nombreArchivo }}</mat-card-subtitle>
+          </mat-card-header>
+          <br>
+           <!--plantilla ng if extension -->
+          <ng-container *ngIf="agendaDetail.extension === 'jpg' || agendaDetail.extension === 'png' || agendaDetail.extension === 'jpeg' || agendaDetail.extension === 'JPG'">
+            <img mat-card-image src="{{ agendaDetail.ruta }}" alt="{{ agendaDetail.nombreArchivo }}">
+          </ng-container>
+          <!--plantilla ng if extension end -->
+          <mat-card-actions>
+            <ng-container *ngIf="agendaDetail.extension === 'jpg' || agendaDetail.extension === 'png' || agendaDetail.extension === 'jpeg' || agendaDetail.extension === 'JPG'">
+              <button mat-flat-button fxFlex="20%" matTooltip="Visualizar Imagen">
+                <mat-icon>pageview</mat-icon>
+                visualizar
+              </button>
+            </ng-container>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-template>
+    <!--componente flex end-->
+    <!--componente flex-->
+    <ng-container *ngIf="!esIncidencia">
+      <ng-container *ngIf="!propuestacurso; else ShowFileCursos">
+        <!--curso upload file curse-->
+        <div fxFlex class="curso_lista">
+            <mat-card class="carta-detalle">
+              <form [formGroup]="formArchivoPdf" (ngSubmit)="onFormPdfSubmit(formArchivoPdf.value)">
+                <mat-card-content>
+                  <div class="file-drop-area">
+                    <span class="fake-btn">elegir Archivo</span>
+                    <span class="file-msg">Extensiones permitidas pdf</span>
+                    <input class="file-input" formControlName="nombreArchivo" accept="application/pdf" matTooltip="extensiones .pdf" (change)="onSelectedFile($event)" type="file">
+                  </div>
+                  <div *ngIf="pdf.nombreArchivo.errors" class="invalid-feedback">
+                    <br>
+                    <div *ngIf="pdf.nombreArchivo.errors.allowExtensions">Tipo de archivo no es permitido</div>
+                    <div *ngIf="pdf.nombreArchivo.errors.maxSize">Tamaño del archivo permitido 2MB</div>
+                  </div>
+                </mat-card-content>
+                <mat-card-actions>
+                  <div class="example-container">
+                    <button mat-flat-button color="primary" type="submit" [disabled]="!formArchivoPdf.valid || isLoadingResults">
+                      Subir Archivo
+                      <mat-icon>cloud_upload</mat-icon>
+                    </button>
+                  </div>
+                </mat-card-actions>
+                <input #identificador type="hidden" formControlName="agndaId"/>
+                <input type="hidden" formControlName="isIncidence"/>
+              </form>
+            </mat-card>
+        </div>
+        <!--curso upload file curse end-->
+      </ng-container>
+      <ng-template #ShowFileCursos>
+          <div fxFlex class="curso_lista" *ngFor="let items of propuestaArray">
+              <mat-card class="cards">
+                <mat-card-header>
+                  <mat-card-title>Nombre Archivo</mat-card-title>
+                  <mat-card-subtitle>{{ items.nombreArchivo }}</mat-card-subtitle>
+                </mat-card-header>
+                <br>
+                 <!--plantilla ng if extension -->
+                <ng-container *ngIf="items.extension === 'pdf'">
+                  <img mat-card-image src="../../../assets/img/Catalogocursopdf.jpg" alt="{{items.nombreArchivo}}">
+                </ng-container>
+                <!--plantilla ng if extension end -->
+                <mat-card-actions>
+                  <ng-container *ngIf="items.extension === 'pdf'">
+                      <button mat-flat-button fxFlex="20%" matTooltip="Descargar Documento">
+                        <mat-icon>cloud_download</mat-icon>
+                        Descargar
+                      </button>
+                  </ng-container>
+                </mat-card-actions>
+              </mat-card>
+          </div>
+      </ng-template>
+    </ng-container>
+    <!--componente flex end-->
+  </ng-container>
+</div>
+<!---->
