@@ -102,7 +102,7 @@ import { HistoricoVinculadorResolver } from '../../resolver/historico-vinculador
 // importar componente
 import { SeguimientoReporteComponent } from '../../pages/seguimiento-reporte/seguimiento-reporte.component';
 // importar el control del archivo
-import { FileControlModule } from '../../../../node_modules/ng-validator';
+import { FileControlModule } from 'ng-validator';
 // importar imgfileresolver
 import { FileImgresolver } from '../../resolver/file-imgresolver';
 // rutas
@@ -256,7 +256,8 @@ const ClientLayoutRoutes: Routes = [
   ],
   exports: [
     RouterModule,
-    ChartsModule
+    ChartsModule,
+    FileControlModule
   ], // exportar
   entryComponents: [BottomSheet, DialogOverView, DialogSeguimiento, DialogrefviewComponent]
 })
