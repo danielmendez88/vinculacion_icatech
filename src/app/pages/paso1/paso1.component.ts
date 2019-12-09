@@ -446,10 +446,10 @@ export class Paso1Component implements OnInit {
   }
 
   // imprimir documento dnc Gubernamental sin datos
-  printDncGobEmpty(): void {
+  printDncGobEmpty($event): void {
     try {
       this.cargandoPdf = true;
-      this.pdfWorker.postMessage(JSON.stringify(''));
+      this.pdfWorker.postMessage(JSON.stringify($event));
     } catch (error) {
       this.cargandoPdf = false;
       console.log(error);
@@ -457,10 +457,10 @@ export class Paso1Component implements OnInit {
   }
 
   // imprimir documento dnc social sin datos
-  printDncSocialEmpty(): void {
+  printDncSocialEmpty($evet): void {
     try {
       this.cargandopdfsocialNoData = true;
-      this.workerSocialNoData.postMessage(JSON.stringify(''));
+      this.workerSocialNoData.postMessage(JSON.stringify($evet));
     } catch (error) {
       this.cargandopdfsocialNoData = false;
       console.log(error);

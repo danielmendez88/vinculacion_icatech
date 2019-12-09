@@ -121,7 +121,7 @@ importScripts('../logos.js');
                             body: [
                                 [
                                     {
-                                        text: 'Nombre:\n\n',
+                                        text: 'Nombre:\n' + data.detalle.institucion,
                                         colSpan: 2,
                                         fontSize: 10
                                     },
@@ -131,7 +131,7 @@ importScripts('../logos.js');
                                 ],
                                 [
                                     {
-                                        text: 'Dirección: \n\n',
+                                        text: 'Dirección: \n' + data.detalle.direccion,
                                         fontSize: 10
                                     },
                                     {
@@ -141,17 +141,17 @@ importScripts('../logos.js');
                                 ],
                                 [
                                     {
-                                        text: 'Colonia: \n\n',
+                                        text: 'Colonia: \n' + data.detalle.direccion,
                                         fontSize: 10
                                     },
                                     {
-                                        text: 'Teléfono: \n\n',
+                                        text: 'Teléfono: \n' + data.detalle.telefonoEnlace,
                                         fontSize: 10
                                     }
                                 ],
                                 [
                                     {
-                                        text: 'Correo electrónico: \n\n',
+                                        text: 'Correo electrónico: \n' + data.detalle.correoEnlace,
                                         fontSize: 10
                                     },
                                     {
@@ -233,7 +233,7 @@ importScripts('../logos.js');
                                    }
                                ]
                            ]
-                       } 
+                       }
                     },
                     {
                         text: '4. ¿Cuál fuel el último curso que recibieron y qué tema?',

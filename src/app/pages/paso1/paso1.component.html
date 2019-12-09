@@ -61,7 +61,7 @@
         <!--paso 1 end-->
         <!--paso 2-->
         <mat-step label="Encuesta DNC">
-          <app-encuesta (dncGubernamental)="printDncGob($event)" (dncActive)="receiveMessage($event)" (dncGubernamentalEmpty)="printDncGobEmpty()" (dncActiveEmpty)="printDncSocialEmpty()" [datosEncuesta]="Agend"></app-encuesta>
+          <app-encuesta (dncGubernamental)="printDncGob($event)" (dncActive)="receiveMessage($event)" (dncGubernamentalEmpty)="printDncGobEmpty($event)" (dncActiveEmpty)="printDncSocialEmpty($event)" [datosEncuesta]="Agend"></app-encuesta>
         </mat-step>
         <!--paso 2 end-->
         <!--paso 3 init-->

@@ -8,10 +8,10 @@ importScripts('../logos.js');
 
   onmessage = function(evt) {
     let data = JSON.parse(evt.data);
-    pdf();
+    pdf(data);
   }
 
-  function pdf() {
+  function pdf(data) {
     try {
       var dd = {
         header: {
@@ -118,7 +118,7 @@ importScripts('../logos.js');
               body: [
                 [
                   {
-                    text: 'Nombre de la Empresa:\n\n',
+                    text: 'Nombre de la Empresa:\n' + data.detalle.institucion,
                     colSpan: 2,
                     fontSize: 10
                   },
@@ -127,17 +127,17 @@ importScripts('../logos.js');
                 ],
                 [
                   {
-                    text: 'Dirección: \n\n',
+                    text: 'Dirección: \n' + data.detalle.direccion,
                     fontSize: 10
                   },
                   {
-                    text: 'Teléfono: \n\n',
+                    text: 'Teléfono: \n' + data.detalle.telefonoEnlace,
                     fontSize: 10
                   }
                 ],
                 [
                   {
-                    text: 'Correo Electrónico: \n\n',
+                    text: 'Correo Electrónico: \n' + data.detalle.correoEnlace,
                     fontSize: 10
                   },
                   {
@@ -147,11 +147,11 @@ importScripts('../logos.js');
                 ],
                 [
                   {
-                    text: 'Nombre del responsable área de capacitaión: \n\n',
+                    text: 'Nombre del responsable área de capacitaión: \n' + data.detalle.nombreEnlace,
                     fontSize: 10
                   },
                   {
-                    text: 'Puesto: \n\n',
+                    text: 'Puesto: \n' + data.detalle.cargoEnlace,
                     fontSize: 10
                   }
                 ]

@@ -75,7 +75,6 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
     this.tipoSector = this.datosEncuesta.tipo;
     this.isdnc = this.datosEncuesta.isdnc;
     this.idAgendas = this.datosEncuesta.id;
-    console.log(this.idAgendas);
     if (this.tipoSector === 1 || this.tipoSector === 2) {
       this.sector = 1;
       this.dncForm = this.formularioDnc(this.fbuilder);
@@ -271,7 +270,8 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
   cargadncgubernamentalWithoutData(event) {
     //
     const dncGubernamentalWOData = {
-      datosWOD: ''
+      datosWOD: '',
+      detalle: this.detallesEncuesta
     };
     this.dncGubernamentalEmpty.emit(dncGubernamentalWOData);
   }
@@ -281,7 +281,8 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
    */
   cargadncSocialNoData( event ) {
     const dncGubernamentalNoData = {
-      datosNoDnc: ''
+      datosNoDnc: '',
+      detalle: this.detallesEncuesta
     };
     this.dncActiveEmpty.emit(dncGubernamentalNoData);
   }
@@ -294,7 +295,8 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
   cargardncsocialData( event ) {
     // usamos el método emit
     const dncSocial = {
-      datosDnc: this.DNCmodelo
+      datosDnc: this.DNCmodelo,
+      detalle: this.detallesEncuesta
      };
     this.dncActive.emit(dncSocial);
   }
@@ -304,7 +306,8 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
   cargardncgubernamentalData( evt ) {
     // usar método emit
     const dncGubernamentalDatos = {
-      datosDnc: this.DNCmodelo
+      datosDnc: this.DNCmodelo,
+      detalles: this.detallesEncuesta
      };
     this.dncGubernamental.emit(dncGubernamentalDatos);
   }
