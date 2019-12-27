@@ -31,3 +31,10 @@ export interface CursoById {
   clasificacion?: string;
   costo?: string;
 }
+export interface CursoVendido {
+  agendaId?: number;
+  cursoId?: number;
+  numeroPersona?: number;
+  costoPersona?: string;
+  subtotal?: string;
+}

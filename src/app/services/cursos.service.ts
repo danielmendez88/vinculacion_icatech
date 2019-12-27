@@ -25,6 +25,8 @@ const URLCURSOBYID = 'cursobyid';
 const URLPOSTCURSOSBYAGENDA = 'agendacursos';
 const URLGETCURSOBYAGENDA = 'getcursoagenda';
 const URLGETPRINTCURSOS = 'getprintcursos';
+const URLCURSOVENDIDO = 'cursovendido';
+const URLLISTACURSOSVENDIDOS = 'listacursosvendidos';
 
 @Injectable({
   providedIn: 'root'
@@ -93,6 +95,18 @@ export class CursosService {
   }
 
   /**
+   * cursos vendidos
+   */
+  sendCursoVendidos(forms): Observable<any> {
+    return this.http.post<any>(`${environment.PATH_BASE}/${URLCURSOVENDIDO}`, forms, this.httpOptions)
+           .pipe(
+             retry(3),
+             map(result => result),
+             catchError(this.handleError)
+           );
+
+  }
+  /**
    * curso service get cursos from idAgenda
    */
   async getCursobyIdAgenda(id: string): Promise<any> {
@@ -100,7 +114,18 @@ export class CursosService {
                       .toPromise();
     return respuesta;
   }
-
+  /**
+   * obtener los cursos de las IdAgenda
+   */
+  @Cacheable()
+  getCursobyAgenda(id: string) {
+    return this.http.get(`${environment.PATH_BASE}/${URLGETCURSOBYAGENDA}/${id}`, this.httpOptions)
+                    .pipe(
+                      retry(3),
+                      map(result => result),
+                      catchError(this.handleError)
+                    );
+  }
   /**
    * curso para impirmir servicio por agenda
    */
@@ -112,6 +137,14 @@ export class CursosService {
                       map(result => result),
                       catchError(this.handleError)
                     );
+  }
+  /**
+   * listado de cursos vendios por agenda
+   */
+  async getCursosVendidos($id: string): Promise<any> {
+    const response = await this.http.get(`${environment.PATH_BASE}/${URLLISTACURSOSVENDIDOS}/${$id}`, this.httpOptions)
+                     .toPromise();
+    return response;
   }
 
   /**
