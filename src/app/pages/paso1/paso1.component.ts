@@ -22,6 +22,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { Location } from '@angular/common';
 // importar titulo
 import { Title } from '@angular/platform-browser';
+// importar Adscripcion
+import { Adscripcion } from '../../models/adscripcion';
 
 @Component({
   selector: 'app-paso1',
@@ -148,7 +150,10 @@ export class Paso1Component implements OnInit {
     cargoEnlace: '',
     telefonoEnlace: ''
   };
-
+  // obtener una interface
+  public adscripcion: Adscripcion = {
+    adscripcion: ''
+  };
   // obtener interface del detalle
   public DetailAgend: DetalleSeguimiento = {
     id: 0,

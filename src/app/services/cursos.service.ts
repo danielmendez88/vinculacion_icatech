@@ -27,6 +27,7 @@ const URLGETCURSOBYAGENDA = 'getcursoagenda';
 const URLGETPRINTCURSOS = 'getprintcursos';
 const URLCURSOVENDIDO = 'cursovendido';
 const URLLISTACURSOSVENDIDOS = 'listacursosvendidos';
+const URLCHECKCURSOS = 'checarcursos';
 
 @Injectable({
   providedIn: 'root'
@@ -145,6 +146,18 @@ export class CursosService {
     const response = await this.http.get(`${environment.PATH_BASE}/${URLLISTACURSOSVENDIDOS}/${$id}`, this.httpOptions)
                      .toPromise();
     return response;
+  }
+  /**
+   * obtener un número de cursos vendidos agregados del formulario
+   */
+  @Cacheable()
+  getCursosVendidosListos(idAgenda: number): Observable<any> {
+    return this.http.get<CursosbyId>(`${environment.PATH_BASE}/${URLCHECKCURSOS}/${idAgenda}`, this.httpOptions)
+           .pipe(
+             retry(3),
+             map(result => result),
+             catchError(this.handleError)
+           );
   }
 
   /**

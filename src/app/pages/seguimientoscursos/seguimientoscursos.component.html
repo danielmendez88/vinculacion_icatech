@@ -42,6 +42,9 @@
                   <mat-card-header></mat-card-header>
                   <mat-card-content>
                     <form [formGroup]="seguimientoForm" (ngSubmit)="onSubmitVenta(seguimientoForm.value)">
+                        <div class="alternate-themes">
+                          <mat-slide-toggle formControlName="sendTo" color="primary" (change)="onChangeData($event.checked)">Terminar</mat-slide-toggle>
+                        </div>
                         <mat-form-field>
                             <mat-label>Cursos</mat-label>
                             <mat-select formControlName="cursos" required>
@@ -77,70 +80,38 @@
             <div fxFlex="70%" class="curso_lista">
               <mat-card class="example-card">
                 <mat-card-content>
-                    <!-- <table mat-table [dataSource]="dataSource" matSort>
+
+                  <mat-table mat-table [dataSource]="dataSource" matSort>
 
                       <ng-container matColumnDef="curso">
-                        <th mat-header-cell *matHeaderCellDef> Item </th>
-                        <td mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}} </td>
-                        <td mat-footer-cell *matFooterCellDef> Total </td>
+                        <mat-header-cell *matHeaderCellDef> Curso </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
                       </ng-container>
 
 
                       <ng-container matColumnDef="costo">
-                        <th mat-header-cell *matHeaderCellDef> Cost </th>
-                        <td mat-cell *matCellDef="let row" data-label="N°"> </td>
-                        <td mat-footer-cell *matFooterCellDef> totales </td>
+                        <mat-header-cell *matHeaderCellDef> N° </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="N°">
+                          {{row.numeroPersona}}
+                        </mat-cell>
+                        <mat-footer-cell *matFooterCellDef>N°</mat-footer-cell>
                       </ng-container>
+
 
                       <ng-container matColumnDef="detalle">
-                        <th mat-header-cell *matHeaderCellDef>detalle</th>
-                        <td mat-cell *matCellDef="let row" data-label="Costo"></td>
-                        <td mat-footer-cell *matFooterCellDef>Detalle</td>
+                        <mat-header-cell *matHeaderCellDef>Costo</mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="Costo">
+                          {{row.costoPersona}}
+                        </mat-cell>
+                        <mat-footer-cell *matFooterCellDef> totales </mat-footer-cell>
                       </ng-container>
 
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                      <mat-footer-row mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></mat-footer-row>
+                  </mat-table>
 
-                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-                    </table> -->
-
-                    <mat-table mat-table [dataSource]="dataSource" matSort>
-
-                        <ng-container matColumnDef="curso">
-                          <mat-header-cell *matHeaderCellDef> Curso </mat-header-cell>
-                          <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
-                          <mat-footer-cell *matFooterCellDef></mat-footer-cell>
-                        </ng-container>
-
-
-                        <ng-container matColumnDef="costo">
-                          <mat-header-cell *matHeaderCellDef> N° </mat-header-cell>
-                          <mat-cell *matCellDef="let row" data-label="N°">
-                            {{row.numeroPersona}}
-                          </mat-cell>
-                          <mat-footer-cell *matFooterCellDef>N°</mat-footer-cell>
-                        </ng-container>
-
-
-                        <ng-container matColumnDef="detalle">
-                          <mat-header-cell *matHeaderCellDef>Costo</mat-header-cell>
-                          <mat-cell *matCellDef="let row" data-label="Costo">
-                            {{row.costoPersona}}
-                          </mat-cell>
-                          <mat-footer-cell *matFooterCellDef> totales </mat-footer-cell>
-                        </ng-container>
-
-                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                        <mat-footer-row mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></mat-footer-row>
-                    </mat-table>
-
-                  <!--<form [formGroup]="seguimientoForm">
-                    <div formArrayName="cursos" *ngFor="let order of seguimientoForm.controls.cursos.controls; let i = index">
-                      <mat-checkbox [formControlName]="i">{{list[i].curso}}</mat-checkbox>
-                    </div>
-                    <button>submit</button>
-                  </form>-->
                 </mat-card-content>
               </mat-card>
             </div>

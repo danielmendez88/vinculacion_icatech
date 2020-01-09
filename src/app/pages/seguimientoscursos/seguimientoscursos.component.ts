@@ -110,6 +110,7 @@ export class SeguimientoscursosComponent implements OnInit {
   // crear formulario con reactive form create form con el formgroup
   createForm(formBulder: FormBuilder) {
     return formBulder.group({
+      sendTo: new FormControl(false),
       cursos: new FormControl(null, [Validators.required]),
       noPersonas: new FormControl(null, [Validators.required, CommonValidators.isNumber]),
       costo: new FormControl(null, [Validators.required]),
@@ -155,5 +156,16 @@ export class SeguimientoscursosComponent implements OnInit {
       this.snks.showSnackBar(JSON.stringify(error.error), 'Error');
       console.error(error);
     });
+  }
+  /**
+   * función de formulario send To Api rest
+   */
+  onChangeData(enable: boolean) {
+    if (enable === true) {
+      // enviar al servidor una petición y checar que la respuesta nos esté dando un valor dado
+      console.log(enable);
+    } else {
+      console.log(enable);
+    }
   }
 }
