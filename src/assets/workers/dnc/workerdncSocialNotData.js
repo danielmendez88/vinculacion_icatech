@@ -73,7 +73,7 @@ importScripts('../logos.js');
                                     },
                                     {
                                         text: formatDate(new Date()),
-                                        border: [false, false, false, true], // left, top, left, bottom
+                                        border: [false, false, false, false], // left, top, left, bottom
                                         fontSize: 9
                                     }
                                 ],
@@ -84,31 +84,28 @@ importScripts('../logos.js');
                                         fontSize: 9
                                     },
                                     {
-                                        text: 'Unidad de Capacitación: ',
+                                        text: data.organo,
                                         border: [false, false, false, false], // left, top, left, bottom
-                                        fontSize: 9
-                                    },
-                                    {
-                                        text: '',
-                                        border: [false, false, false, true], // left, top, left, bottom
+                                        fontSize: 9,
+                                        colSpan: 2,
                                     }
                                 ],
-                                [
-                                    {
-                                        text: '',
-                                        border: [false, false, false, false], // left, top, left, bottom
-                                        fontSize: 9
-                                    },
-                                    {
-                                        text: 'Acción Móvil: ',
-                                        border: [false, false, false, false], // left, top, left, bottom
-                                        fontSize: 9
-                                    },
-                                    {
-                                        text: '',
-                                        border: [false, false, false, true], // left, top, left, bottom
-                                    }
-                                ]
+                                // [
+                                //     {
+                                //         text: '',
+                                //         border: [false, false, false, false], // left, top, left, bottom
+                                //         fontSize: 9
+                                //     },
+                                //     {
+                                //         text: 'Acción Móvil: ',
+                                //         border: [false, false, false, false], // left, top, left, bottom
+                                //         fontSize: 9
+                                //     },
+                                //     {
+                                //         text: '',
+                                //         border: [false, false, false, true], // left, top, left, bottom
+                                //     }
+                                // ]
                             ]
                         }
                     },
@@ -426,6 +423,6 @@ importScripts('../logos.js');
         var monthIndex = date.getMonth();
         var year = date.getFullYear();
 
-        return day + ' ' + monthNames[monthIndex] + ' ' + year;
+        return day + ' ' + monthNames[monthIndex] + ' de ' + year;
     }
 })();

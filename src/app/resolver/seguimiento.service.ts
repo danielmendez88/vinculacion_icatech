@@ -31,6 +31,7 @@ export class SeguimientoService implements Resolve<Agenda> {
       map((agenda: Agenda) => agenda),
       catchError((error) => {
         console.error(error);
+        // tslint:disable-next-line: deprecation
         return empty();
       })
     );

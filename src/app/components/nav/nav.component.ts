@@ -57,6 +57,11 @@ export const clientRoutes: Route[] = [
     icon: 'history',
     route: '/historico',
     title: 'Historico'
+  },
+  {
+    icon: 'business',
+    route: '/catclientes',
+    title: 'Cliente Local'
   }
 ];
 

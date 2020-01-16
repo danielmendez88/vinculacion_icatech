@@ -10,6 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { tap, catchError, map } from 'rxjs/operators';
 import { DncModel } from '../models/dncmodel';
+import { promise } from 'protractor';
 
 /**
  * Desarrollado por Daniel Méndez V.1.0
@@ -17,6 +18,7 @@ import { DncModel } from '../models/dncmodel';
 
 const URL = 'agendadnc';
 const URLDNC = 'agendadncseguimiento';
+const URLORGANO = 'getadministrativebodies';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +70,17 @@ export class CuestionariodncService {
                     .pipe(
                       map(this.extractData)
                     );
+  }
+
+  /**
+   * mostrar el registro de un organo administrativo a partir de un idOrgano
+   */
+  @Cacheable()
+  getAdministrative(idOrgano: number): Observable<any> {
+    return this.http.get(`${environment.PATH_BASE}/${URLORGANO}/${idOrgano}`, this.httpOptions)
+               .pipe(
+                 map(this.extractData)
+               );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

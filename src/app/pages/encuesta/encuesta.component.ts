@@ -13,6 +13,10 @@ import { CuestionarioSharedService } from '../../services/cuestionario-shared.se
 import { DncModel } from '../../models/dncmodel';
 // importar filesaver
 import * as FileSaver from 'file-saver';
+// importar servicio auth
+import { AuthService } from '../../services/auth.service';
+// importar Modelo Adscripcion
+import { Adscripcion } from '../../models/adscripcion';
 
 @Component({
   selector: 'app-encuesta',
@@ -61,6 +65,10 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
   @Output() dncGubernamentalEmpty = new EventEmitter();
   // salidas para el decorador dncsocial vacio
   @Output() dncActiveEmpty = new EventEmitter();
+  // variable de organo administrativo
+  organoAdministrativo: Adscripcion;
+  // entrada o salida del organo administrativo
+  @Input() oAdministrativo;
 
   constructor(
     private fbuilder: FormBuilder,
@@ -68,6 +76,8 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
     private snack: SnackserviceService,
     private sharedService: CuestionarioSharedService,
     private ngz: NgZone,
+    private cuestionario: CuestionariodncService,
+    private auth: AuthService
   ) {}
 
   ngOnInit() {
@@ -271,7 +281,8 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
     //
     const dncGubernamentalWOData = {
       datosWOD: '',
-      detalle: this.detallesEncuesta
+      detalle: this.detallesEncuesta,
+      organo: this.oAdministrativo[0].organo
     };
     this.dncGubernamentalEmpty.emit(dncGubernamentalWOData);
   }
@@ -282,7 +293,8 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
   cargadncSocialNoData( event ) {
     const dncGubernamentalNoData = {
       datosNoDnc: '',
-      detalle: this.detallesEncuesta
+      detalle: this.detallesEncuesta,
+      organo: this.oAdministrativo[0].organo
     };
     this.dncActiveEmpty.emit(dncGubernamentalNoData);
   }
@@ -296,7 +308,8 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
     // usamos el método emit
     const dncSocial = {
       datosDnc: this.DNCmodelo,
-      detalle: this.detallesEncuesta
+      detalle: this.detallesEncuesta,
+      organo: this.oAdministrativo[0].organo
      };
     this.dncActive.emit(dncSocial);
   }
@@ -307,7 +320,8 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
     // usar método emit
     const dncGubernamentalDatos = {
       datosDnc: this.DNCmodelo,
-      detalles: this.detallesEncuesta
+      detalles: this.detallesEncuesta,
+      organo: this.oAdministrativo[0].organo
      };
     this.dncGubernamental.emit(dncGubernamentalDatos);
   }
@@ -325,5 +339,4 @@ export class EncuestaComponent implements OnInit, AfterContentChecked {
       return new Blob( [ buffer ], { type } );
     }
   }
-
 }

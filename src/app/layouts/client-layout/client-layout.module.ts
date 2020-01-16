@@ -105,6 +105,8 @@ import { SeguimientoReporteComponent } from '../../pages/seguimiento-reporte/seg
 import { FileControlModule } from 'ng-validator';
 // importar imgfileresolver
 import { FileImgresolver } from '../../resolver/file-imgresolver';
+// importar un resolver de organo administrativo
+import { Organoadministrativoresolver } from '../../resolver/organoadministrativoresolver';
 // rutas
 const ClientLayoutRoutes: Routes = [
   {
@@ -133,7 +135,8 @@ const ClientLayoutRoutes: Routes = [
     detalles: DetalleSeguimientoResolver, // segundo resolver
     incidenciaResolve: IncidenciaResolver, // tercer resolver
     archivos: FileImgresolver, // cuarto resolver
-    archivosPdf: Filepdfresolver // quinto resolver
+    archivosPdf: Filepdfresolver, // quinto resolver
+    organoAdministrativo: Organoadministrativoresolver // sexto resolver
   }},
   { path: 'calendario', component: CalendarioComponent, canActivate: [AuthGuard], data: { roles: ['Vinculador'] },
   resolve: { getAllOwnAgenda: CalendarioService}},

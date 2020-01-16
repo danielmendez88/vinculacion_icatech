@@ -36,7 +36,7 @@ importScripts('../logos.js');
         content: [
           {
             stack: [
-              'Unidad de Capacitación',
+              data.organo,
               {
                 text: 'Oficio No. ICATECH/001/'
               },

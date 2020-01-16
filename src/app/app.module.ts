@@ -83,13 +83,17 @@ import { Historicaldetailresolver } from './resolver/historicaldetailresolver';
 import { HistoricoVinculadorResolver } from './resolver/historico-vinculador-resolver';
 // importar resolver
 import { FileImgresolver } from './resolver/file-imgresolver';
+// importar resolver organo administrativo
+import { Organoadministrativoresolver } from './resolver/organoadministrativoresolver';
+import { FrmclientesComponent } from './pages/frmclientes/frmclientes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthLayoutComponent,
     ClientLayoutComponent,
-    NotificacionesComponent
+    NotificacionesComponent,
+    FrmclientesComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -137,7 +141,8 @@ import { FileImgresolver } from './resolver/file-imgresolver';
     Vinculadorjefe,
     Historicaldetailresolver,
     HistoricoVinculadorResolver,
-    FileImgresolver
+    FileImgresolver,
+    Organoadministrativoresolver
   ],
   bootstrap: [AppComponent]
 })

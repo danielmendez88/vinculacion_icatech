@@ -61,12 +61,12 @@
         <!--paso 1 end-->
         <!--paso 2-->
         <mat-step label="Encuesta DNC">
-          <app-encuesta (dncGubernamental)="printDncGob($event)" (dncActive)="receiveMessage($event)" (dncGubernamentalEmpty)="printDncGobEmpty($event)" (dncActiveEmpty)="printDncSocialEmpty($event)" [datosEncuesta]="Agend"></app-encuesta>
+          <app-encuesta (dncGubernamental)="printDncGob($event)" (dncActive)="receiveMessage($event)" (dncGubernamentalEmpty)="printDncGobEmpty($event)" (dncActiveEmpty)="printDncSocialEmpty($event)" [datosEncuesta]="Agend" [oAdministrativo]="organoAdmin"></app-encuesta>
         </mat-step>
         <!--paso 2 end-->
         <!--paso 3 init-->
         <mat-step label="Curso">
-          <app-child-paso1-curso [idAgenda]="idAgend" [cursoFlag]="iscurso" [titulartag]="titular" (cursoPropuesta)="printPropuesta($event)"></app-child-paso1-curso>
+          <app-child-paso1-curso [idAgenda]="idAgend" [cursoFlag]="iscurso" [titulartag]="titular" [oAdmin]="organoAdmin" (cursoPropuesta)="printPropuesta($event)"></app-child-paso1-curso>
         </mat-step>
         <!--paso 3 end-->
         <!--paso 4-->

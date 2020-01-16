@@ -78,6 +78,8 @@ export class ChildPaso1CursoComponent implements OnInit, AfterViewInit {
   // usuario
   usuarioActual: any;
   usuarioEmail: any;
+  // organo administrativo Entrada
+  @Input() oAdmin;
 
   constructor(
     private serviceCourse: CursosService,
@@ -201,7 +203,8 @@ export class ChildPaso1CursoComponent implements OnInit, AfterViewInit {
         lista: this.listaImprimir,
         usuario: this.usuarioActual,
         titular: this.titulartag,
-        email: this.usuarioEmail
+        email: this.usuarioEmail,
+        organo: this.oAdmin[0].organo
       };
       this.cursoPropuesta.emit(datosImprimir);
      //  this.pdfworker.postMessage(JSON.stringify(datosImprimir));

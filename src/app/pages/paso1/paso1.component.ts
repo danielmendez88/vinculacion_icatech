@@ -24,6 +24,10 @@ import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 // importar Adscripcion
 import { Adscripcion } from '../../models/adscripcion';
+// importar servicio cuestionariodnc
+import { CuestionariodncService } from '../../services/cuestionariodnc.service';
+// importar servicio de autenticacion
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-paso1',
@@ -104,6 +108,8 @@ export class Paso1Component implements OnInit {
   errorCursoPdf = false;
   // agregar seguimientos para cargar el resultado del resolver
   seguimientos: any;
+  // organo administrativo
+  organoAdmin: string;
   constructor(
     private snackservice: SnackserviceService,
     private As: AgendaService,
@@ -115,7 +121,7 @@ export class Paso1Component implements OnInit {
     private ngz: NgZone,
     private dialog: MatDialog,
     private $location: Location, // agregado recientemente
-    private Titulo: Title,
+    private Titulo: Title
   ) { }
   // tiempo de duración
   durationInSeconds = 5000;
@@ -330,11 +336,11 @@ export class Paso1Component implements OnInit {
         this.snackservice.showSnackBar(this.Message, 'Agregado!');
       });
     }
-    /**
-     * trabajamos con la suscripción
-     * para actualizar los datos del componente
-     */
 
+    /***
+     * TODO: obtener organo administrativo
+     */
+    this.organoAdmin = this.route.snapshot.data.organoAdministrativo;
   }
 
   // metodo log
@@ -385,6 +391,7 @@ export class Paso1Component implements OnInit {
 
   // abrir dialogo
   openDialog(agenda): void {
+    // tslint:disable-next-line: no-use-before-declare
     const diglogRef = this.dialog.open(DialogSeguimiento, {
       width: '250px',
       data: {id: agenda, service: this.As}
