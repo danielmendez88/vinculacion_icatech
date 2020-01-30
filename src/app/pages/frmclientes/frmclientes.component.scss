@@ -1,0 +1,108 @@
+$crm-command-bar-height-desktop: 20px !default;
+// $crm-command-bar-height-mobile: 48px !default;
+$crm-command-bar-height-mobile: 0 !default;
+
+$crm-view-bar-height-desktop: 96px !default;
+$crm-view-bar-height-mobile: 84px !default;
+
+//
+
+$crm-component-title-margin: 16px !default;
+$mat-xsmall: 'max-width: 599px';
+$mat-small: 'max-width: 959px';
+
+// https://github.com/angular/material2/blob/master/src/lib/toolbar/toolbar.scss
+
+$mat-toolbar-height-desktop: 64px !default;
+$mat-toolbar-height-mobile: 20px !default;
+$mat-toolbar-row-padding: 16px !default;
+
+// formulario mat-card
+.card-form {
+  width: 80%;
+  margin-bottom: 2%;
+}
+
+.example-container {
+  height: 100%;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 800px;
+  width: 100%;
+}
+
+.radio-button {
+  margin: 5px;
+}
+.radio-group {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+}
+.progress-bar {
+  margin: 0 10px;
+}
+
+/*
+ una clase para un progress bar
+*/
+.spinner-container {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.imgFlex {
+  width: 50px;
+  height: 50px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container > * {
+  width: 80%;
+}
+
+.example-full-width {
+  width: 80%;
+}
+.curso_lista {
+  margin: 2%;
+}
+.full-field{
+  width: 100%;
+}
+.middle-field {
+  width: 40%;
+}
+.low-field {
+  width: 20%;
+}
+.component-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: $crm-view-bar-height-desktop;
+  min-height: $crm-view-bar-height-desktop;
+
+  margin-top: $mat-toolbar-height-desktop + $crm-command-bar-height-desktop;
+
+  @media ($mat-xsmall) {
+    height: $crm-view-bar-height-mobile;
+    min-height: $crm-view-bar-height-mobile;
+
+    margin-top: $mat-toolbar-height-mobile + $crm-command-bar-height-mobile;
+  }
+}

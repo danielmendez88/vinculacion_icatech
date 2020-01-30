@@ -140,7 +140,10 @@ export class AuthService {
    get useremailCurrent(): string {
      return JSON.parse(localStorage.getItem('currentUserEmail'));
    }
-
+   // get current currentcuerpoAdministrativo
+   getCurrentAdministrative(): string {
+     return JSON.parse(localStorage.getItem('currentcuerpoAdministrativo'));
+   }
    // tiene roles
    hasRoles(roles: string[]): boolean {
      for ( const oneRole of roles) {

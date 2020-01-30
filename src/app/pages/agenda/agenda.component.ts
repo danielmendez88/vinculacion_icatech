@@ -127,6 +127,7 @@ export class AgendaComponent implements OnInit {
 
   // abrir snackbar error
   openErrorSnackBar() {
+    // tslint:disable-next-line: no-use-before-declare
     this.snackBar.openFromComponent(ErrorSnackComponent, {
       duration: this.snackbarduration * 1000,
     });

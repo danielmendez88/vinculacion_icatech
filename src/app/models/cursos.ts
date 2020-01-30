@@ -2,6 +2,7 @@ export interface CategoriaCursos {
   id?: number;
   nombreCurso?: string;
   descripcion?: string;
+  categoria?: string;
 }
 
 export interface Cursos {

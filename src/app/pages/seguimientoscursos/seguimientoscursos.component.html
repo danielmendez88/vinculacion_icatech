@@ -37,45 +37,47 @@
         </ng-container>
         <ng-template #checkTemplate>
           <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+            <!--curso lista form-->
             <div fxFlex="30%" class="curso_lista">
-                <mat-card class="example-card">
-                  <mat-card-header></mat-card-header>
-                  <mat-card-content>
-                    <form [formGroup]="seguimientoForm" (ngSubmit)="onSubmitVenta(seguimientoForm.value)">
-                        <div class="alternate-themes">
-                          <mat-slide-toggle formControlName="sendTo" color="primary" (change)="onChangeData($event.checked)">Terminar</mat-slide-toggle>
-                        </div>
-                        <mat-form-field>
-                            <mat-label>Cursos</mat-label>
-                            <mat-select formControlName="cursos" required>
-                              <mat-option>-----</mat-option>
-                              <mat-option *ngFor="let cursos of cursosModel" [value]="cursos.idCurso">{{ cursos.curso }}</mat-option>
-                            </mat-select>
-                            <mat-error  *ngIf="segForm.cursos.errors">
-                              <mat-error  *ngIf="segForm.cursos.errors.required">Requerido</mat-error >
-                            </mat-error >
+              <mat-card class="example-card">
+                <mat-card-header></mat-card-header>
+                <mat-card-content>
+                  <form [formGroup]="seguimientoForm" (ngSubmit)="onSubmitVenta(seguimientoForm.value)">
+                      <div class="alternate-themes">
+                        <mat-slide-toggle formControlName="sendTo" color="primary" (change)="onChangeData($event.checked)">Terminar</mat-slide-toggle>
+                      </div>
+                      <mat-form-field>
+                          <mat-label>Cursos</mat-label>
+                          <mat-select formControlName="cursos" required>
+                            <mat-option>-----</mat-option>
+                            <mat-option *ngFor="let cursos of cursosModel" [value]="cursos.idCurso">{{ cursos.curso }}</mat-option>
+                          </mat-select>
+                          <mat-error  *ngIf="segForm.cursos.errors">
+                            <mat-error  *ngIf="segForm.cursos.errors.required">Requerido</mat-error >
+                          </mat-error >
+                      </mat-form-field>
+                      <div fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
+                        <mat-form-field fxFlex class="curso_lista">
+                          <input matInput placeholder="N° Personas" type="text" formControlName="noPersonas">
+                          <mat-error  *ngIf="segForm.noPersonas.errors">
+                            <mat-error  *ngIf="segForm.noPersonas.errors.isNumber">Sólo se permiten números</mat-error >
+                            <mat-error  *ngIf="segForm.noPersonas.errors.required">Requerido</mat-error >
+                          </mat-error >
                         </mat-form-field>
-                        <div fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
-                          <mat-form-field fxFlex class="curso_lista">
-                            <input matInput placeholder="N° Personas" type="text" formControlName="noPersonas">
-                            <mat-error  *ngIf="segForm.noPersonas.errors">
-                              <mat-error  *ngIf="segForm.noPersonas.errors.isNumber">Sólo se permiten números</mat-error >
-                              <mat-error  *ngIf="segForm.noPersonas.errors.required">Requerido</mat-error >
-                            </mat-error >
-                          </mat-form-field>
-                          <mat-form-field fxFlex class="curso_lista">
-                            <input matInput placeholder="Costo" formControlName="costo">
-                            <mat-error  *ngIf="segForm.costo.errors">
-                              <mat-error  *ngIf="segForm.costo.errors.required">Requerido</mat-error >
-                            </mat-error >
-                          </mat-form-field>
-                        </div>
-                        <button mat-raised-button type="submit" color="warn" [disabled]="!seguimientoForm.valid || submmited">Agregar</button>
-                        <input type="hidden" formControlName="agndaId">
-                    </form>
-                  </mat-card-content>
-                </mat-card>
+                        <mat-form-field fxFlex class="curso_lista">
+                          <input matInput placeholder="Costo" formControlName="costo">
+                          <mat-error  *ngIf="segForm.costo.errors">
+                            <mat-error  *ngIf="segForm.costo.errors.required">Requerido</mat-error >
+                          </mat-error >
+                        </mat-form-field>
+                      </div>
+                      <button mat-raised-button type="submit" color="warn" [disabled]="!seguimientoForm.valid || submmited">Agregar</button>
+                      <input type="hidden" formControlName="agndaId">
+                  </form>
+                </mat-card-content>
+              </mat-card>
             </div>
+            <!--curso lista form-->
             <!--div fxFlex-->
             <div fxFlex="70%" class="curso_lista">
               <mat-card class="example-card">

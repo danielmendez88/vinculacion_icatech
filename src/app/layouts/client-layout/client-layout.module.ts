@@ -107,6 +107,8 @@ import { FileControlModule } from 'ng-validator';
 import { FileImgresolver } from '../../resolver/file-imgresolver';
 // importar un resolver de organo administrativo
 import { Organoadministrativoresolver } from '../../resolver/organoadministrativoresolver';
+// importar componentes
+import { FrmclientesComponent } from '../../pages/frmclientes/frmclientes.component';
 // rutas
 const ClientLayoutRoutes: Routes = [
   {
@@ -199,6 +201,13 @@ const ClientLayoutRoutes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['Vinculador'] },
     resolve: { getdetallevinculador: HistoricoVinculadorResolver }
+  },
+  {
+    path: 'catclientes',
+    pathMatch: 'full',
+    component: FrmclientesComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['Directores'] }
   }
 ];
 
@@ -251,7 +260,8 @@ const ClientLayoutRoutes: Routes = [
     VinculadoresComponent,
     HistoricaldetailComponent,
     HistoricovinculacionComponent,
-    SeguimientoReporteComponent
+    SeguimientoReporteComponent,
+    FrmclientesComponent
   ],
   providers: [
     SnackserviceService,

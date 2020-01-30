@@ -66,4 +66,11 @@ export class CountagendaserviceService {
 
     return res;
   }
+  /**
+   * TODO: agregar servicio para obtener un rango de fechas
+   */
+  async getData(arrayDate): Promise<any> {
+    return await this.https.get<any>(`${environment.PATH_BASE}/${arrayDate}`, this.httpOptions)
+           .toPromise();
+  }
 }

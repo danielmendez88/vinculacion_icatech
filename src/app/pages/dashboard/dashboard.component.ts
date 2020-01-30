@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 // importamos el servicio countagendaservice
 import { CountagendaserviceService } from '../../services/countagendaservice.service';
+// importar datepipe
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +31,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private ruta: ActivatedRoute,
     private titulo: Title,
     private uath: AuthService,
-    private agendaCount: CountagendaserviceService
+    private agendaCount: CountagendaserviceService,
+    private dP: DatePipe
   ) { }
 
   ngOnInit() {
@@ -78,5 +81,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.resultCountVinculadores = res;
       }
     );
+  }
+
+  getData = (evt: any) => {
+    const fI = this.dP.transform(evt.fechaInicio, 'yyyy-MM-dd');
+    const fF = this.dP.transform(evt.fechaFin, 'yyyy-MM-dd');
+    console.log(`Fecha Fin: ${fF}`);
   }
 }

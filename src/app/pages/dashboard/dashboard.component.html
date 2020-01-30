@@ -3,6 +3,11 @@
 <!--contenido-->
 <div class="content" [ngSwitch]="userRole$">
   <ng-container *ngSwitchCase="'Directores'">
+    <!--contenedor-->
+    <div class="mb-20" fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
+      <app-datefilter (Fechas)="getData($event)"></app-datefilter>
+    </div>
+    <!--fin del contenedor-->
     <!--contenido-->
     <div class="mb-20" fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
         <!--nuevo dashboard-->

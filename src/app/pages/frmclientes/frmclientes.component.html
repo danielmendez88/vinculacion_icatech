@@ -1,3 +1,125 @@
-<p>
-  frmclientes works!
-</p>
+<div class="component-title-container">
+</div>
+
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <app-progress-spinner
+    [color]="color"
+    [mode]="mode"
+    [value]="value"
+    [backdropEnabled]="false"
+    [displayProgressSpinner]="spinnerWithoutBackdrop">
+  </app-progress-spinner>
+  <div fxFlex="70%" class="curso_lista">
+    <mat-card>
+
+      <mat-card-header>
+        <mat-card-title>
+          Formulario de Clientes
+        </mat-card-title>
+      </mat-card-header>
+
+
+      <mat-card-content>
+        <div class="example-container">
+          <form [formGroup]="clienteForm" (ngSubmit)="onSubmitFormClient(clienteForm.value)" method="post">
+            <div class="mb-20" fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="1.5%">
+              <mat-form-field >
+                <input matInput placeholder="Institución" formControlName="institucion" required>
+                <mat-error  *ngIf="clientForm.institucion.errors">
+                  <mat-error  *ngIf="clientForm.institucion.errors.required">Requerido</mat-error >
+                </mat-error >
+              </mat-form-field>
+
+              <mat-form-field >
+                <input matInput placeholder="Dirección" formControlName="direccion" required/>
+                <mat-error  *ngIf="clientForm.direccion.errors">
+                  <mat-error  *ngIf="clientForm.direccion.errors.required">Requerido</mat-error >
+                </mat-error >
+              </mat-form-field>
+
+            </div>
+
+            <div class="mb-20" fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="1.5%">
+
+              <mat-form-field>
+                <input matInput placeholder="Nombre del Titular" formControlName="nombreTitutlar" required/>
+                <mat-error  *ngIf="clientForm.nombreTitutlar.errors">
+                  <mat-error  *ngIf="clientForm.nombreTitutlar.errors.required">Requerido</mat-error >
+                </mat-error >
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput placeholder="Cargo" formControlName="cargo" required/>
+                <mat-error  *ngIf="clientForm.cargo.errors">
+                  <mat-error  *ngIf="clientForm.cargo.errors.required">Requerido</mat-error >
+                </mat-error >
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput placeholder="Teléfono Institucional" formControlName="telefonoInstitucional" required/>
+                <mat-error  *ngIf="clientForm.telefonoInstitucional.errors">
+                  <mat-error  *ngIf="clientForm.telefonoInstitucional.errors.required">Requerido</mat-error >
+                  <mat-error  *ngIf="clientForm.telefonoInstitucional.errors.isPhone">Sólo es permitido número telefónico</mat-error >
+                </mat-error >
+              </mat-form-field>
+
+            </div>
+
+            <div class="mb-20" fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="1.5%">
+
+              <mat-form-field>
+                <input matInput placeholder="Nombre del Enlace" formControlName="nombreEnlace" required/>
+                <mat-error  *ngIf="clientForm.nombreEnlace.errors">
+                  <mat-error  *ngIf="clientForm.nombreEnlace.errors.required">Requerido</mat-error>
+                </mat-error >
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput placeholder="Cargo del Enlace" formControlName="cargoEnlace" required/>
+                <mat-error  *ngIf="clientForm.cargoEnlace.errors">
+                  <mat-error  *ngIf="clientForm.cargoEnlace.errors.required">Requerido</mat-error>
+                </mat-error >
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput placeholder="Teléfono del Enlace" formControlName="telefonoEnlace" required/>
+                <mat-error  *ngIf="clientForm.telefonoEnlace.errors">
+                  <mat-error  *ngIf="clientForm.telefonoEnlace.errors.required">Requerido</mat-error >
+                  <mat-error  *ngIf="clientForm.telefonoEnlace.errors.isPhone">Sólo es permitido número telefónico</mat-error >
+                </mat-error >
+              </mat-form-field>
+
+            </div>
+
+            <div class="mb-20" fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="1.5%">
+
+              <mat-form-field>
+                <input matInput placeholder="Correo Enlace" formControlName="correoEnlace" required/>
+                <mat-error  *ngIf="clientForm.correoEnlace.errors">
+                  <mat-error  *ngIf="clientForm.correoEnlace.errors.required">Requerido</mat-error >
+                  <mat-error  *ngIf="clientForm.correoEnlace.errors.isEmail">Sólo es permitido correo electrónico.</mat-error >
+                </mat-error >
+              </mat-form-field>
+
+            </div>
+
+            <mat-form-field class="full-field">
+              <textarea matInput placeholder="Observaciones" formControlName="observaciones"></textarea>
+              <mat-error  *ngIf="clientForm.observaciones.errors">
+                <mat-error  *ngIf="clientForm.observaciones.errors.required">Requerido</mat-error >
+              </mat-error >
+            </mat-form-field>
+            <br/><br/>
+            <!--botón tipo submit-->
+            <button mat-raised-button type="submit" color="primary" [disabled]="!clienteForm.valid || submmited">
+              Guardar
+              <mat-icon>send</mat-icon>
+            </button>
+          </form>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="30%" class="curso_lista"></div>
+</div>

@@ -1,6 +1,7 @@
 export interface Seguimientos {
   idCurso: number;
-  Curso: string;
+  curso: string;
   costo: string;
   clasificacion: string;
+  especialidad: string;
 }

@@ -85,15 +85,17 @@ import { HistoricoVinculadorResolver } from './resolver/historico-vinculador-res
 import { FileImgresolver } from './resolver/file-imgresolver';
 // importar resolver organo administrativo
 import { Organoadministrativoresolver } from './resolver/organoadministrativoresolver';
-import { FrmclientesComponent } from './pages/frmclientes/frmclientes.component';
+// importar servicio de datos
+import { ResetformService } from './services/resetform.service';
+// importar DatePipe
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthLayoutComponent,
     ClientLayoutComponent,
-    NotificacionesComponent,
-    FrmclientesComponent
+    NotificacionesComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -142,7 +144,9 @@ import { FrmclientesComponent } from './pages/frmclientes/frmclientes.component'
     Historicaldetailresolver,
     HistoricoVinculadorResolver,
     FileImgresolver,
-    Organoadministrativoresolver
+    Organoadministrativoresolver,
+    ResetformService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

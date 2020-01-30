@@ -113,6 +113,7 @@ export class CalendarioComponent implements OnInit {
 
   eventClick(event) {
     const dateString = event.event.start;
+    // tslint:disable-next-line: no-use-before-declare
     const dialogRef = this.dialog.open(DialogOverView, {
       width: '350px',
       data: {eventId: event.event.id, eventTitle: event.event.title, eventDate: dateString}
