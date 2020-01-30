@@ -90,22 +90,6 @@ importScripts('../logos.js');
                                         colSpan: 2,
                                     }
                                 ],
-                                // [
-                                //     {
-                                //         text: '',
-                                //         border: [false, false, false, false], // left, top, left, bottom
-                                //         fontSize: 9
-                                //     },
-                                //     {
-                                //         text: 'Acción Móvil: ',
-                                //         border: [false, false, false, false], // left, top, left, bottom
-                                //         fontSize: 9
-                                //     },
-                                //     {
-                                //         text: '',
-                                //         border: [false, false, false, true], // left, top, left, bottom
-                                //     }
-                                // ]
                             ]
                         }
                     },
