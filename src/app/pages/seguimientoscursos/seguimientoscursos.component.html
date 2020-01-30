@@ -36,6 +36,15 @@
             </div>
         </ng-container>
         <ng-template #checkTemplate>
+          <!--spinner template-->
+          <app-progress-spinner
+            [color]="color"
+            [mode]="mode"
+            [value]="value"
+            [backdropEnabled]="false"
+            [displayProgressSpinner]="spinnerWithoutBackdrop">
+          </app-progress-spinner>
+          <!--spinner template End-->
           <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
             <!--curso lista form-->
             <div fxFlex="30%" class="curso_lista">

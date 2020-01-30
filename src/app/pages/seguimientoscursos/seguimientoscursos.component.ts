@@ -51,6 +51,15 @@ export class SeguimientoscursosComponent implements OnInit {
   dataSource = new MatTableDataSource<CursoVendido>();
   selection = new SelectionModel<CursoVendido>(true, []);
 
+  /**
+   * TODO: variables del spinner
+   */
+  color = 'primary';
+  mode = 'indeterminate';
+  value = 50;
+  displayProgressSpinner = false;
+  spinnerWithoutBackdrop = false;
+
   constructor(
     private cs: CursosService,
     private encodeanddecode: DecodeencodeserviceService,
@@ -136,6 +145,7 @@ export class SeguimientoscursosComponent implements OnInit {
     /**
      * form
      */
+    this.spinnerWithoutBackdrop = true;
     this.submmited = true;
     const cursoForm = new FormData();
     cursoForm.append('cursos', value.cursos);
@@ -146,15 +156,23 @@ export class SeguimientoscursosComponent implements OnInit {
     this.cs.sendCursoVendidos(cursoForm).subscribe(async response => {
       this.snks.showSnackBar(JSON.stringify(response.success), 'Listo');
       this.submmited = false;
+      this.spinnerWithoutBackdrop = false;
       /**
        * mostramos la información en la tabla que se tiene a lado
        */
       const respuesta = await this.cs.getCursosVendidos(value.agndaId);
       this.dataSource = respuesta;
-      console.log(response);
+      /**
+       * TODO: se vuelven a cargar los datos que se muestran en el input -- combobox
+       */
+      const idagendaStr = this.encodeanddecode.b64EncodeUnicode(this.idAgendaCurso.toString());
+      // tslint:disable-next-line: no-shadowed-variable
+      this.cs.getCursobyAgenda(idagendaStr).subscribe((response: Seguimientos[]) => {
+        this.cursosModel = response;
+      });
     }, error => {
       this.snks.showSnackBar(JSON.stringify(error.error), 'Error');
-      console.error(error);
+      this.spinnerWithoutBackdrop = false;
     });
   }
   /**
