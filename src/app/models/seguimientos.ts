@@ -5,3 +5,12 @@ export interface Seguimientos {
   clasificacion: string;
   especialidad: string;
 }
+
+export interface CursoVendidos {
+  agendaId: number;
+  cursoId: number;
+  numeroPersona: number;
+  costoPersona: string;
+  subtotal: string;
+  curso: string;
+}

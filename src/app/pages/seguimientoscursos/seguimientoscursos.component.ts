@@ -14,9 +14,11 @@ import { SelectionModel } from '../../../../node_modules/@angular/cdk/collection
 // importar validadores
 import { CommonValidators } from 'ng-validator';
 // importar Seguimientos
-import { Seguimientos } from '../../models/Seguimientos';
+import { Seguimientos, CursoVendidos } from '../../models/Seguimientos';
 // importamos snackbar
 import { SnackserviceService } from '../../services/snackservice.service';
+// importar reset Form Service
+import { ResetformService } from 'src/app/services/resetform.service';
 
 @Component({
   selector: 'app-seguimientoscursos',
@@ -45,11 +47,16 @@ export class SeguimientoscursosComponent implements OnInit {
   cursosModel: Seguimientos[];
   // submiteo
   submmited = false;
+  // curso vendido
+  cursoVendidoModel: CursoVendidos[];
 
   // componentes de la tabla
   displayedColumnsModify: string[] = ['curso', 'costo', 'detalle'];
   dataSource = new MatTableDataSource<CursoVendido>();
   selection = new SelectionModel<CursoVendido>(true, []);
+  // componente de la tabla curso vendidos
+  displayedColumnsTable: string[] = ['curso', 'numeroPersona', 'subtotal'];
+  dataDone = new MatTableDataSource<CursoVendidos>();
 
   /**
    * TODO: variables del spinner
@@ -65,7 +72,8 @@ export class SeguimientoscursosComponent implements OnInit {
     private encodeanddecode: DecodeencodeserviceService,
     private dialog: MatDialog,
     private fb: FormBuilder, // en el constructor inicializamos la variable del formBuilder
-    private snks: SnackserviceService
+    private snks: SnackserviceService,
+    private RForm: ResetformService
   ) {}
 
   ngOnInit() {
@@ -77,10 +85,13 @@ export class SeguimientoscursosComponent implements OnInit {
         this.seguimientoForm = this.createForm(this.fb);
         // control seguimiento
         this.cursosVendidos(this.idAgendaCurso);
-        this.seguimientoForm.controls.agndaId.setValue(this.idAgendaCurso);
+        // this.seguimientoForm.controls.agndaId.setValue(this.idAgendaCurso);
         this.cs.getCursobyAgenda(agendastr).subscribe((res: Seguimientos[]) => {
           this.cursosModel = res;
         });
+      } else if (this.statusAgenda === 6) {
+        // cursos que se vendieron
+        this.cursosDone(agendastr);
       } else {
         this.loadcursoById(agendastr);
       }
@@ -105,7 +116,11 @@ export class SeguimientoscursosComponent implements OnInit {
     this.dataSource = result;
     this.dataSource.paginator = this.paginator;
     const totales = result.map(t => t.numeroPersona).reduce((accum, curr) => accum + curr, 0);
-    console.log(totales);
+  }
+  async cursosDone(id: string) {
+    const res = await this.cs.getCursosDone(id);
+    this.dataDone = res;
+    this.dataDone.paginator = this.paginator;
   }
   /**
    * dialogo con modal component
@@ -119,7 +134,6 @@ export class SeguimientoscursosComponent implements OnInit {
   // crear formulario con reactive form create form con el formgroup
   createForm(formBulder: FormBuilder) {
     return formBulder.group({
-      sendTo: new FormControl(false),
       cursos: new FormControl(null, [Validators.required]),
       noPersonas: new FormControl(null, [Validators.required, CommonValidators.isNumber]),
       costo: new FormControl(null, [Validators.required]),
@@ -148,10 +162,11 @@ export class SeguimientoscursosComponent implements OnInit {
     this.spinnerWithoutBackdrop = true;
     this.submmited = true;
     const cursoForm = new FormData();
+    const idAcurso = this.idAgendaCurso.toString();
     cursoForm.append('cursos', value.cursos);
     cursoForm.append('personas', value.noPersonas);
     cursoForm.append('costo', value.costo);
-    cursoForm.append('agendaId', value.agndaId);
+    cursoForm.append('agendaId', idAcurso);
     // de lo contrario enviamos la informacion al servicio de carga de archivos
     this.cs.sendCursoVendidos(cursoForm).subscribe(async response => {
       this.snks.showSnackBar(JSON.stringify(response.success), 'Listo');
@@ -160,28 +175,43 @@ export class SeguimientoscursosComponent implements OnInit {
       /**
        * mostramos la información en la tabla que se tiene a lado
        */
-      const respuesta = await this.cs.getCursosVendidos(value.agndaId);
+      const respuesta = await this.cs.getCursosVendidos(this.idAgendaCurso.toString());
       this.dataSource = respuesta;
+      /**
+       * TODO: resetamos el formulario
+       */
+      this.RForm.resetForms(this.seguimientoForm);
+    }, error => {
+      this.snks.showSnackBar(JSON.stringify(error.error), 'Error');
+      this.spinnerWithoutBackdrop = false;
+    }, () => {
       /**
        * TODO: se vuelven a cargar los datos que se muestran en el input -- combobox
        */
       const idagendaStr = this.encodeanddecode.b64EncodeUnicode(this.idAgendaCurso.toString());
-      // tslint:disable-next-line: no-shadowed-variable
-      this.cs.getCursobyAgenda(idagendaStr).subscribe((response: Seguimientos[]) => {
-        this.cursosModel = response;
+      this.cs.getCursobyAgenda(idagendaStr).subscribe((res: Seguimientos[]) => {
+        this.cursosModel = res;
       });
-    }, error => {
-      this.snks.showSnackBar(JSON.stringify(error.error), 'Error');
-      this.spinnerWithoutBackdrop = false;
     });
   }
   /**
    * función de formulario send To Api rest
    */
-  onChangeData(enable: boolean) {
+  onChangeData = (enable: boolean) => {
     if (enable === true) {
       // enviar al servidor una petición y checar que la respuesta nos esté dando un valor dado
-      console.log(enable);
+      this.spinnerWithoutBackdrop = true;
+      this.cs.sendVendidos(this.idAgendaCurso).subscribe( respon => {
+        this.cursoVendidoModel = respon;
+        this.spinnerWithoutBackdrop = false;
+        this.statusAgenda = 6;
+        const agendastr = this.encodeanddecode.b64EncodeUnicode(this.idAgendaCurso.toString());
+        this.cursosDone(agendastr);
+        this.snks.showSnackBar(JSON.stringify(respon.success), 'Listo');
+      }, error => {
+        this.snks.showSnackBar(JSON.stringify(error.error), 'Error');
+        this.spinnerWithoutBackdrop = false;
+      });
     } else {
       console.log(enable);
     }

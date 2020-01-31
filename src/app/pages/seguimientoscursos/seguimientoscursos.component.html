@@ -1,135 +1,187 @@
 <div fxLayout="row wrap" fxLayoutGap="0.5%" fxLayoutAlign="center">
     <div fxFlex class="curso_lista">
       <ng-container *ngIf="flag; else flagFalse">
-        <ng-container *ngIf="statusAgenda < 4; else checkTemplate">
-            <div class="example-container">
-                <mat-table mat-table [dataSource]="sourceData" matSort>
-                    <!--- Note that these columns can be defined in any order.
-                        The actual rendered columns are set as a property on the row definition" -->
-                    <!--columna-->
-                    <ng-container matColumnDef="curso">
-                      <mat-header-cell *matHeaderCellDef> Curso </mat-header-cell>
-                      <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
-                    </ng-container>
-
-                    <!-- Name Column -->
-                    <ng-container matColumnDef="costo">
-                      <mat-header-cell *matHeaderCellDef> Costo </mat-header-cell>
-                      <mat-cell *matCellDef="let row" data-label="costo">  $ {{row.costo}} </mat-cell>
-                    </ng-container>
-
-                    <!-- Columna detalle-->
-                    <ng-container matColumnDef="detalle">
-                      <mat-header-cell *matHeaderCellDef>Detalles</mat-header-cell>
-                      <mat-cell *matCellDef="let row" data-label="detalle">
-                        <button mat-icon-button color="primary" (click)="openDialog(row.idCurso)">
-                            <mat-icon class="mat-18">search</mat-icon>
-                        </button>
-                      </mat-cell>
-                    </ng-container>
-
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                </mat-table>
-                <!--paginador-->
-                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-            </div>
-        </ng-container>
-        <ng-template #checkTemplate>
-          <!--spinner template-->
-          <app-progress-spinner
+        <ng-container [ngSwitch]="statusAgenda">
+          <ng-container *ngSwitchCase="5">
+            <!--spinner template-->
+            <app-progress-spinner
             [color]="color"
             [mode]="mode"
             [value]="value"
             [backdropEnabled]="false"
             [displayProgressSpinner]="spinnerWithoutBackdrop">
-          </app-progress-spinner>
-          <!--spinner template End-->
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
-            <!--curso lista form-->
-            <div fxFlex="30%" class="curso_lista">
-              <mat-card class="example-card">
-                <mat-card-header></mat-card-header>
-                <mat-card-content>
-                  <form [formGroup]="seguimientoForm" (ngSubmit)="onSubmitVenta(seguimientoForm.value)">
-                      <div class="alternate-themes">
-                        <mat-slide-toggle formControlName="sendTo" color="primary" (change)="onChangeData($event.checked)">Terminar</mat-slide-toggle>
-                      </div>
-                      <mat-form-field>
-                          <mat-label>Cursos</mat-label>
-                          <mat-select formControlName="cursos" required>
-                            <mat-option>-----</mat-option>
-                            <mat-option *ngFor="let cursos of cursosModel" [value]="cursos.idCurso">{{ cursos.curso }}</mat-option>
-                          </mat-select>
-                          <mat-error  *ngIf="segForm.cursos.errors">
-                            <mat-error  *ngIf="segForm.cursos.errors.required">Requerido</mat-error >
-                          </mat-error >
-                      </mat-form-field>
-                      <div fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
-                        <mat-form-field fxFlex class="curso_lista">
-                          <input matInput placeholder="N° Personas" type="text" formControlName="noPersonas">
-                          <mat-error  *ngIf="segForm.noPersonas.errors">
-                            <mat-error  *ngIf="segForm.noPersonas.errors.isNumber">Sólo se permiten números</mat-error >
-                            <mat-error  *ngIf="segForm.noPersonas.errors.required">Requerido</mat-error >
-                          </mat-error >
+            </app-progress-spinner>
+            <!--spinner template End-->
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+              <!--curso lista form-->
+              <div fxFlex="30%" class="curso_lista">
+                <mat-card class="example-card">
+                  <mat-card-header></mat-card-header>
+                  <mat-card-content>
+                    <div class="alternate-themes">
+                      <mat-slide-toggle color="primary" (change)="onChangeData($event.checked)">Terminar</mat-slide-toggle>
+                    </div>
+                    <form [formGroup]="seguimientoForm" (ngSubmit)="onSubmitVenta(seguimientoForm.value)">
+                        <mat-form-field>
+                            <mat-label>Cursos</mat-label>
+                            <mat-select formControlName="cursos" required>
+                              <mat-option>-----</mat-option>
+                              <mat-option *ngFor="let cursos of cursosModel" [value]="cursos.idCurso">{{ cursos.curso }}</mat-option>
+                            </mat-select>
+                            <mat-error  *ngIf="segForm.cursos.errors">
+                              <mat-error  *ngIf="segForm.cursos.errors.required">Requerido</mat-error >
+                            </mat-error >
                         </mat-form-field>
-                        <mat-form-field fxFlex class="curso_lista">
-                          <input matInput placeholder="Costo" formControlName="costo">
-                          <mat-error  *ngIf="segForm.costo.errors">
-                            <mat-error  *ngIf="segForm.costo.errors.required">Requerido</mat-error >
-                          </mat-error >
-                        </mat-form-field>
-                      </div>
-                      <button mat-raised-button type="submit" color="warn" [disabled]="!seguimientoForm.valid || submmited">Agregar</button>
-                      <input type="hidden" formControlName="agndaId">
-                  </form>
-                </mat-card-content>
-              </mat-card>
+                        <div fxLayout="row wrap"  fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
+                          <mat-form-field fxFlex class="curso_lista">
+                            <input matInput placeholder="N° Personas" type="text" formControlName="noPersonas">
+                            <mat-error  *ngIf="segForm.noPersonas.errors">
+                              <mat-error  *ngIf="segForm.noPersonas.errors.isNumber">Sólo se permiten números</mat-error >
+                              <mat-error  *ngIf="segForm.noPersonas.errors.required">Requerido</mat-error >
+                            </mat-error >
+                          </mat-form-field>
+                          <mat-form-field fxFlex class="curso_lista">
+                            <input matInput placeholder="Costo" formControlName="costo">
+                            <mat-error  *ngIf="segForm.costo.errors">
+                              <mat-error  *ngIf="segForm.costo.errors.required">Requerido</mat-error >
+                            </mat-error >
+                          </mat-form-field>
+                        </div>
+                        <button mat-raised-button type="submit" color="warn" [disabled]="!seguimientoForm.valid || submmited">Agregar</button>
+                        <input type="hidden" formControlName="agndaId">
+                    </form>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <!--curso lista form-->
+              <!--div fxFlex-->
+              <div fxFlex="70%" class="curso_lista">
+                <mat-card class="example-card">
+                  <mat-card-content>
+
+                    <mat-table mat-table [dataSource]="dataSource" matSort>
+
+                        <ng-container matColumnDef="curso">
+                          <mat-header-cell *matHeaderCellDef> Curso </mat-header-cell>
+                          <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
+                          <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="costo">
+                          <mat-header-cell *matHeaderCellDef> N° </mat-header-cell>
+                          <mat-cell *matCellDef="let row" data-label="N°">
+                            {{row.numeroPersona}}
+                          </mat-cell>
+                          <mat-footer-cell *matFooterCellDef>N°</mat-footer-cell>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="detalle">
+                          <mat-header-cell *matHeaderCellDef>Costo</mat-header-cell>
+                          <mat-cell *matCellDef="let row" data-label="Costo">
+                            {{row.costoPersona}}
+                          </mat-cell>
+                          <mat-footer-cell *matFooterCellDef> totales </mat-footer-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        <mat-footer-row mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></mat-footer-row>
+                    </mat-table>
+
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <!--fxFlex End-->
             </div>
-            <!--curso lista form-->
-            <!--div fxFlex-->
-            <div fxFlex="70%" class="curso_lista">
-              <mat-card class="example-card">
-                <mat-card-content>
+          </ng-container>
+          <ng-container *ngSwitchCase="6">
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+              <!--div fxFlex-->
+              <div fxFlex="75%" class="curso_lista">
+                <mat-card class="example-card">
+                  <mat-card-content>
 
-                  <mat-table mat-table [dataSource]="dataSource" matSort>
-
+                    <mat-table mat-table [dataSource]="dataDone" matSort>
+                      <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+                      <!--columna-->
                       <ng-container matColumnDef="curso">
                         <mat-header-cell *matHeaderCellDef> Curso </mat-header-cell>
                         <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
-                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
                       </ng-container>
 
+                      <!-- Name Column -->
+                      <ng-container matColumnDef="numeroPersona">
+                        <mat-header-cell *matHeaderCellDef> Personas </mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="personas"> {{row.numeroPersona}} </mat-cell>
+                      </ng-container>
 
-                      <ng-container matColumnDef="costo">
-                        <mat-header-cell *matHeaderCellDef> N° </mat-header-cell>
-                        <mat-cell *matCellDef="let row" data-label="N°">
-                          {{row.numeroPersona}}
+                      <!-- Columna detalle-->
+                      <ng-container matColumnDef="subtotal">
+                        <mat-header-cell *matHeaderCellDef>Subtotal</mat-header-cell>
+                        <mat-cell *matCellDef="let row" data-label="Subtotal">
+                          $ {{row.subtotal}}
                         </mat-cell>
-                        <mat-footer-cell *matFooterCellDef>N°</mat-footer-cell>
                       </ng-container>
 
-
-                      <ng-container matColumnDef="detalle">
-                        <mat-header-cell *matHeaderCellDef>Costo</mat-header-cell>
-                        <mat-cell *matCellDef="let row" data-label="Costo">
-                          {{row.costoPersona}}
-                        </mat-cell>
-                        <mat-footer-cell *matFooterCellDef> totales </mat-footer-cell>
-                      </ng-container>
-
-                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                      <mat-footer-row mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></mat-footer-row>
+                      <mat-header-row *matHeaderRowDef="displayedColumnsTable"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumnsTable;"></mat-row>
                   </mat-table>
 
-                </mat-card-content>
-              </mat-card>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <!--fxFlex End-->
+              <!--curso lista form-->
+              <div fxFlex="25%" class="curso_lista">
+                <mat-card class="example-card">
+                  <mat-card-header></mat-card-header>
+                  <mat-card-content>
+                    <h2>Personas</h2>
+                    <h2>Total:</h2>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <!--curso lista form-->
             </div>
-            <!--fxFlex End-->
-          </div>
-        </ng-template>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <div class="example-container">
+              <mat-table mat-table [dataSource]="sourceData" matSort>
+                  <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+                  <!--columna-->
+                  <ng-container matColumnDef="curso">
+                    <mat-header-cell *matHeaderCellDef> Curso </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="curso"> {{row.curso}}</mat-cell>
+                  </ng-container>
 
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="costo">
+                    <mat-header-cell *matHeaderCellDef> Costo </mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="costo">  $ {{row.costo}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Columna detalle-->
+                  <ng-container matColumnDef="detalle">
+                    <mat-header-cell *matHeaderCellDef>Detalles</mat-header-cell>
+                    <mat-cell *matCellDef="let row" data-label="detalle">
+                      <button mat-icon-button color="primary" (click)="openDialog(row.idCurso)">
+                          <mat-icon class="mat-18">search</mat-icon>
+                      </button>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+              <!--paginador-->
+              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            </div>
+          </ng-container>
+        </ng-container>
       </ng-container>
       <ng-template #flagFalse>
         <mat-grid-list cols="1" rowHeight="3:1">

@@ -89,13 +89,15 @@ import { Organoadministrativoresolver } from './resolver/organoadministrativores
 import { ResetformService } from './services/resetform.service';
 // importar DatePipe
 import { DatePipe } from '@angular/common';
+import { CursosvendidosComponent } from './pages/cursosvendidos/cursosvendidos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthLayoutComponent,
     ClientLayoutComponent,
-    NotificacionesComponent
+    NotificacionesComponent,
+    CursosvendidosComponent
   ],
   imports: [
     BrowserAnimationsModule,

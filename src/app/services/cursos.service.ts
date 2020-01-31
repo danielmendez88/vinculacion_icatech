@@ -28,6 +28,8 @@ const URLGETPRINTCURSOS = 'getprintcursos';
 const URLCURSOVENDIDO = 'cursovendido';
 const URLLISTACURSOSVENDIDOS = 'listacursosvendidos';
 const URLCHECKCURSOS = 'checarcursos';
+const URLSENDBUYCOURSES = 'vendercursos';
+const URLCURSOSDONE = 'cursosdone';
 
 @Injectable({
   providedIn: 'root'
@@ -118,7 +120,6 @@ export class CursosService {
   /**
    * obtener los cursos de las IdAgenda
    */
-  @Cacheable()
   getCursobyAgenda(id: string) {
     return this.http.get(`${environment.PATH_BASE}/${URLGETCURSOBYAGENDA}/${id}`, this.httpOptions)
                     .pipe(
@@ -130,7 +131,6 @@ export class CursosService {
   /**
    * curso para impirmir servicio por agenda
    */
-  @Cacheable()
   getCursosByAgendToPrint(id: number): Observable<any> {
     return this.http.get<CursosbyId>(`${environment.PATH_BASE}/${URLGETPRINTCURSOS}/${id}`, this.httpOptions)
                      .pipe(
@@ -150,7 +150,6 @@ export class CursosService {
   /**
    * obtener un número de cursos vendidos agregados del formulario
    */
-  @Cacheable()
   getCursosVendidosListos(idAgenda: number): Observable<any> {
     return this.http.get<CursosbyId>(`${environment.PATH_BASE}/${URLCHECKCURSOS}/${idAgenda}`, this.httpOptions)
            .pipe(
@@ -159,7 +158,25 @@ export class CursosService {
              catchError(this.handleError)
            );
   }
-
+/**
+ * TODO: modificacion de datos
+ */
+  sendVendidos(idA: number): Observable<any> {
+    return this.http.get(`${environment.PATH_BASE}/${URLSENDBUYCOURSES}/${idA}`, this.httpOptions)
+            .pipe(
+              retry(3),
+              map(res => res),
+              catchError(this.handleError)
+            );
+  }
+  /**
+   * TODO: cursos terminados
+   */
+  async getCursosDone($id: string): Promise<any> {
+    const res = await this.http.get(`${environment.PATH_BASE}/${URLCURSOSDONE}/${$id}`, this.httpOptions)
+                     .toPromise();
+    return res;
+  }
   /**
    * agregar funcion que intercepta el error en caso de ocurrir
    */
